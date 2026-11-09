@@ -12,6 +12,24 @@
 <script src="https://cdnjs.cloudflare.com/ajax/libs/babel-standalone/7.23.5/babel.min.js"></script>
 <style>
   html, body { margin: 0; padding: 0; }
+  @keyframes mvb{0%{opacity:0;transform:translate(0,0)}5%{opacity:1}24%{opacity:1;transform:translate(-56px,-56px)}32%,100%{opacity:0;transform:translate(-56px,-56px)}}
+  @keyframes mvp{0%{opacity:0;transform:translate(0,0)}5%{opacity:1}24%{opacity:1;transform:translate(56px,56px)}32%,100%{opacity:0;transform:translate(56px,56px)}}
+  @keyframes mva{0%{opacity:0;transform:translate(0,0)}5%{opacity:1}24%{opacity:1;transform:translate(-112px,112px)}32%,100%{opacity:0;transform:translate(-112px,112px)}}
+  .mvb{animation:mvb 6s 0s infinite both}.mvp{animation:mvp 6s 2s infinite both}.mva{animation:mva 6s 4s infinite both}
+  
+  @keyframes fallb{0%{opacity:0;transform:translate(0,0)}8%{opacity:1}55%{opacity:1;transform:translate(46px,55px)}70%,100%{opacity:0;transform:translate(46px,55px)}}
+  @keyframes climba{0%{opacity:0;transform:translate(0,0)}8%{opacity:1}40%{opacity:1;transform:translate(14px,-42px)}75%{opacity:.6;transform:translate(0,0)}85%,100%{opacity:0;transform:translate(0,0)}}
+  .fallb{animation:fallb 3.6s 0s infinite both}.climba{animation:climba 3.6s 1.8s infinite both}
+  
+  @keyframes feed{0%{opacity:0;transform:translate(0,0)}6%{opacity:1}55%{transform:translate(70px,0)}88%{opacity:1;transform:translate(70px,40px)}100%{opacity:0;transform:translate(70px,46px)}}
+  @keyframes drain{0%{opacity:0;transform:translate(0,0)}6%{opacity:1}60%{transform:translate(90px,0)}90%{opacity:1;transform:translate(90px,22px)}100%{opacity:0;transform:translate(90px,26px)}}
+  .feed{animation:feed 4.5s infinite both}.drain{animation:drain 1.8s infinite both}
+  
+  @keyframes steppulse{0%,16%{background:#1F5AD6;border-color:#1F5AD6;color:#FFFFFF}22%,100%{background:#FFFFFF;border-color:#171A21;color:#171A21}}
+  .stepbadge{animation:steppulse 10s infinite both}
+  @media (prefers-reduced-motion: reduce){.anim{animation:none !important;opacity:0 !important}.stepbadge{animation:none !important}}
+  a.btn-ink:hover{background:#2A2F3A !important}
+  
   #boot { font-family: 'IBM Plex Mono', monospace; font-size: 12px; color: #4A5160; padding: 24px; }
 </style>
 </head>
@@ -127,7 +145,7 @@ const C = {
   stableSoft: "#E2F1E9",
   danger: "#BC4327",
   dangerSoft: "#F8E7E1",
-  locked: "#9AA3AE",
+  locked: "#5C6470",
 };
 
 const F = {
@@ -135,6 +153,13 @@ const F = {
   ui: "'IBM Plex Sans', system-ui, -apple-system, sans-serif",
   mono: "'IBM Plex Mono', ui-monospace, 'SF Mono', Menlo, monospace",
 };
+
+/* Figures (SVG illustrations ported from the Design canvas) */
+const FIGS = {"csA": "<figure style=\"margin: 0 0 20px; padding: 16px 18px 14px; background: #F7F9FA; border: 1px solid #C3CBD2; border-radius: 2px\">\n          <svg role=\"img\" aria-label=\"A slice of the chart of nuclides, neutron number 78 to 84 across, proton number 52 to 57 up. Caesium-137 sits at N 82, Z 55. Dashed arrows show where each decay would move it: beta-minus to barium-137, beta-plus or electron capture to xenon-137, alpha to iodine-133.\" viewBox=\"0 0 480 410\" style=\"display: block; width: 100%; max-width: 480px; height: auto; margin: 0 auto\">\n          <defs><marker id=\"mA1\" orient=\"auto\" markerWidth=\"8\" markerHeight=\"8\" refX=\"6\" refY=\"4\" markerUnits=\"userSpaceOnUse\"><path d=\"M0 0 L8 4 L0 8 Z\" fill=\"#1F5AD6\"/></marker><marker id=\"mA2\" orient=\"auto\" markerWidth=\"8\" markerHeight=\"8\" refX=\"6\" refY=\"4\" markerUnits=\"userSpaceOnUse\"><path d=\"M0 0 L8 4 L0 8 Z\" fill=\"#6B4FBF\"/></marker><marker id=\"mA3\" orient=\"auto\" markerWidth=\"8\" markerHeight=\"8\" refX=\"6\" refY=\"4\" markerUnits=\"userSpaceOnUse\"><path d=\"M0 0 L8 4 L0 8 Z\" fill=\"#9A5F00\"/></marker></defs>\n          <rect x=\"60\" y=\"300\" width=\"56\" height=\"56\" fill=\"none\" stroke=\"#D8DEE3\" stroke-width=\"1\"/>\n          <rect x=\"60\" y=\"244\" width=\"56\" height=\"56\" fill=\"none\" stroke=\"#D8DEE3\" stroke-width=\"1\"/>\n          <rect x=\"60\" y=\"188\" width=\"56\" height=\"56\" fill=\"none\" stroke=\"#D8DEE3\" stroke-width=\"1\"/>\n          <rect x=\"60\" y=\"132\" width=\"56\" height=\"56\" fill=\"none\" stroke=\"#D8DEE3\" stroke-width=\"1\"/>\n          <rect x=\"60\" y=\"76\" width=\"56\" height=\"56\" fill=\"none\" stroke=\"#D8DEE3\" stroke-width=\"1\"/>\n          <rect x=\"60\" y=\"20\" width=\"56\" height=\"56\" fill=\"none\" stroke=\"#D8DEE3\" stroke-width=\"1\"/>\n          <rect x=\"116\" y=\"300\" width=\"56\" height=\"56\" fill=\"none\" stroke=\"#D8DEE3\" stroke-width=\"1\"/>\n          <rect x=\"116\" y=\"244\" width=\"56\" height=\"56\" fill=\"none\" stroke=\"#D8DEE3\" stroke-width=\"1\"/>\n          <rect x=\"116\" y=\"188\" width=\"56\" height=\"56\" fill=\"none\" stroke=\"#D8DEE3\" stroke-width=\"1\"/>\n          <rect x=\"116\" y=\"132\" width=\"56\" height=\"56\" fill=\"none\" stroke=\"#D8DEE3\" stroke-width=\"1\"/>\n          <rect x=\"116\" y=\"76\" width=\"56\" height=\"56\" fill=\"none\" stroke=\"#D8DEE3\" stroke-width=\"1\"/>\n          <rect x=\"116\" y=\"20\" width=\"56\" height=\"56\" fill=\"none\" stroke=\"#D8DEE3\" stroke-width=\"1\"/>\n          <rect x=\"172\" y=\"300\" width=\"56\" height=\"56\" fill=\"none\" stroke=\"#D8DEE3\" stroke-width=\"1\"/>\n          <rect x=\"172\" y=\"244\" width=\"56\" height=\"56\" fill=\"none\" stroke=\"#D8DEE3\" stroke-width=\"1\"/>\n          <rect x=\"172\" y=\"188\" width=\"56\" height=\"56\" fill=\"none\" stroke=\"#D8DEE3\" stroke-width=\"1\"/>\n          <rect x=\"172\" y=\"132\" width=\"56\" height=\"56\" fill=\"none\" stroke=\"#D8DEE3\" stroke-width=\"1\"/>\n          <rect x=\"172\" y=\"76\" width=\"56\" height=\"56\" fill=\"none\" stroke=\"#D8DEE3\" stroke-width=\"1\"/>\n          <rect x=\"172\" y=\"20\" width=\"56\" height=\"56\" fill=\"none\" stroke=\"#D8DEE3\" stroke-width=\"1\"/>\n          <rect x=\"228\" y=\"300\" width=\"56\" height=\"56\" fill=\"none\" stroke=\"#D8DEE3\" stroke-width=\"1\"/>\n          <rect x=\"228\" y=\"244\" width=\"56\" height=\"56\" fill=\"none\" stroke=\"#D8DEE3\" stroke-width=\"1\"/>\n          <rect x=\"228\" y=\"188\" width=\"56\" height=\"56\" fill=\"none\" stroke=\"#D8DEE3\" stroke-width=\"1\"/>\n          <rect x=\"228\" y=\"132\" width=\"56\" height=\"56\" fill=\"none\" stroke=\"#D8DEE3\" stroke-width=\"1\"/>\n          <rect x=\"228\" y=\"76\" width=\"56\" height=\"56\" fill=\"none\" stroke=\"#D8DEE3\" stroke-width=\"1\"/>\n          <rect x=\"228\" y=\"20\" width=\"56\" height=\"56\" fill=\"none\" stroke=\"#D8DEE3\" stroke-width=\"1\"/>\n          <rect x=\"284\" y=\"300\" width=\"56\" height=\"56\" fill=\"none\" stroke=\"#D8DEE3\" stroke-width=\"1\"/>\n          <rect x=\"284\" y=\"244\" width=\"56\" height=\"56\" fill=\"none\" stroke=\"#D8DEE3\" stroke-width=\"1\"/>\n          <rect x=\"284\" y=\"188\" width=\"56\" height=\"56\" fill=\"none\" stroke=\"#D8DEE3\" stroke-width=\"1\"/>\n          <rect x=\"284\" y=\"132\" width=\"56\" height=\"56\" fill=\"none\" stroke=\"#D8DEE3\" stroke-width=\"1\"/>\n          <rect x=\"284\" y=\"76\" width=\"56\" height=\"56\" fill=\"none\" stroke=\"#D8DEE3\" stroke-width=\"1\"/>\n          <rect x=\"284\" y=\"20\" width=\"56\" height=\"56\" fill=\"none\" stroke=\"#D8DEE3\" stroke-width=\"1\"/>\n          <rect x=\"340\" y=\"300\" width=\"56\" height=\"56\" fill=\"none\" stroke=\"#D8DEE3\" stroke-width=\"1\"/>\n          <rect x=\"340\" y=\"244\" width=\"56\" height=\"56\" fill=\"none\" stroke=\"#D8DEE3\" stroke-width=\"1\"/>\n          <rect x=\"340\" y=\"188\" width=\"56\" height=\"56\" fill=\"none\" stroke=\"#D8DEE3\" stroke-width=\"1\"/>\n          <rect x=\"340\" y=\"132\" width=\"56\" height=\"56\" fill=\"none\" stroke=\"#D8DEE3\" stroke-width=\"1\"/>\n          <rect x=\"340\" y=\"76\" width=\"56\" height=\"56\" fill=\"none\" stroke=\"#D8DEE3\" stroke-width=\"1\"/>\n          <rect x=\"340\" y=\"20\" width=\"56\" height=\"56\" fill=\"none\" stroke=\"#D8DEE3\" stroke-width=\"1\"/>\n          <rect x=\"396\" y=\"300\" width=\"56\" height=\"56\" fill=\"none\" stroke=\"#D8DEE3\" stroke-width=\"1\"/>\n          <rect x=\"396\" y=\"244\" width=\"56\" height=\"56\" fill=\"none\" stroke=\"#D8DEE3\" stroke-width=\"1\"/>\n          <rect x=\"396\" y=\"188\" width=\"56\" height=\"56\" fill=\"none\" stroke=\"#D8DEE3\" stroke-width=\"1\"/>\n          <rect x=\"396\" y=\"132\" width=\"56\" height=\"56\" fill=\"none\" stroke=\"#D8DEE3\" stroke-width=\"1\"/>\n          <rect x=\"396\" y=\"76\" width=\"56\" height=\"56\" fill=\"none\" stroke=\"#D8DEE3\" stroke-width=\"1\"/>\n          <rect x=\"396\" y=\"20\" width=\"56\" height=\"56\" fill=\"none\" stroke=\"#D8DEE3\" stroke-width=\"1\"/>\n          <line x1=\"172\" y1=\"20\" x2=\"452\" y2=\"300\" stroke=\"#AEB6BF\" stroke-width=\"1.5\" stroke-dasharray=\"3 5\"/>\n          <text x=\"446\" y=\"322\" text-anchor=\"end\" font-family=\"'IBM Plex Mono', monospace\" font-size=\"11\" fill=\"#4A5160\" paint-order=\"stroke\" stroke=\"#F7F9FA\" stroke-width=\"4\" stroke-linejoin=\"round\">A = 137</text>\n          <rect x=\"230\" y=\"78\" width=\"52\" height=\"52\" rx=\"2\" fill=\"#FFFFFF\" stroke=\"#1F5AD6\" stroke-width=\"1.5\" stroke-dasharray=\"5 4\"/>\n          <text x=\"256\" y=\"109\" text-anchor=\"middle\" font-family=\"'STIX Two Text', Georgia, serif\" font-size=\"15\" font-weight=\"600\" fill=\"#171A21\" paint-order=\"stroke\" stroke=\"#F7F9FA\" stroke-width=\"4\" stroke-linejoin=\"round\">¹³⁷Ba</text>\n          <rect x=\"342\" y=\"190\" width=\"52\" height=\"52\" rx=\"2\" fill=\"#FFFFFF\" stroke=\"#6B4FBF\" stroke-width=\"1.5\" stroke-dasharray=\"5 4\"/>\n          <text x=\"368\" y=\"221\" text-anchor=\"middle\" font-family=\"'STIX Two Text', Georgia, serif\" font-size=\"15\" font-weight=\"600\" fill=\"#171A21\" paint-order=\"stroke\" stroke=\"#F7F9FA\" stroke-width=\"4\" stroke-linejoin=\"round\">¹³⁷Xe</text>\n          <rect x=\"174\" y=\"246\" width=\"52\" height=\"52\" rx=\"2\" fill=\"#FFFFFF\" stroke=\"#9A5F00\" stroke-width=\"1.5\" stroke-dasharray=\"5 4\"/>\n          <text x=\"200\" y=\"277\" text-anchor=\"middle\" font-family=\"'STIX Two Text', Georgia, serif\" font-size=\"15\" font-weight=\"600\" fill=\"#171A21\" paint-order=\"stroke\" stroke=\"#F7F9FA\" stroke-width=\"4\" stroke-linejoin=\"round\">¹³³I</text>\n          <rect x=\"286\" y=\"134\" width=\"52\" height=\"52\" rx=\"2\" fill=\"#FFFFFF\" stroke=\"#171A21\" stroke-width=\"2\"/>\n          <text x=\"312\" y=\"165\" text-anchor=\"middle\" font-family=\"'STIX Two Text', Georgia, serif\" font-size=\"15\" font-weight=\"600\" fill=\"#171A21\" paint-order=\"stroke\" stroke=\"#F7F9FA\" stroke-width=\"4\" stroke-linejoin=\"round\">¹³⁷Cs</text>\n          <line x1=\"297.9\" y1=\"145.9\" x2=\"271.6\" y2=\"119.6\" stroke=\"#1F5AD6\" stroke-width=\"2\" stroke-dasharray=\"5 4\" marker-end=\"url(#mA1)\"/>\n          <line x1=\"326.1\" y1=\"174.1\" x2=\"352.4\" y2=\"200.4\" stroke=\"#6B4FBF\" stroke-width=\"2\" stroke-dasharray=\"5 4\" marker-end=\"url(#mA2)\"/>\n          <line x1=\"297.9\" y1=\"174.1\" x2=\"215.6\" y2=\"256.4\" stroke=\"#9A5F00\" stroke-width=\"2\" stroke-dasharray=\"5 4\" marker-end=\"url(#mA3)\"/>\n          <text x=\"292\" y=\"120\" font-family=\"'IBM Plex Sans', system-ui, sans-serif\" font-size=\"13\" font-weight=\"600\" fill=\"#1F5AD6\" paint-order=\"stroke\" stroke=\"#F7F9FA\" stroke-width=\"4\" stroke-linejoin=\"round\">β⁻</text>\n          <text x=\"346\" y=\"180\" font-family=\"'IBM Plex Sans', system-ui, sans-serif\" font-size=\"13\" font-weight=\"600\" fill=\"#6B4FBF\" paint-order=\"stroke\" stroke=\"#F7F9FA\" stroke-width=\"4\" stroke-linejoin=\"round\">β⁺ / EC</text>\n          <text x=\"252\" y=\"236\" text-anchor=\"end\" font-family=\"'IBM Plex Sans', system-ui, sans-serif\" font-size=\"13\" font-weight=\"600\" fill=\"#9A5F00\" paint-order=\"stroke\" stroke=\"#F7F9FA\" stroke-width=\"4\" stroke-linejoin=\"round\">α</text>\n          <circle class=\"anim mvb\" cx=\"312\" cy=\"160\" r=\"5\" fill=\"#1F5AD6\" style=\"opacity: 0\"/>\n          <circle class=\"anim mvp\" cx=\"312\" cy=\"160\" r=\"5\" fill=\"#6B4FBF\" style=\"opacity: 0\"/>\n          <circle class=\"anim mva\" cx=\"312\" cy=\"160\" r=\"5\" fill=\"#9A5F00\" style=\"opacity: 0\"/>\n          <text x=\"88\" y=\"374\" text-anchor=\"middle\" font-family=\"'IBM Plex Mono', monospace\" font-size=\"11\" fill=\"#4A5160\">78</text>\n          <text x=\"144\" y=\"374\" text-anchor=\"middle\" font-family=\"'IBM Plex Mono', monospace\" font-size=\"11\" fill=\"#4A5160\">79</text>\n          <text x=\"200\" y=\"374\" text-anchor=\"middle\" font-family=\"'IBM Plex Mono', monospace\" font-size=\"11\" fill=\"#4A5160\">80</text>\n          <text x=\"256\" y=\"374\" text-anchor=\"middle\" font-family=\"'IBM Plex Mono', monospace\" font-size=\"11\" fill=\"#4A5160\">81</text>\n          <text x=\"312\" y=\"374\" text-anchor=\"middle\" font-family=\"'IBM Plex Mono', monospace\" font-size=\"11\" fill=\"#4A5160\">82</text>\n          <text x=\"368\" y=\"374\" text-anchor=\"middle\" font-family=\"'IBM Plex Mono', monospace\" font-size=\"11\" fill=\"#4A5160\">83</text>\n          <text x=\"424\" y=\"374\" text-anchor=\"middle\" font-family=\"'IBM Plex Mono', monospace\" font-size=\"11\" fill=\"#4A5160\">84</text>\n          <text x=\"50\" y=\"332\" text-anchor=\"end\" font-family=\"'IBM Plex Mono', monospace\" font-size=\"11\" fill=\"#4A5160\">52</text>\n          <text x=\"50\" y=\"276\" text-anchor=\"end\" font-family=\"'IBM Plex Mono', monospace\" font-size=\"11\" fill=\"#4A5160\">53</text>\n          <text x=\"50\" y=\"220\" text-anchor=\"end\" font-family=\"'IBM Plex Mono', monospace\" font-size=\"11\" fill=\"#4A5160\">54</text>\n          <text x=\"50\" y=\"164\" text-anchor=\"end\" font-family=\"'IBM Plex Mono', monospace\" font-size=\"11\" fill=\"#4A5160\">55</text>\n          <text x=\"50\" y=\"108\" text-anchor=\"end\" font-family=\"'IBM Plex Mono', monospace\" font-size=\"11\" fill=\"#4A5160\">56</text>\n          <text x=\"50\" y=\"52\" text-anchor=\"end\" font-family=\"'IBM Plex Mono', monospace\" font-size=\"11\" fill=\"#4A5160\">57</text>\n          <text x=\"256\" y=\"400\" text-anchor=\"middle\" font-family=\"'IBM Plex Sans', system-ui, sans-serif\" font-size=\"11.5\" font-weight=\"600\" fill=\"#4A5160\">N — neutrons →</text>\n          <text x=\"14\" y=\"188\" text-anchor=\"middle\" transform=\"rotate(-90 14 188)\" font-family=\"'IBM Plex Sans', system-ui, sans-serif\" font-size=\"11.5\" font-weight=\"600\" fill=\"#4A5160\">Z — protons →</text>\n          </svg>\n          <div style=\"display: flex; flex-wrap: wrap; gap: 8px 20px; margin-top: 8px; font-family: 'IBM Plex Mono', monospace; font-size: 11.5px; color: #4A5160\">\n            <span><b style=\"color: #1F5AD6\">β⁻</b> n → p · Z + 1, N − 1</span>\n            <span><b style=\"color: #6B4FBF\">β⁺ / EC</b> p → n · Z − 1, N + 1</span>\n            <span><b style=\"color: #9A5F00\">α</b> loses 2p + 2n · Z − 2, N − 2</span>\n          </div>\n          <figcaption style=\"margin-top: 10px; font-size: 12.5px; line-height: 1.5; color: #4A5160; max-width: 620px\">Fig. 1 — A slice of the chart of nuclides around ¹³⁷Cs. Each candidate decay moves the nucleus to a different square. Which of those moves actually releases energy is what the data will settle.</figcaption>\n        </figure>", "csB": "<figure style=\"margin: 0 0 20px; padding: 16px 18px 14px; background: #F7F9FA; border: 1px solid #C3CBD2; border-radius: 2px\">\n          <svg role=\"img\" aria-label=\"Energy ledger measured from caesium-137 at zero. Barium-137 sits 1.17 MeV lower, so beta-minus decay releases energy. Iodine-133 plus helium-4 sits 3.11 MeV higher, so alpha decay would need energy put in.\" viewBox=\"0 0 600 320\" style=\"display: block; width: 100%; max-width: 600px; height: auto; margin: 0 auto\">\n          <defs><marker id=\"mB1\" orient=\"auto\" markerWidth=\"8\" markerHeight=\"8\" refX=\"6\" refY=\"4\" markerUnits=\"userSpaceOnUse\"><path d=\"M0 0 L8 4 L0 8 Z\" fill=\"#1F7A55\"/></marker><marker id=\"mB2\" orient=\"auto\" markerWidth=\"8\" markerHeight=\"8\" refX=\"6\" refY=\"4\" markerUnits=\"userSpaceOnUse\"><path d=\"M0 0 L8 4 L0 8 Z\" fill=\"#BC4327\"/></marker></defs>\n          <line x1=\"70\" y1=\"24\" x2=\"70\" y2=\"300\" stroke=\"#4A5160\" stroke-width=\"1.5\"/>\n          <line x1=\"64\" y1=\"50\" x2=\"70\" y2=\"50\" stroke=\"#4A5160\" stroke-width=\"1.5\"/>\n          <text x=\"58\" y=\"54\" text-anchor=\"end\" font-family=\"'IBM Plex Mono', monospace\" font-size=\"11\" fill=\"#4A5160\">+3</text>\n          <line x1=\"64\" y1=\"100\" x2=\"70\" y2=\"100\" stroke=\"#4A5160\" stroke-width=\"1.5\"/>\n          <text x=\"58\" y=\"104\" text-anchor=\"end\" font-family=\"'IBM Plex Mono', monospace\" font-size=\"11\" fill=\"#4A5160\">+2</text>\n          <line x1=\"64\" y1=\"150\" x2=\"70\" y2=\"150\" stroke=\"#4A5160\" stroke-width=\"1.5\"/>\n          <text x=\"58\" y=\"154\" text-anchor=\"end\" font-family=\"'IBM Plex Mono', monospace\" font-size=\"11\" fill=\"#4A5160\">+1</text>\n          <line x1=\"64\" y1=\"200\" x2=\"70\" y2=\"200\" stroke=\"#4A5160\" stroke-width=\"1.5\"/>\n          <text x=\"58\" y=\"204\" text-anchor=\"end\" font-family=\"'IBM Plex Mono', monospace\" font-size=\"11\" fill=\"#4A5160\">0</text>\n          <line x1=\"64\" y1=\"250\" x2=\"70\" y2=\"250\" stroke=\"#4A5160\" stroke-width=\"1.5\"/>\n          <text x=\"58\" y=\"254\" text-anchor=\"end\" font-family=\"'IBM Plex Mono', monospace\" font-size=\"11\" fill=\"#4A5160\">−1</text>\n          <text x=\"18\" y=\"160\" text-anchor=\"middle\" transform=\"rotate(-90 18 160)\" font-family=\"'IBM Plex Sans', system-ui, sans-serif\" font-size=\"11.5\" font-weight=\"600\" fill=\"#4A5160\">Energy relative to ¹³⁷Cs (MeV)</text>\n          <line x1=\"70\" y1=\"200\" x2=\"560\" y2=\"200\" stroke=\"#D8DEE3\" stroke-width=\"1\" stroke-dasharray=\"2 4\"/>\n          <line x1=\"140\" y1=\"200\" x2=\"290\" y2=\"200\" stroke=\"#171A21\" stroke-width=\"3\"/>\n          <text x=\"215\" y=\"188\" text-anchor=\"middle\" font-family=\"'STIX Two Text', Georgia, serif\" font-size=\"16\" font-weight=\"600\" fill=\"#171A21\">¹³⁷Cs</text>\n          <line x1=\"350\" y1=\"259\" x2=\"520\" y2=\"259\" stroke=\"#1F7A55\" stroke-width=\"3\"/>\n          <text x=\"435\" y=\"248\" text-anchor=\"middle\" font-family=\"'STIX Two Text', Georgia, serif\" font-size=\"16\" font-weight=\"600\" fill=\"#171A21\">¹³⁷Ba</text>\n          <text x=\"435\" y=\"280\" text-anchor=\"middle\" font-family=\"'IBM Plex Mono', monospace\" font-size=\"11.5\" fill=\"#1F7A55\">Qβ = +1.17 MeV · released</text>\n          <line x1=\"350\" y1=\"45\" x2=\"520\" y2=\"45\" stroke=\"#BC4327\" stroke-width=\"3\" stroke-dasharray=\"8 5\"/>\n          <text x=\"435\" y=\"34\" text-anchor=\"middle\" font-family=\"'STIX Two Text', Georgia, serif\" font-size=\"16\" font-weight=\"600\" fill=\"#171A21\">¹³³I + ⁴He</text>\n          <text x=\"435\" y=\"66\" text-anchor=\"middle\" font-family=\"'IBM Plex Mono', monospace\" font-size=\"11.5\" fill=\"#BC4327\">Qα = −3.11 MeV · must be paid in</text>\n          <line x1=\"296\" y1=\"204\" x2=\"342\" y2=\"253\" stroke=\"#1F7A55\" stroke-width=\"2\" marker-end=\"url(#mB1)\"/>\n          <line x1=\"296\" y1=\"194\" x2=\"344\" y2=\"54\" stroke=\"#BC4327\" stroke-width=\"2\" stroke-dasharray=\"5 4\" marker-end=\"url(#mB2)\"/>\n          <circle class=\"anim fallb\" cx=\"296\" cy=\"200\" r=\"5\" fill=\"#1F7A55\" style=\"opacity: 0\"/>\n          <circle class=\"anim climba\" cx=\"296\" cy=\"200\" r=\"5\" fill=\"#BC4327\" style=\"opacity: 0\"/>\n          </svg>\n          <figcaption style=\"margin-top: 10px; font-size: 12.5px; line-height: 1.5; color: #4A5160; max-width: 620px\">Fig. 2 — The Q-values as an energy ledger. Measured from ¹³⁷Cs, the β⁻ daughter sits lower, so the decay runs downhill and releases energy. ¹³³I + ⁴He sits higher: α decay would have to climb, and nothing pays for the climb.</figcaption>\n        </figure>", "tcC": "<figure style=\"margin: 0 0 20px; padding: 16px 18px 14px; background: #F7F9FA; border: 1px solid #C3CBD2; border-radius: 2px\">\n          <svg role=\"img\" aria-label=\"A fill-and-drain picture of the generator. A large tank of molybdenum-99 slowly feeds the middle tank of technetium-99m, which starts empty and drains into an inert technetium-99 bin.\" viewBox=\"0 0 580 320\" style=\"display: block; width: 100%; max-width: 580px; height: auto; margin: 0 auto\">\n          <text x=\"110\" y=\"28\" text-anchor=\"middle\" font-family=\"'STIX Two Text', Georgia, serif\" font-size=\"16\" font-weight=\"600\" fill=\"#171A21\">⁹⁹Mo · the cow</text>\n          <rect x=\"40\" y=\"40\" width=\"140\" height=\"120\" rx=\"3\" fill=\"#FFFFFF\" stroke=\"#171A21\" stroke-width=\"2\"/>\n          <rect x=\"42\" y=\"52\" width=\"136\" height=\"106\" fill=\"#D8DEE3\"/>\n          <text x=\"110\" y=\"182\" text-anchor=\"middle\" font-family=\"'IBM Plex Mono', monospace\" font-size=\"11.5\" fill=\"#4A5160\">t½ = 65.9 h</text>\n          <path d=\"M 180 140 L 250 140 L 250 162\" fill=\"none\" stroke=\"#AEB6BF\" stroke-width=\"10\" stroke-linejoin=\"round\"/>\n          <text x=\"215\" y=\"128\" text-anchor=\"middle\" font-family=\"'IBM Plex Sans', system-ui, sans-serif\" font-size=\"12\" font-weight=\"600\" fill=\"#4A5160\">feeds in</text>\n          <rect x=\"200\" y=\"170\" width=\"120\" height=\"90\" rx=\"3\" fill=\"#FFFFFF\" stroke=\"#1F5AD6\" stroke-width=\"2\"/>\n          <rect x=\"202\" y=\"250\" width=\"116\" height=\"8\" fill=\"#E4EBFB\"/>\n          <text x=\"260\" y=\"284\" text-anchor=\"middle\" font-family=\"'STIX Two Text', Georgia, serif\" font-size=\"16\" font-weight=\"600\" fill=\"#171A21\">⁹⁹ᵐTc · the milk</text>\n          <text x=\"260\" y=\"302\" text-anchor=\"middle\" font-family=\"'IBM Plex Mono', monospace\" font-size=\"11.5\" fill=\"#4A5160\">t½ = 6.01 h · starts empty</text>\n          <path d=\"M 320 236 L 410 236 L 410 254\" fill=\"none\" stroke=\"#AEB6BF\" stroke-width=\"10\" stroke-linejoin=\"round\"/>\n          <text x=\"365\" y=\"224\" text-anchor=\"middle\" font-family=\"'IBM Plex Sans', system-ui, sans-serif\" font-size=\"12\" font-weight=\"600\" fill=\"#4A5160\">drains out</text>\n          <rect x=\"370\" y=\"258\" width=\"160\" height=\"34\" rx=\"3\" fill=\"#FFFFFF\" stroke=\"#1F7A55\" stroke-width=\"2\"/>\n          <text x=\"450\" y=\"280\" text-anchor=\"middle\" font-family=\"'STIX Two Text', Georgia, serif\" font-size=\"14\" font-weight=\"600\" fill=\"#171A21\">⁹⁹Tc · inert</text>\n          <circle class=\"anim feed\" cx=\"180\" cy=\"140\" r=\"4.5\" fill=\"#171A21\" style=\"opacity: 0; animation-delay: 0s\"/>\n          <circle class=\"anim feed\" cx=\"180\" cy=\"140\" r=\"4.5\" fill=\"#171A21\" style=\"opacity: 0; animation-delay: 1.5s\"/>\n          <circle class=\"anim feed\" cx=\"180\" cy=\"140\" r=\"4.5\" fill=\"#171A21\" style=\"opacity: 0; animation-delay: 3s\"/>\n          <circle class=\"anim drain\" cx=\"320\" cy=\"236\" r=\"4.5\" fill=\"#1F5AD6\" style=\"opacity: 0; animation-delay: 0s\"/>\n          <circle class=\"anim drain\" cx=\"320\" cy=\"236\" r=\"4.5\" fill=\"#1F5AD6\" style=\"opacity: 0; animation-delay: 0.6s\"/>\n          <circle class=\"anim drain\" cx=\"320\" cy=\"236\" r=\"4.5\" fill=\"#1F5AD6\" style=\"opacity: 0; animation-delay: 1.2s\"/>\n          </svg>\n          <figcaption style=\"margin-top: 10px; font-size: 12.5px; line-height: 1.5; color: #4A5160; max-width: 620px\">Fig. 1 — The generator as fill and drain. ⁹⁹ᵐTc is fed by decays in its parent and emptied by its own decays; each flow runs on its own clock. The middle tank starts empty. What its level does next is your hypothesis.</figcaption>\n        </figure>"};
+
+function Figure({ id }) {
+  return <div dangerouslySetInnerHTML={{ __html: FIGS[id] }} />;
+}
 
 const STAGES = [
   { id: "identify", n: "I", title: "Frame the physics", verb: "Commit to a hypothesis" },
@@ -151,6 +176,8 @@ const PROBLEMS = [
     id: "cs137",
     tab: "01 · ¹³⁷Cs",
     code: "PROBLEM 01",
+    figs: { identify: "csA", reconcile: "csB" },
+    card: { kicker: "PROBLEM 01 · DECAY AND Q-VALUES", name: "The stubborn nucleus", blurb: "Caesium-137 could, in principle, decay several ways. Work out which one is physically permitted, using atomic mass excesses.", cta: "Start with ¹³⁷Cs →" },
     title: "The stubborn nucleus: what does ¹³⁷Cs actually do?",
     intro:
       "Caesium-137 is among the most consequential fission products in the nuclear industry. Work out — commit by commit — which decay is physically permitted. The algebra stays locked until the reasoning is on record.",
@@ -267,6 +294,8 @@ const PROBLEMS = [
     id: "tc99m",
     tab: "02 · ⁹⁹ᵐTc",
     code: "PROBLEM 02",
+    figs: { identify: "tcC" },
+    card: { kicker: "PROBLEM 02 · COUPLED DECAY", name: "Milking the cow", blurb: "Hospitals grow ⁹⁹ᵐTc on site from a ⁹⁹Mo generator. Reason out when it’s worth harvesting it, and what sets that time.", cta: "Start with ⁹⁹ᵐTc →" },
     title: "Milking the cow: when do you harvest ⁹⁹ᵐTc?",
     intro:
       "Technetium-99m sits behind roughly 8 in 10 nuclear-medicine scans, and hospitals grow it on site in a ⁹⁹Mo generator — 'the cow'. A fresh cow is loaded at t = 0 with pure ⁹⁹Mo and no daughter at all. Your job: reason out when the milking is worth doing.",
@@ -399,64 +428,6 @@ function DataSquare({ q }) {
   );
 }
 
-function StageBadge({ n, state }) {
-  const bg = state === "done" ? C.ink : state === "active" ? C.beta : C.card;
-  const fg = state === "locked" ? C.locked : state === "active" || state === "done" ? "#fff" : C.ink;
-  const border = state === "locked" ? `1.5px dashed ${C.locked}` : `1.5px solid ${state === "active" ? C.beta : C.ink}`;
-  return (
-    <div
-      className="flex items-center justify-center rounded-sm flex-shrink-0"
-      style={{ width: 34, height: 34, background: bg, color: fg, border, fontFamily: F.phys, fontWeight: 600, fontSize: 14 }}
-      aria-hidden="true"
-    >
-      {n}
-    </div>
-  );
-}
-
-function TraceRail({ statuses, summaries, current, onJump }) {
-  return (
-    <nav aria-label="Reasoning trace" className="flex md:flex-col gap-0 overflow-x-auto md:overflow-visible">
-      {STAGES.map((s, i) => {
-        const st = statuses[i];
-        return (
-          <div key={s.id} className="flex md:flex-col items-center md:items-stretch flex-shrink-0">
-            <button
-              onClick={() => st !== "locked" && onJump(i)}
-              disabled={st === "locked"}
-              className="flex items-center gap-3 text-left rounded-sm px-2 py-2 w-full"
-              style={{
-                cursor: st === "locked" ? "default" : "pointer",
-                background: i === current ? C.card : "transparent",
-                border: i === current ? `1px solid ${C.line}` : "1px solid transparent",
-              }}
-            >
-              <StageBadge n={s.n} state={st === "done" ? "done" : i === current ? "active" : st} />
-              <div className="hidden md:block min-w-0">
-                <div style={{ fontFamily: F.ui, fontSize: 12.5, fontWeight: 600, color: st === "locked" ? C.locked : C.ink, letterSpacing: "0.01em" }}>
-                  {s.title}
-                </div>
-                <div className="truncate" style={{ fontFamily: F.mono, fontSize: 10.5, color: st === "done" ? C.beta : C.locked, maxWidth: 170 }}>
-                  {st === "done" ? summaries[i] : st === "locked" ? "locked" : "in progress"}
-                </div>
-              </div>
-            </button>
-            {i < STAGES.length - 1 && (
-              <div className="flex items-center justify-center md:py-0.5 px-1 md:px-0" aria-hidden="true">
-                <span className="md:hidden" style={{ color: statuses[i] === "done" ? C.beta : C.line }}>→</span>
-                <span className="hidden md:flex flex-col items-center" style={{ color: statuses[i] === "done" ? C.beta : C.line, marginLeft: 17 }}>
-                  <span style={{ fontSize: 13, lineHeight: "10px" }}>│</span>
-                  <span style={{ fontSize: 13, lineHeight: "10px" }}>▼</span>
-                </span>
-              </div>
-            )}
-          </div>
-        );
-      })}
-    </nav>
-  );
-}
-
 function Field({ label, children }) {
   return (
     <div className="mb-4">
@@ -569,14 +540,16 @@ function coachErrorText(e) {
 function CoachPanel({ system, trace, stageLabel, thread, setThread }) {
   const [input, setInput] = useState("");
   const [busy, setBusy] = useState(false);
-  const [opened, setOpened] = useState(false);
+  const [opened, setOpened] = useState(thread.length > 0);
   const bottomRef = useRef(null);
+  const inputRef = useRef(null);
 
   useEffect(() => {
     if (bottomRef.current) bottomRef.current.scrollIntoView({ behavior: "smooth", block: "nearest" });
   }, [thread, busy]);
 
   const send = async (text) => {
+    if (busy) return;
     const newThread = text ? [...thread, { role: "student", text }] : [...thread];
     if (text) setThread(newThread);
     setBusy(true);
@@ -589,43 +562,104 @@ function CoachPanel({ system, trace, stageLabel, thread, setThread }) {
     setBusy(false);
   };
 
-  const open = () => {
+  const open = (starter) => {
     setOpened(true);
+    if (starter === "think") {
+      setInput("Here’s my thinking: ");
+      setTimeout(() => inputRef.current && inputRef.current.focus(), 0);
+      if (thread.length === 0) send(null);
+      return;
+    }
+    if (starter) {
+      send(starter);
+      return;
+    }
     if (thread.length === 0) send(null);
   };
 
+  const submit = () => {
+    if (input.trim() && !busy) {
+      send(input.trim());
+      setInput("");
+    }
+  };
+
+  const USES = [
+    ["Test your reasoning before you commit", "Explain your thinking in a sentence. The coach asks the one question that would expose a gap."],
+    ["Get unstuck without being told", "Say where you’re stuck. It points you at the piece of data or physics worth looking at next."],
+    ["Make sense of a wrong attempt", "After a “doesn’t hold up”, ask why. It helps you find the flaw rather than naming it."],
+  ];
+  const STARTERS = [
+    ["“Here’s my thinking: …”", "think"],
+    ["“Which data should I look at?”", "Which data should I look at?"],
+    ["“Why didn’t that work?”", "Why didn’t that work?"],
+  ];
+
   return (
-    <section aria-label="Socratic coach" className="rounded-sm flex flex-col" style={{ border: `1.5px solid ${C.ink}`, background: C.card }}>
-      <div className="flex items-center justify-between px-3 py-2" style={{ borderBottom: opened ? `1px solid ${C.line}` : "none" }}>
-        <div className="flex items-center gap-2">
-          <span className="inline-block rounded-full" style={{ width: 8, height: 8, background: busy ? C.alpha : C.stable }} aria-hidden="true" />
-          <span style={{ fontFamily: F.ui, fontWeight: 600, fontSize: 12.5, letterSpacing: "0.06em", textTransform: "uppercase", color: C.ink }}>Coach</span>
-          <span style={{ fontFamily: F.mono, fontSize: 10.5, color: C.inkSoft }}>asks — never answers</span>
+    <section aria-label="Socratic coach" className="rounded-sm flex flex-col overflow-hidden" style={{ border: `2px solid ${C.ink}`, fontFamily: F.ui }}>
+      <div className="flex flex-col gap-3.5" style={{ background: C.ink, color: "#FFFFFF", padding: "18px 22px 20px" }}>
+        <div className="flex flex-wrap items-start justify-between gap-3.5">
+          <div style={{ flex: "1 1 380px", minWidth: 0 }}>
+            <div className="flex items-center gap-2" style={{ fontFamily: F.mono, fontSize: 11, letterSpacing: "0.12em", color: "#C3CBD2" }}>
+              <span aria-hidden="true" className="inline-block rounded-full" style={{ width: 8, height: 8, background: busy ? "#F2B84B" : "#5FD39B" }} />
+              <span>COACH · ASKS, NEVER ANSWERS</span>
+            </div>
+            <h3 style={{ margin: "6px 0 0", fontFamily: F.phys, fontSize: 22, fontWeight: 600, lineHeight: 1.2, color: "#FFFFFF" }}>Stuck, or not sure? Talk it through.</h3>
+            <p style={{ margin: "6px 0 0", fontSize: 13.5, lineHeight: 1.55, color: "#D8DEE3", maxWidth: 620 }}>
+              The coach reads everything you’ve committed so far — your hypothesis, estimates and attempts — and replies only with questions. It won’t give you the answer, a formula or a number, even if you ask. It’s there to help you find them yourself.
+            </p>
+          </div>
+          {!opened && (
+            <button
+              type="button"
+              onClick={() => open(null)}
+              className="rounded-sm flex-shrink-0"
+              style={{ minHeight: 48, padding: "0 22px", background: "#FFFFFF", color: C.ink, border: "none", fontFamily: F.ui, fontSize: 14, fontWeight: 600, cursor: "pointer" }}
+            >
+              Talk it through →
+            </button>
+          )}
         </div>
-        {!opened && (
-          <button
-            onClick={open}
-            className="rounded-sm px-3 py-1"
-            style={{ fontFamily: F.ui, fontSize: 12, fontWeight: 600, background: C.betaSoft, color: C.beta, border: `1px solid ${C.beta}` }}
-          >
-            Talk it through
-          </button>
-        )}
+
+        <div className="grid gap-2.5" style={{ gridTemplateColumns: "repeat(auto-fit, minmax(220px, 1fr))" }}>
+          {USES.map(([t, d]) => (
+            <div key={t} className="rounded-sm" style={{ padding: "10px 12px", border: "1px solid #4A5160" }}>
+              <div style={{ fontSize: 13, fontWeight: 600, color: "#FFFFFF" }}>{t}</div>
+              <div style={{ marginTop: 4, fontSize: 12.5, lineHeight: 1.5, color: "#C3CBD2" }}>{d}</div>
+            </div>
+          ))}
+        </div>
+
+        <div className="flex flex-wrap items-center gap-2">
+          <span style={{ fontFamily: F.mono, fontSize: 11, color: "#C3CBD2" }}>Try starting with</span>
+          {STARTERS.map(([label, val]) => (
+            <button
+              key={val}
+              type="button"
+              onClick={() => open(val)}
+              disabled={busy}
+              style={{ minHeight: 36, padding: "0 12px", background: "transparent", color: "#FFFFFF", border: "1px solid #AEB6BF", borderRadius: 18, fontFamily: F.ui, fontSize: 12.5, cursor: busy ? "wait" : "pointer" }}
+            >
+              {label}
+            </button>
+          ))}
+        </div>
       </div>
 
       {opened && (
-        <>
-          <div className="px-3 py-2 overflow-y-auto" style={{ maxHeight: 260 }}>
+        <div style={{ background: C.card }}>
+          <div className="flex flex-col gap-2 overflow-y-auto" style={{ padding: "14px 16px", maxHeight: 320 }} aria-live="polite">
             {thread.map((m, i) => (
-              <div key={i} className="mb-2 flex" style={{ justifyContent: m.role === "student" ? "flex-end" : "flex-start" }}>
+              <div key={i} className="flex" style={{ justifyContent: m.role === "student" ? "flex-end" : "flex-start" }}>
                 <div
-                  className="rounded-sm px-2.5 py-1.5"
+                  className="rounded-sm"
                   style={{
                     maxWidth: "85%",
+                    padding: "8px 12px",
                     background: m.error ? C.dangerSoft : m.role === "student" ? C.betaSoft : C.paper,
                     border: `1px solid ${m.error ? C.danger : m.role === "student" ? C.beta : C.line}`,
-                    fontFamily: F.ui,
-                    fontSize: 13.5,
+                    fontSize: 14,
+                    lineHeight: 1.5,
                     color: C.ink,
                     whiteSpace: "pre-wrap",
                   }}
@@ -637,48 +671,32 @@ function CoachPanel({ system, trace, stageLabel, thread, setThread }) {
             {busy && <div style={{ fontFamily: F.mono, fontSize: 11.5, color: C.inkSoft }}>coach is thinking…</div>}
             <div ref={bottomRef} />
           </div>
-          <div className="flex gap-2 px-3 pb-2">
-            {["I'm stuck", "Check my thinking"].map((q) => (
-              <button
-                key={q}
-                onClick={() => !busy && send(q)}
-                className="rounded-sm px-2 py-1"
-                style={{ fontFamily: F.mono, fontSize: 10.5, color: C.inkSoft, border: `1px solid ${C.line}`, background: C.card }}
-              >
-                {q}
-              </button>
-            ))}
-          </div>
-          <div className="flex gap-2 px-3 pb-3">
+          <div className="flex gap-2" style={{ padding: "0 16px 16px" }}>
             <input
+              ref={inputRef}
               value={input}
               onChange={(e) => setInput(e.target.value)}
               onKeyDown={(e) => {
-                if (e.key === "Enter" && input.trim() && !busy) {
-                  send(input.trim());
-                  setInput("");
-                }
+                if (e.key === "Enter") submit();
               }}
-              placeholder="Ask the coach, or explain your thinking…"
+              placeholder="Explain your thinking, or say where you’re stuck…"
               aria-label="Message to coach"
-              className="flex-1 rounded-sm px-2.5 py-1.5"
-              style={{ border: `1.5px solid ${C.line}`, fontFamily: F.ui, fontSize: 13.5, color: C.ink, outline: "none", background: C.card }}
+              className="flex-1 rounded-sm"
+              style={{ minWidth: 0, minHeight: 44, padding: "0 12px", border: `1.5px solid ${C.line}`, fontFamily: F.ui, fontSize: 14, color: C.ink, outline: "none", background: C.card }}
             />
             <button
-              onClick={() => {
-                if (input.trim() && !busy) {
-                  send(input.trim());
-                  setInput("");
-                }
-              }}
+              type="button"
+              onClick={submit}
               disabled={busy || !input.trim()}
-              className="rounded-sm px-3"
+              className="rounded-sm"
               style={{
+                minHeight: 44,
+                padding: "0 18px",
                 fontFamily: F.ui,
-                fontSize: 12.5,
+                fontSize: 13,
                 fontWeight: 600,
                 background: busy || !input.trim() ? C.grid : C.beta,
-                color: busy || !input.trim() ? C.locked : "#fff",
+                color: busy || !input.trim() ? C.inkSoft : "#FFFFFF",
                 border: "none",
                 cursor: busy || !input.trim() ? "not-allowed" : "pointer",
               }}
@@ -686,7 +704,7 @@ function CoachPanel({ system, trace, stageLabel, thread, setThread }) {
               Send
             </button>
           </div>
-        </>
+        </div>
       )}
     </section>
   );
@@ -790,6 +808,7 @@ function ProblemEngine({ p }) {
   const renderIdentify = () => (
     <div>
       {stageHeader(0)}
+      {p.figs?.identify && <Figure id={p.figs.identify} />}
       {c1 ? (
         <Committed>
           <div style={{ fontFamily: F.ui, fontSize: 13, color: C.ink }}>
@@ -1044,6 +1063,7 @@ function ProblemEngine({ p }) {
           );
         })}
       </div>
+      {p.figs?.reconcile && <Figure id={p.figs.reconcile} />}
       {done ? (
         <div className="rounded-sm px-4 py-3" style={{ background: C.stableSoft, border: `1.5px solid ${C.stable}` }}>
           <div style={{ fontFamily: F.ui, fontWeight: 600, fontSize: 14, color: C.stable }}>Problem complete — reasoning trace recorded</div>
@@ -1084,8 +1104,7 @@ function ProblemEngine({ p }) {
       {/* Problem header */}
       <div className="px-4 md:px-8 pt-5 pb-3" style={{ background: C.card, borderBottom: `1px solid ${C.line}` }}>
         <div className="max-w-5xl mx-auto">
-          <div style={{ fontFamily: F.mono, fontSize: 11, letterSpacing: "0.14em", color: C.inkSoft }}>REASONING-FIRST · NUCLEAR SCIENCE · {p.code}</div>
-          <h1 style={{ fontFamily: F.phys, fontSize: 28, fontWeight: 600, color: C.ink, lineHeight: 1.12, marginTop: 2 }}>{p.title}</h1>
+          <h1 style={{ fontFamily: F.phys, fontSize: 28, fontWeight: 600, color: C.ink, lineHeight: 1.12, marginTop: 0 }}>{p.title}</h1>
           <p style={{ fontFamily: F.ui, fontSize: 13.5, color: C.inkSoft, marginTop: 4, maxWidth: 660 }}>{p.intro}</p>
         </div>
       </div>
@@ -1107,39 +1126,118 @@ function ProblemEngine({ p }) {
 
       {/* Body */}
       <main className="px-4 md:px-8 py-5">
-        <div className="max-w-5xl mx-auto flex flex-col md:flex-row gap-5">
-          <aside className="md:w-56 flex-shrink-0">
-            <div style={{ fontFamily: F.ui, fontSize: 10.5, fontWeight: 600, letterSpacing: "0.1em", textTransform: "uppercase", color: C.inkSoft }} className="mb-2">
-              Your reasoning chain
-            </div>
-            <TraceRail statuses={statuses} summaries={summaries} current={current} onJump={setCurrent} />
-          </aside>
+        <div className="max-w-5xl mx-auto flex flex-col gap-4">
+          <section className="rounded-sm px-4 py-4 md:px-6 md:py-5" style={{ background: C.card, border: `1.5px solid ${C.ink}` }}>
+            {renderers[current]()}
+          </section>
 
-          <div className="flex-1 min-w-0 flex flex-col gap-4">
-            <section className="rounded-sm px-4 py-4 md:px-6 md:py-5" style={{ background: C.card, border: `1.5px solid ${C.ink}` }}>
-              {renderers[current]()}
-            </section>
-
-            <CoachPanel
-              key={STAGES[current].id}
-              system={system}
-              trace={buildTrace()}
-              stageLabel={`Stage ${STAGES[current].n} — ${STAGES[current].title}`}
-              thread={stageThread}
-              setThread={setThread(STAGES[current].id)}
-            />
-          </div>
+          <CoachPanel
+            key={STAGES[current].id}
+            system={system}
+            trace={buildTrace()}
+            stageLabel={`Stage ${STAGES[current].n} — ${STAGES[current].title}`}
+            thread={stageThread}
+            setThread={setThread(STAGES[current].id)}
+          />
         </div>
       </main>
     </div>
   );
 }
 
+/* ─── Intro screen ───────────────────────────────────────────────── */
+
+const INTRO_STEPS = [
+  ["I", "Frame the physics", "Commit to a hypothesis and say why."],
+  ["II", "Estimate first", "Orders of magnitude before any arithmetic."],
+  ["III", "Formulate", "Assemble the expressions that govern it."],
+  ["IV", "Solve", "Only now, the numbers."],
+  ["V", "Reconcile", "Check your result against your own predictions."],
+];
+
+function Intro({ onStart }) {
+  return (
+    <main className="px-4 md:px-8" style={{ padding: "40px 0 48px" }}>
+      <div className="max-w-5xl mx-auto px-4 md:px-0 flex flex-col gap-7">
+        <section style={{ maxWidth: 720 }}>
+          <div style={{ fontFamily: F.mono, fontSize: 11, letterSpacing: "0.14em", color: C.beta }}>NUCLEAR SCIENCE · PHYSM0047</div>
+          <h1 style={{ margin: "6px 0 0", fontFamily: F.phys, fontSize: 44, fontWeight: 600, lineHeight: 1.08, color: C.ink }}>Reason first, calculate second.</h1>
+          <p style={{ margin: "14px 0 0", fontFamily: F.ui, fontSize: 16, lineHeight: 1.6, color: C.inkSoft }}>
+            Two problems from nuclear physics. In each one you say what you think is going on — and why — before any numbers unlock. At the end, you hold your calculation up against your own predictions and work out where they agree.
+          </p>
+        </section>
+
+        <section aria-labelledby="how-title" className="rounded-sm" style={{ background: C.card, border: `1.5px solid ${C.ink}`, padding: "22px 26px" }}>
+          <h2 id="how-title" style={{ margin: 0, fontFamily: F.phys, fontSize: 22, fontWeight: 600, color: C.ink }}>How each problem works</h2>
+          <p style={{ margin: "6px 0 0", fontFamily: F.ui, fontSize: 14, lineHeight: 1.5, color: C.inkSoft, maxWidth: 640 }}>
+            Five stages. Each one unlocks only when you’ve committed to the one before, and commitments can’t be changed later.
+          </p>
+          <ol className="grid gap-3" style={{ listStyle: "none", margin: "18px 0 0", padding: 0, gridTemplateColumns: "repeat(auto-fit, minmax(170px, 1fr))" }}>
+            {INTRO_STEPS.map(([n, t, d], i) => (
+              <li key={n} className="flex flex-col gap-2 rounded-sm" style={{ padding: 12, border: `1px solid ${C.line}` }}>
+                <span
+                  aria-hidden="true"
+                  className="stepbadge flex items-center justify-center rounded-sm"
+                  style={{ width: 36, height: 36, border: `1.5px solid ${C.ink}`, boxSizing: "border-box", fontFamily: F.phys, fontSize: 15, fontWeight: 600, animationDelay: `${i * 2}s` }}
+                >
+                  {n}
+                </span>
+                <span style={{ fontFamily: F.ui, fontSize: 14, fontWeight: 600, color: C.ink }}>
+                  <span className="sr-only">Stage {n}: </span>
+                  {t}
+                </span>
+                <span style={{ fontFamily: F.ui, fontSize: 13, lineHeight: 1.5, color: C.inkSoft }}>{d}</span>
+              </li>
+            ))}
+          </ol>
+          <div className="flex items-start gap-2.5 rounded-sm" style={{ marginTop: 16, padding: "12px 14px", background: C.ink }}>
+            <span aria-hidden="true" className="inline-block rounded-full flex-shrink-0" style={{ marginTop: 6, width: 8, height: 8, background: "#5FD39B" }} />
+            <span style={{ fontFamily: F.ui, fontSize: 13.5, lineHeight: 1.55, color: "#D8DEE3" }}>
+              <b style={{ color: "#FFFFFF" }}>A coach is on hand at every stage.</b> It reads what you’ve committed and answers only with questions — never the answer — so the thinking stays yours.
+            </span>
+          </div>
+        </section>
+
+        <section aria-labelledby="choose-title">
+          <h2 id="choose-title" style={{ margin: "0 0 12px", fontFamily: F.phys, fontSize: 22, fontWeight: 600, color: C.ink }}>Choose a problem</h2>
+          <div className="grid gap-4" style={{ gridTemplateColumns: "repeat(auto-fit, minmax(300px, 1fr))" }}>
+            {PROBLEMS.map((p, i) => (
+              <div key={p.id} className="flex flex-col gap-2.5 rounded-sm" style={{ padding: "20px 22px", background: C.card, border: `1.5px solid ${C.ink}` }}>
+                <div style={{ fontFamily: F.mono, fontSize: 11, letterSpacing: "0.14em", color: C.inkSoft }}>{p.card.kicker}</div>
+                <h3 style={{ margin: 0, fontFamily: F.phys, fontSize: 24, fontWeight: 600, lineHeight: 1.15, color: C.ink }}>{p.card.name}</h3>
+                <p style={{ margin: 0, fontFamily: F.ui, fontSize: 14, lineHeight: 1.55, color: C.inkSoft }}>{p.card.blurb}</p>
+                <button
+                  type="button"
+                  onClick={() => onStart(i)}
+                  className="self-start rounded-sm"
+                  style={{ minHeight: 44, marginTop: 4, padding: "0 18px", background: C.ink, color: "#FFFFFF", border: "none", fontFamily: F.ui, fontSize: 13.5, fontWeight: 600, cursor: "pointer" }}
+                >
+                  {p.card.cta}
+                </button>
+              </div>
+            ))}
+          </div>
+        </section>
+      </div>
+    </main>
+  );
+}
+
 /* ─── App shell ──────────────────────────────────────────────────── */
 
+const EDUCATOR_NOTES =
+  "This environment enforces commit-before-compute: students must frame the physics (ILO 1), estimate, and formulate (ILO 2–3) before numeric work unlocks. The AI coach is constrained to Socratic questioning — it is prompted never to state, confirm or deny answers, so the valuable cognitive work cannot be delegated to it; that constraint is what makes the task AI-aware by construction. Every attempt produces a structured reasoning trace (hypothesis, estimates, formulation attempts, numeric attempts, verdict) which the coach reads and which could be aggregated per cohort to locate where reasoning breaks. Problems are pure configuration driving a shared five-stage engine — Problem 01 exercises decay identification and Q-value energetics; Problem 02 exercises coupled decay equations and transient equilibrium. Adding a third problem is data entry, not development. The AI call is a single swappable function, ready to be pointed at an institution-funded API proxy for deployment.";
+
 function App() {
-  const [active, setActive] = useState(0);
+  const [screen, setScreen] = useState("intro"); // "intro" | problem index
+  const [visited, setVisited] = useState({});
   const [showEducator, setShowEducator] = useState(false);
+
+  const openProblem = (i) => {
+    setVisited((v) => ({ ...v, [i]: true }));
+    setScreen(i);
+    try { window.scrollTo(0, 0); } catch (e) {}
+  };
 
   return (
     <div
@@ -1155,70 +1253,78 @@ function App() {
         @media (prefers-reduced-motion: reduce) { * { scroll-behavior: auto !important; transition: none !important; } }
       `}</style>
 
-      {/* Top bar: set title, tabs, educator note */}
-      <header className="px-4 md:px-8 pt-5 pb-0" style={{ borderBottom: `1.5px solid ${C.ink}`, background: C.card }}>
+      <header className="px-4 md:px-8" style={{ paddingTop: screen === "intro" ? 12 : 16, paddingBottom: screen === "intro" ? 12 : 0, borderBottom: `1.5px solid ${C.ink}`, background: C.card }}>
         <div className="max-w-5xl mx-auto">
           <div className="flex flex-wrap items-center justify-between gap-3">
-            <div style={{ fontFamily: F.mono, fontSize: 11.5, letterSpacing: "0.14em", color: C.ink }}>
-              PROBLEM SET · <span style={{ color: C.inkSoft }}>commit before you compute</span>
-            </div>
             <button
-              onClick={() => setShowEducator((v) => !v)}
-              className="rounded-sm px-3 py-1.5"
-              style={{ fontFamily: F.ui, fontSize: 12, color: C.inkSoft, border: `1px solid ${C.line}`, background: C.paper }}
+              type="button"
+              onClick={() => setScreen("intro")}
+              aria-label="Problem set — back to the introduction"
+              style={{ minHeight: 44, padding: 0, background: "transparent", border: "none", fontFamily: F.mono, fontSize: 11.5, letterSpacing: "0.14em", color: C.ink, cursor: "pointer" }}
             >
-              {showEducator ? "Hide" : "For educators"}
+              PROBLEM SET
+            </button>
+            <button
+              type="button"
+              onClick={() => setShowEducator((v) => !v)}
+              aria-expanded={showEducator}
+              className="rounded-sm"
+              style={{ minHeight: 44, padding: "0 14px", fontFamily: F.ui, fontSize: 12.5, color: C.inkSoft, border: `1px solid ${C.line}`, background: C.paper, cursor: "pointer" }}
+            >
+              {showEducator ? "Hide notes" : "For educators"}
             </button>
           </div>
           {showEducator && (
-            <div className="mt-3 rounded-sm px-4 py-3" style={{ background: C.paper, border: `1px solid ${C.line}`, fontFamily: F.ui, fontSize: 13, color: C.ink }}>
-              <strong>Design notes.</strong> This environment enforces commit-before-compute: students must frame the physics (ILO 1), estimate, and formulate (ILO
-              2–3) before numeric work unlocks. The AI coach is constrained to Socratic questioning — it is prompted never to state, confirm or deny answers, so the
-              valuable cognitive work cannot be delegated to it; that constraint is what makes the task AI-aware by construction. Every attempt produces a structured
-              reasoning trace (hypothesis, estimates, formulation attempts, numeric attempts, verdict) which the coach reads and which could be aggregated per cohort
-              to locate where reasoning breaks. Problems are pure configuration driving a shared five-stage engine — Problem 01 exercises decay identification and
-              Q-value energetics; Problem 02 exercises coupled decay equations and transient equilibrium. Adding a third problem is data entry, not development. The
-              AI call is a single swappable function, ready to be pointed at an institution-funded API proxy for deployment.
+            <div className="mt-3 rounded-sm px-4 py-3" style={{ background: C.paper, border: `1px solid ${C.line}`, fontFamily: F.ui, fontSize: 13, lineHeight: 1.55, color: C.ink, marginBottom: screen === "intro" ? 0 : 4 }}>
+              <strong>Design notes.</strong> {EDUCATOR_NOTES}
             </div>
           )}
-          <div className="flex gap-1 mt-3">
-            {PROBLEMS.map((p, i) => (
-              <button
-                key={p.id}
-                onClick={() => setActive(i)}
-                className="rounded-t-sm px-4 py-2"
-                style={{
-                  fontFamily: F.mono,
-                  fontSize: 12.5,
-                  fontWeight: 500,
-                  color: active === i ? C.ink : C.inkSoft,
-                  background: active === i ? C.paper : "transparent",
-                  border: `1.5px solid ${active === i ? C.ink : "transparent"}`,
-                  borderBottom: "none",
-                }}
-              >
-                {p.tab}
-              </button>
-            ))}
-          </div>
+          {screen !== "intro" && (
+            <nav aria-label="Problems" className="flex gap-1 mt-2.5">
+              {PROBLEMS.map((p, i) => (
+                <button
+                  key={p.id}
+                  type="button"
+                  onClick={() => openProblem(i)}
+                  aria-current={screen === i ? "page" : undefined}
+                  className="rounded-t-sm"
+                  style={{
+                    minHeight: 44,
+                    padding: "0 16px",
+                    fontFamily: F.mono,
+                    fontSize: 12.5,
+                    fontWeight: 500,
+                    color: screen === i ? C.ink : C.inkSoft,
+                    background: screen === i ? C.paper : "transparent",
+                    borderTop: `1.5px solid ${screen === i ? C.ink : "transparent"}`,
+                    borderLeft: `1.5px solid ${screen === i ? C.ink : "transparent"}`,
+                    borderRight: `1.5px solid ${screen === i ? C.ink : "transparent"}`,
+                    borderBottom: "none",
+                    cursor: "pointer",
+                  }}
+                >
+                  {p.tab}
+                </button>
+              ))}
+            </nav>
+          )}
         </div>
       </header>
 
-      {/* Engines stay mounted so progress survives tab switches */}
-      {PROBLEMS.map((p, i) => (
-        <div key={p.id} style={{ display: active === i ? "block" : "none" }}>
-          <ProblemEngine p={p} />
-        </div>
-      ))}
+      {screen === "intro" && <Intro onStart={openProblem} />}
 
-      <footer className="px-4 md:px-8 pb-6">
-        <div className="max-w-5xl mx-auto" style={{ fontFamily: F.mono, fontSize: 10.5, color: C.locked }}>
-          Prototype for a BILT project · reasoning-first problem environment · coach asks, never answers
-        </div>
-      </footer>
+      {/* Engines stay mounted once visited so progress survives switching */}
+      {PROBLEMS.map((p, i) =>
+        visited[i] ? (
+          <div key={p.id} style={{ display: screen === i ? "block" : "none" }}>
+            <ProblemEngine p={p} />
+          </div>
+        ) : null
+      )}
     </div>
   );
 }
+
 
 ReactDOM.createRoot(document.getElementById("root")).render(<App />);
 </script>

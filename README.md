@@ -19,10 +19,10 @@ An interactive problem set for PHYSM0047 (Nuclear Science, University of Bristol
 
 | Folder | What it is |
 | --- | --- |
-| `prototype/` | The working prototype as a single HTML page (React and Tailwind from CDNs, compiled in the browser). It has both problems, the gated stages, answer checking and the live coach. |
+| `prototype/` | The working prototype as a single HTML page (React and Tailwind from CDNs, compiled in the browser): an intro screen, both problems with the gated stages, answer checking, animated diagrams (¹³⁷Cs Stages I and V, ⁹⁹ᵐTc Stage I) and the live coach. |
 | `design/` | The redesign, as Claude Design canvas source: an intro screen, all five ¹³⁷Cs stages, ⁹⁹ᵐTc Stage I, and the shared header and coach panel. `canvas.json` holds the layout and the notes, including the ⁹⁹ᵐTc text for Stages II–V. These files open in Claude Design; they need its runtime (`support.js`) and won't render on their own. |
 
-The prototype doesn't include the redesign yet. The next step is to rebuild it from `design/`: intro screen, no reasoning-chain sidebar, the redesigned coach panel and the animated diagrams.
+The prototype follows the design in `design/`. Two parts of the design aren't drawn as screens yet: ⁹⁹ᵐTc Stages II–V and the completion messages, whose text is in the canvas notes. The prototype already implements both from the problem configuration.
 
 ## The coach and deployment
 
