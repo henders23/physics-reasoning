@@ -29,6 +29,8 @@ The prototype follows the design in `design/`. Two parts of the design aren't dr
 
 ## The coach and deployment
 
+The site deploys to Vercel from `main` as static files. `vercel.json` serves `prototype/index.html` at the site root.
+
 The AI call lives in one function, `askCoach()`, in `prototype/index.html`.
 
 - **As a published Claude artifact (now):** the coach runs on the viewer's own Claude sign-in, so anyone using it needs a Claude account.
