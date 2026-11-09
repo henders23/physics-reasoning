@@ -1,0 +1,9 @@
+{
+  "name": "physics-reasoning",
+  "private": true,
+  "description": "Reasoning-first nuclear physics problem set, with a Vercel function for the Socratic coach",
+  "engines": { "node": ">=20" },
+  "dependencies": {
+    "@anthropic-ai/sdk": "^1.6.0"
+  }
+}

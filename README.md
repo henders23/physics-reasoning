@@ -23,19 +23,26 @@ An interactive problem set for PHYSM0047 (Nuclear Science, University of Bristol
 | Folder | What it is |
 | --- | --- |
 | `prototype/` | The working prototype as a single HTML page (React and Tailwind from CDNs, compiled in the browser): an intro screen, all five problems with the gated stages, answer checking, diagrams (¹³⁷Cs Stages I and V, and Stage I of every other problem) and the live coach. |
+| `api/` | `coach.js`, the Vercel function that calls Claude for the coach. |
 | `design/` | The redesign, as Claude Design canvas source: an intro screen, all five ¹³⁷Cs stages, ⁹⁹ᵐTc Stage I, and the shared header and coach panel. `canvas.json` holds the layout and the notes, including the ⁹⁹ᵐTc text for Stages II–V. These files open in Claude Design; they need its runtime (`support.js`) and won't render on their own. |
 
 The prototype follows the design in `design/`. Two parts of the design aren't drawn as screens yet: ⁹⁹ᵐTc Stages II–V and the completion messages, whose text is in the canvas notes. The prototype already implements both from the problem configuration.
 
 ## The coach and deployment
 
-The site deploys to Vercel from `main` as static files. `vercel.json` serves `prototype/index.html` at the site root.
+The site deploys to Vercel from `main`. `vercel.json` serves `prototype/index.html` at the site root, and `api/coach.js` is a serverless function that runs the coach.
 
-The AI call lives in one function, `askCoach()`, in `prototype/index.html`.
+- **On Vercel:** the page posts the problem id, the student's reasoning trace and the chat to `/api/coach`. The function holds the Anthropic API key, builds the coach's system prompt from `prototype/coach-data.js` and calls Claude (`claude-opus-5-5` at low effort). Students need no account and never see the key; the endpoint only ever runs the coach.
+- **As a published Claude artifact:** the page detects the artifact runtime and uses the viewer's own Claude sign-in instead. Publish `prototype/coach-data.js` alongside the page.
 
-- **As a published Claude artifact (now):** the coach runs on the viewer's own Claude sign-in, so anyone using it needs a Claude account.
-- **For the cohort (planned):** replace the body of `askCoach()` with a `fetch` to a serverless proxy (for example on Vercel). The proxy holds the Anthropic API key and the coach's system prompt server-side, so students need no account and never see either.
+### Switching the coach on
+
+1. In the Vercel project, open **Settings → Environment Variables** and add `ANTHROPIC_API_KEY` with a key from the Claude Console (platform.claude.com). Tick Production, and Preview if you want it on preview deployments too.
+2. Redeploy (Deployments → ⋯ → Redeploy), since environment variables apply only to new deployments.
+3. Optional: `COACH_MODEL` overrides the model, for example `claude-sonnet-5-5` or `claude-haiku-5-5` for a cheaper coach.
+
+Until the key is set, the coach panel tells students it isn't switched on yet. Function errors appear under the deployment's **Logs** in Vercel. Set a monthly spend limit for the key in the Claude Console before sharing the link with a cohort.
 
 ## Adding a problem
 
-Each problem is one configuration object in the `PROBLEMS` array in `prototype/index.html`: hypotheses, estimates, expressions, numeric answers with tolerances, reconcile rows, closing text and the coach's hidden knowledge. Adding another problem means writing one more object, not changing the engine.
+Each problem is one configuration object in the `PROBLEMS` array in `prototype/index.html`: hypotheses, estimates, expressions, numeric answers with tolerances, reconcile rows, and closing text. The coach's hidden knowledge for it goes in `prototype/coach-data.js` under the same id. Adding another problem means writing those two entries, not changing the engine.
