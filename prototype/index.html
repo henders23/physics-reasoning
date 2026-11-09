@@ -25,6 +25,11 @@
   @keyframes drain{0%{opacity:0;transform:translate(0,0)}6%{opacity:1}60%{transform:translate(90px,0)}90%{opacity:1;transform:translate(90px,22px)}100%{opacity:0;transform:translate(90px,26px)}}
   .feed{animation:feed 4.5s infinite both}.drain{animation:drain 1.8s infinite both}
   
+  @keyframes fuin{0%{opacity:0;transform:translate(0,0)}10%{opacity:1}70%{opacity:1;transform:translate(-90px,0)}85%,100%{opacity:0;transform:translate(-90px,0)}}
+  .fuin{animation:fuin 3.5s infinite both}
+  @keyframes moin{0%{opacity:0;transform:translate(0,0)}8%{opacity:1}70%{opacity:1;transform:translate(var(--dx),0)}80%,100%{opacity:0;transform:translate(var(--dx),0)}}
+  .moin{animation:moin 3s infinite both}
+
   @keyframes steppulse{0%,16%{background:#1F5AD6;border-color:#1F5AD6;color:#FFFFFF}22%,100%{background:#FFFFFF;border-color:#171A21;color:#171A21}}
   .stepbadge{animation:steppulse 10s infinite both}
   @media (prefers-reduced-motion: reduce){.anim{animation:none !important;opacity:0 !important}.stepbadge{animation:none !important}}
@@ -43,11 +48,14 @@ const { useState, useRef, useEffect } = React;
    REASONING-FIRST PROBLEM ENVIRONMENT — prototype, problem set v2
    01 · ¹³⁷Cs decay identification (Q-values, mass excesses)
    02 · ⁹⁹Mo/⁹⁹ᵐTc generator (coupled decay, transient equilibrium)
+   03 · ²³⁵U fission (binding energy, Q-value, rest-mass fraction)
+   04 · p + p in the Sun (Coulomb barrier vs kT, tunnelling)
+   05 · Neutron moderation (elastic kinematics, collisions to thermal)
 
    Pedagogy: commit-before-compute. Each stage locks until the
    previous reasoning commitment is made. The AI coach is Socratic:
    it questions, it never answers. Problems are pure config driving
-   one shared five-stage engine — adding problem 03 is data entry.
+   one shared five-stage engine — adding a problem is data entry.
    ═══════════════════════════════════════════════════════════════════ */
 
 /* ─── AI LAYER ──────────────────────────────────────────────────────
@@ -157,6 +165,89 @@ const F = {
 /* Figures (SVG illustrations ported from the Design canvas) */
 const FIGS = {"csA": "<figure style=\"margin: 0 0 20px; padding: 16px 18px 14px; background: #F7F9FA; border: 1px solid #C3CBD2; border-radius: 2px\">\n          <svg role=\"img\" aria-label=\"A slice of the chart of nuclides, neutron number 78 to 84 across, proton number 52 to 57 up. Caesium-137 sits at N 82, Z 55. Dashed arrows show where each decay would move it: beta-minus to barium-137, beta-plus or electron capture to xenon-137, alpha to iodine-133.\" viewBox=\"0 0 480 410\" style=\"display: block; width: 100%; max-width: 480px; height: auto; margin: 0 auto\">\n          <defs><marker id=\"mA1\" orient=\"auto\" markerWidth=\"8\" markerHeight=\"8\" refX=\"6\" refY=\"4\" markerUnits=\"userSpaceOnUse\"><path d=\"M0 0 L8 4 L0 8 Z\" fill=\"#1F5AD6\"/></marker><marker id=\"mA2\" orient=\"auto\" markerWidth=\"8\" markerHeight=\"8\" refX=\"6\" refY=\"4\" markerUnits=\"userSpaceOnUse\"><path d=\"M0 0 L8 4 L0 8 Z\" fill=\"#6B4FBF\"/></marker><marker id=\"mA3\" orient=\"auto\" markerWidth=\"8\" markerHeight=\"8\" refX=\"6\" refY=\"4\" markerUnits=\"userSpaceOnUse\"><path d=\"M0 0 L8 4 L0 8 Z\" fill=\"#9A5F00\"/></marker></defs>\n          <rect x=\"60\" y=\"300\" width=\"56\" height=\"56\" fill=\"none\" stroke=\"#D8DEE3\" stroke-width=\"1\"/>\n          <rect x=\"60\" y=\"244\" width=\"56\" height=\"56\" fill=\"none\" stroke=\"#D8DEE3\" stroke-width=\"1\"/>\n          <rect x=\"60\" y=\"188\" width=\"56\" height=\"56\" fill=\"none\" stroke=\"#D8DEE3\" stroke-width=\"1\"/>\n          <rect x=\"60\" y=\"132\" width=\"56\" height=\"56\" fill=\"none\" stroke=\"#D8DEE3\" stroke-width=\"1\"/>\n          <rect x=\"60\" y=\"76\" width=\"56\" height=\"56\" fill=\"none\" stroke=\"#D8DEE3\" stroke-width=\"1\"/>\n          <rect x=\"60\" y=\"20\" width=\"56\" height=\"56\" fill=\"none\" stroke=\"#D8DEE3\" stroke-width=\"1\"/>\n          <rect x=\"116\" y=\"300\" width=\"56\" height=\"56\" fill=\"none\" stroke=\"#D8DEE3\" stroke-width=\"1\"/>\n          <rect x=\"116\" y=\"244\" width=\"56\" height=\"56\" fill=\"none\" stroke=\"#D8DEE3\" stroke-width=\"1\"/>\n          <rect x=\"116\" y=\"188\" width=\"56\" height=\"56\" fill=\"none\" stroke=\"#D8DEE3\" stroke-width=\"1\"/>\n          <rect x=\"116\" y=\"132\" width=\"56\" height=\"56\" fill=\"none\" stroke=\"#D8DEE3\" stroke-width=\"1\"/>\n          <rect x=\"116\" y=\"76\" width=\"56\" height=\"56\" fill=\"none\" stroke=\"#D8DEE3\" stroke-width=\"1\"/>\n          <rect x=\"116\" y=\"20\" width=\"56\" height=\"56\" fill=\"none\" stroke=\"#D8DEE3\" stroke-width=\"1\"/>\n          <rect x=\"172\" y=\"300\" width=\"56\" height=\"56\" fill=\"none\" stroke=\"#D8DEE3\" stroke-width=\"1\"/>\n          <rect x=\"172\" y=\"244\" width=\"56\" height=\"56\" fill=\"none\" stroke=\"#D8DEE3\" stroke-width=\"1\"/>\n          <rect x=\"172\" y=\"188\" width=\"56\" height=\"56\" fill=\"none\" stroke=\"#D8DEE3\" stroke-width=\"1\"/>\n          <rect x=\"172\" y=\"132\" width=\"56\" height=\"56\" fill=\"none\" stroke=\"#D8DEE3\" stroke-width=\"1\"/>\n          <rect x=\"172\" y=\"76\" width=\"56\" height=\"56\" fill=\"none\" stroke=\"#D8DEE3\" stroke-width=\"1\"/>\n          <rect x=\"172\" y=\"20\" width=\"56\" height=\"56\" fill=\"none\" stroke=\"#D8DEE3\" stroke-width=\"1\"/>\n          <rect x=\"228\" y=\"300\" width=\"56\" height=\"56\" fill=\"none\" stroke=\"#D8DEE3\" stroke-width=\"1\"/>\n          <rect x=\"228\" y=\"244\" width=\"56\" height=\"56\" fill=\"none\" stroke=\"#D8DEE3\" stroke-width=\"1\"/>\n          <rect x=\"228\" y=\"188\" width=\"56\" height=\"56\" fill=\"none\" stroke=\"#D8DEE3\" stroke-width=\"1\"/>\n          <rect x=\"228\" y=\"132\" width=\"56\" height=\"56\" fill=\"none\" stroke=\"#D8DEE3\" stroke-width=\"1\"/>\n          <rect x=\"228\" y=\"76\" width=\"56\" height=\"56\" fill=\"none\" stroke=\"#D8DEE3\" stroke-width=\"1\"/>\n          <rect x=\"228\" y=\"20\" width=\"56\" height=\"56\" fill=\"none\" stroke=\"#D8DEE3\" stroke-width=\"1\"/>\n          <rect x=\"284\" y=\"300\" width=\"56\" height=\"56\" fill=\"none\" stroke=\"#D8DEE3\" stroke-width=\"1\"/>\n          <rect x=\"284\" y=\"244\" width=\"56\" height=\"56\" fill=\"none\" stroke=\"#D8DEE3\" stroke-width=\"1\"/>\n          <rect x=\"284\" y=\"188\" width=\"56\" height=\"56\" fill=\"none\" stroke=\"#D8DEE3\" stroke-width=\"1\"/>\n          <rect x=\"284\" y=\"132\" width=\"56\" height=\"56\" fill=\"none\" stroke=\"#D8DEE3\" stroke-width=\"1\"/>\n          <rect x=\"284\" y=\"76\" width=\"56\" height=\"56\" fill=\"none\" stroke=\"#D8DEE3\" stroke-width=\"1\"/>\n          <rect x=\"284\" y=\"20\" width=\"56\" height=\"56\" fill=\"none\" stroke=\"#D8DEE3\" stroke-width=\"1\"/>\n          <rect x=\"340\" y=\"300\" width=\"56\" height=\"56\" fill=\"none\" stroke=\"#D8DEE3\" stroke-width=\"1\"/>\n          <rect x=\"340\" y=\"244\" width=\"56\" height=\"56\" fill=\"none\" stroke=\"#D8DEE3\" stroke-width=\"1\"/>\n          <rect x=\"340\" y=\"188\" width=\"56\" height=\"56\" fill=\"none\" stroke=\"#D8DEE3\" stroke-width=\"1\"/>\n          <rect x=\"340\" y=\"132\" width=\"56\" height=\"56\" fill=\"none\" stroke=\"#D8DEE3\" stroke-width=\"1\"/>\n          <rect x=\"340\" y=\"76\" width=\"56\" height=\"56\" fill=\"none\" stroke=\"#D8DEE3\" stroke-width=\"1\"/>\n          <rect x=\"340\" y=\"20\" width=\"56\" height=\"56\" fill=\"none\" stroke=\"#D8DEE3\" stroke-width=\"1\"/>\n          <rect x=\"396\" y=\"300\" width=\"56\" height=\"56\" fill=\"none\" stroke=\"#D8DEE3\" stroke-width=\"1\"/>\n          <rect x=\"396\" y=\"244\" width=\"56\" height=\"56\" fill=\"none\" stroke=\"#D8DEE3\" stroke-width=\"1\"/>\n          <rect x=\"396\" y=\"188\" width=\"56\" height=\"56\" fill=\"none\" stroke=\"#D8DEE3\" stroke-width=\"1\"/>\n          <rect x=\"396\" y=\"132\" width=\"56\" height=\"56\" fill=\"none\" stroke=\"#D8DEE3\" stroke-width=\"1\"/>\n          <rect x=\"396\" y=\"76\" width=\"56\" height=\"56\" fill=\"none\" stroke=\"#D8DEE3\" stroke-width=\"1\"/>\n          <rect x=\"396\" y=\"20\" width=\"56\" height=\"56\" fill=\"none\" stroke=\"#D8DEE3\" stroke-width=\"1\"/>\n          <line x1=\"172\" y1=\"20\" x2=\"452\" y2=\"300\" stroke=\"#AEB6BF\" stroke-width=\"1.5\" stroke-dasharray=\"3 5\"/>\n          <text x=\"446\" y=\"322\" text-anchor=\"end\" font-family=\"'IBM Plex Mono', monospace\" font-size=\"11\" fill=\"#4A5160\" paint-order=\"stroke\" stroke=\"#F7F9FA\" stroke-width=\"4\" stroke-linejoin=\"round\">A = 137</text>\n          <rect x=\"230\" y=\"78\" width=\"52\" height=\"52\" rx=\"2\" fill=\"#FFFFFF\" stroke=\"#1F5AD6\" stroke-width=\"1.5\" stroke-dasharray=\"5 4\"/>\n          <text x=\"256\" y=\"109\" text-anchor=\"middle\" font-family=\"'STIX Two Text', Georgia, serif\" font-size=\"15\" font-weight=\"600\" fill=\"#171A21\" paint-order=\"stroke\" stroke=\"#F7F9FA\" stroke-width=\"4\" stroke-linejoin=\"round\">¹³⁷Ba</text>\n          <rect x=\"342\" y=\"190\" width=\"52\" height=\"52\" rx=\"2\" fill=\"#FFFFFF\" stroke=\"#6B4FBF\" stroke-width=\"1.5\" stroke-dasharray=\"5 4\"/>\n          <text x=\"368\" y=\"221\" text-anchor=\"middle\" font-family=\"'STIX Two Text', Georgia, serif\" font-size=\"15\" font-weight=\"600\" fill=\"#171A21\" paint-order=\"stroke\" stroke=\"#F7F9FA\" stroke-width=\"4\" stroke-linejoin=\"round\">¹³⁷Xe</text>\n          <rect x=\"174\" y=\"246\" width=\"52\" height=\"52\" rx=\"2\" fill=\"#FFFFFF\" stroke=\"#9A5F00\" stroke-width=\"1.5\" stroke-dasharray=\"5 4\"/>\n          <text x=\"200\" y=\"277\" text-anchor=\"middle\" font-family=\"'STIX Two Text', Georgia, serif\" font-size=\"15\" font-weight=\"600\" fill=\"#171A21\" paint-order=\"stroke\" stroke=\"#F7F9FA\" stroke-width=\"4\" stroke-linejoin=\"round\">¹³³I</text>\n          <rect x=\"286\" y=\"134\" width=\"52\" height=\"52\" rx=\"2\" fill=\"#FFFFFF\" stroke=\"#171A21\" stroke-width=\"2\"/>\n          <text x=\"312\" y=\"165\" text-anchor=\"middle\" font-family=\"'STIX Two Text', Georgia, serif\" font-size=\"15\" font-weight=\"600\" fill=\"#171A21\" paint-order=\"stroke\" stroke=\"#F7F9FA\" stroke-width=\"4\" stroke-linejoin=\"round\">¹³⁷Cs</text>\n          <line x1=\"297.9\" y1=\"145.9\" x2=\"271.6\" y2=\"119.6\" stroke=\"#1F5AD6\" stroke-width=\"2\" stroke-dasharray=\"5 4\" marker-end=\"url(#mA1)\"/>\n          <line x1=\"326.1\" y1=\"174.1\" x2=\"352.4\" y2=\"200.4\" stroke=\"#6B4FBF\" stroke-width=\"2\" stroke-dasharray=\"5 4\" marker-end=\"url(#mA2)\"/>\n          <line x1=\"297.9\" y1=\"174.1\" x2=\"215.6\" y2=\"256.4\" stroke=\"#9A5F00\" stroke-width=\"2\" stroke-dasharray=\"5 4\" marker-end=\"url(#mA3)\"/>\n          <text x=\"292\" y=\"120\" font-family=\"'IBM Plex Sans', system-ui, sans-serif\" font-size=\"13\" font-weight=\"600\" fill=\"#1F5AD6\" paint-order=\"stroke\" stroke=\"#F7F9FA\" stroke-width=\"4\" stroke-linejoin=\"round\">β⁻</text>\n          <text x=\"346\" y=\"180\" font-family=\"'IBM Plex Sans', system-ui, sans-serif\" font-size=\"13\" font-weight=\"600\" fill=\"#6B4FBF\" paint-order=\"stroke\" stroke=\"#F7F9FA\" stroke-width=\"4\" stroke-linejoin=\"round\">β⁺ / EC</text>\n          <text x=\"252\" y=\"236\" text-anchor=\"end\" font-family=\"'IBM Plex Sans', system-ui, sans-serif\" font-size=\"13\" font-weight=\"600\" fill=\"#9A5F00\" paint-order=\"stroke\" stroke=\"#F7F9FA\" stroke-width=\"4\" stroke-linejoin=\"round\">α</text>\n          <circle class=\"anim mvb\" cx=\"312\" cy=\"160\" r=\"5\" fill=\"#1F5AD6\" style=\"opacity: 0\"/>\n          <circle class=\"anim mvp\" cx=\"312\" cy=\"160\" r=\"5\" fill=\"#6B4FBF\" style=\"opacity: 0\"/>\n          <circle class=\"anim mva\" cx=\"312\" cy=\"160\" r=\"5\" fill=\"#9A5F00\" style=\"opacity: 0\"/>\n          <text x=\"88\" y=\"374\" text-anchor=\"middle\" font-family=\"'IBM Plex Mono', monospace\" font-size=\"11\" fill=\"#4A5160\">78</text>\n          <text x=\"144\" y=\"374\" text-anchor=\"middle\" font-family=\"'IBM Plex Mono', monospace\" font-size=\"11\" fill=\"#4A5160\">79</text>\n          <text x=\"200\" y=\"374\" text-anchor=\"middle\" font-family=\"'IBM Plex Mono', monospace\" font-size=\"11\" fill=\"#4A5160\">80</text>\n          <text x=\"256\" y=\"374\" text-anchor=\"middle\" font-family=\"'IBM Plex Mono', monospace\" font-size=\"11\" fill=\"#4A5160\">81</text>\n          <text x=\"312\" y=\"374\" text-anchor=\"middle\" font-family=\"'IBM Plex Mono', monospace\" font-size=\"11\" fill=\"#4A5160\">82</text>\n          <text x=\"368\" y=\"374\" text-anchor=\"middle\" font-family=\"'IBM Plex Mono', monospace\" font-size=\"11\" fill=\"#4A5160\">83</text>\n          <text x=\"424\" y=\"374\" text-anchor=\"middle\" font-family=\"'IBM Plex Mono', monospace\" font-size=\"11\" fill=\"#4A5160\">84</text>\n          <text x=\"50\" y=\"332\" text-anchor=\"end\" font-family=\"'IBM Plex Mono', monospace\" font-size=\"11\" fill=\"#4A5160\">52</text>\n          <text x=\"50\" y=\"276\" text-anchor=\"end\" font-family=\"'IBM Plex Mono', monospace\" font-size=\"11\" fill=\"#4A5160\">53</text>\n          <text x=\"50\" y=\"220\" text-anchor=\"end\" font-family=\"'IBM Plex Mono', monospace\" font-size=\"11\" fill=\"#4A5160\">54</text>\n          <text x=\"50\" y=\"164\" text-anchor=\"end\" font-family=\"'IBM Plex Mono', monospace\" font-size=\"11\" fill=\"#4A5160\">55</text>\n          <text x=\"50\" y=\"108\" text-anchor=\"end\" font-family=\"'IBM Plex Mono', monospace\" font-size=\"11\" fill=\"#4A5160\">56</text>\n          <text x=\"50\" y=\"52\" text-anchor=\"end\" font-family=\"'IBM Plex Mono', monospace\" font-size=\"11\" fill=\"#4A5160\">57</text>\n          <text x=\"256\" y=\"400\" text-anchor=\"middle\" font-family=\"'IBM Plex Sans', system-ui, sans-serif\" font-size=\"11.5\" font-weight=\"600\" fill=\"#4A5160\">N — neutrons →</text>\n          <text x=\"14\" y=\"188\" text-anchor=\"middle\" transform=\"rotate(-90 14 188)\" font-family=\"'IBM Plex Sans', system-ui, sans-serif\" font-size=\"11.5\" font-weight=\"600\" fill=\"#4A5160\">Z — protons →</text>\n          </svg>\n          <div style=\"display: flex; flex-wrap: wrap; gap: 8px 20px; margin-top: 8px; font-family: 'IBM Plex Mono', monospace; font-size: 11.5px; color: #4A5160\">\n            <span><b style=\"color: #1F5AD6\">β⁻</b> n → p · Z + 1, N − 1</span>\n            <span><b style=\"color: #6B4FBF\">β⁺ / EC</b> p → n · Z − 1, N + 1</span>\n            <span><b style=\"color: #9A5F00\">α</b> loses 2p + 2n · Z − 2, N − 2</span>\n          </div>\n          <figcaption style=\"margin-top: 10px; font-size: 12.5px; line-height: 1.5; color: #4A5160; max-width: 620px\">Fig. 1 — A slice of the chart of nuclides around ¹³⁷Cs. Each candidate decay moves the nucleus to a different square. Which of those moves actually releases energy is what the data will settle.</figcaption>\n        </figure>", "csB": "<figure style=\"margin: 0 0 20px; padding: 16px 18px 14px; background: #F7F9FA; border: 1px solid #C3CBD2; border-radius: 2px\">\n          <svg role=\"img\" aria-label=\"Energy ledger measured from caesium-137 at zero. Barium-137 sits 1.17 MeV lower, so beta-minus decay releases energy. Iodine-133 plus helium-4 sits 3.11 MeV higher, so alpha decay would need energy put in.\" viewBox=\"0 0 600 320\" style=\"display: block; width: 100%; max-width: 600px; height: auto; margin: 0 auto\">\n          <defs><marker id=\"mB1\" orient=\"auto\" markerWidth=\"8\" markerHeight=\"8\" refX=\"6\" refY=\"4\" markerUnits=\"userSpaceOnUse\"><path d=\"M0 0 L8 4 L0 8 Z\" fill=\"#1F7A55\"/></marker><marker id=\"mB2\" orient=\"auto\" markerWidth=\"8\" markerHeight=\"8\" refX=\"6\" refY=\"4\" markerUnits=\"userSpaceOnUse\"><path d=\"M0 0 L8 4 L0 8 Z\" fill=\"#BC4327\"/></marker></defs>\n          <line x1=\"70\" y1=\"24\" x2=\"70\" y2=\"300\" stroke=\"#4A5160\" stroke-width=\"1.5\"/>\n          <line x1=\"64\" y1=\"50\" x2=\"70\" y2=\"50\" stroke=\"#4A5160\" stroke-width=\"1.5\"/>\n          <text x=\"58\" y=\"54\" text-anchor=\"end\" font-family=\"'IBM Plex Mono', monospace\" font-size=\"11\" fill=\"#4A5160\">+3</text>\n          <line x1=\"64\" y1=\"100\" x2=\"70\" y2=\"100\" stroke=\"#4A5160\" stroke-width=\"1.5\"/>\n          <text x=\"58\" y=\"104\" text-anchor=\"end\" font-family=\"'IBM Plex Mono', monospace\" font-size=\"11\" fill=\"#4A5160\">+2</text>\n          <line x1=\"64\" y1=\"150\" x2=\"70\" y2=\"150\" stroke=\"#4A5160\" stroke-width=\"1.5\"/>\n          <text x=\"58\" y=\"154\" text-anchor=\"end\" font-family=\"'IBM Plex Mono', monospace\" font-size=\"11\" fill=\"#4A5160\">+1</text>\n          <line x1=\"64\" y1=\"200\" x2=\"70\" y2=\"200\" stroke=\"#4A5160\" stroke-width=\"1.5\"/>\n          <text x=\"58\" y=\"204\" text-anchor=\"end\" font-family=\"'IBM Plex Mono', monospace\" font-size=\"11\" fill=\"#4A5160\">0</text>\n          <line x1=\"64\" y1=\"250\" x2=\"70\" y2=\"250\" stroke=\"#4A5160\" stroke-width=\"1.5\"/>\n          <text x=\"58\" y=\"254\" text-anchor=\"end\" font-family=\"'IBM Plex Mono', monospace\" font-size=\"11\" fill=\"#4A5160\">−1</text>\n          <text x=\"18\" y=\"160\" text-anchor=\"middle\" transform=\"rotate(-90 18 160)\" font-family=\"'IBM Plex Sans', system-ui, sans-serif\" font-size=\"11.5\" font-weight=\"600\" fill=\"#4A5160\">Energy relative to ¹³⁷Cs (MeV)</text>\n          <line x1=\"70\" y1=\"200\" x2=\"560\" y2=\"200\" stroke=\"#D8DEE3\" stroke-width=\"1\" stroke-dasharray=\"2 4\"/>\n          <line x1=\"140\" y1=\"200\" x2=\"290\" y2=\"200\" stroke=\"#171A21\" stroke-width=\"3\"/>\n          <text x=\"215\" y=\"188\" text-anchor=\"middle\" font-family=\"'STIX Two Text', Georgia, serif\" font-size=\"16\" font-weight=\"600\" fill=\"#171A21\">¹³⁷Cs</text>\n          <line x1=\"350\" y1=\"259\" x2=\"520\" y2=\"259\" stroke=\"#1F7A55\" stroke-width=\"3\"/>\n          <text x=\"435\" y=\"248\" text-anchor=\"middle\" font-family=\"'STIX Two Text', Georgia, serif\" font-size=\"16\" font-weight=\"600\" fill=\"#171A21\">¹³⁷Ba</text>\n          <text x=\"435\" y=\"280\" text-anchor=\"middle\" font-family=\"'IBM Plex Mono', monospace\" font-size=\"11.5\" fill=\"#1F7A55\">Qβ = +1.17 MeV · released</text>\n          <line x1=\"350\" y1=\"45\" x2=\"520\" y2=\"45\" stroke=\"#BC4327\" stroke-width=\"3\" stroke-dasharray=\"8 5\"/>\n          <text x=\"435\" y=\"34\" text-anchor=\"middle\" font-family=\"'STIX Two Text', Georgia, serif\" font-size=\"16\" font-weight=\"600\" fill=\"#171A21\">¹³³I + ⁴He</text>\n          <text x=\"435\" y=\"66\" text-anchor=\"middle\" font-family=\"'IBM Plex Mono', monospace\" font-size=\"11.5\" fill=\"#BC4327\">Qα = −3.11 MeV · must be paid in</text>\n          <line x1=\"296\" y1=\"204\" x2=\"342\" y2=\"253\" stroke=\"#1F7A55\" stroke-width=\"2\" marker-end=\"url(#mB1)\"/>\n          <line x1=\"296\" y1=\"194\" x2=\"344\" y2=\"54\" stroke=\"#BC4327\" stroke-width=\"2\" stroke-dasharray=\"5 4\" marker-end=\"url(#mB2)\"/>\n          <circle class=\"anim fallb\" cx=\"296\" cy=\"200\" r=\"5\" fill=\"#1F7A55\" style=\"opacity: 0\"/>\n          <circle class=\"anim climba\" cx=\"296\" cy=\"200\" r=\"5\" fill=\"#BC4327\" style=\"opacity: 0\"/>\n          </svg>\n          <figcaption style=\"margin-top: 10px; font-size: 12.5px; line-height: 1.5; color: #4A5160; max-width: 620px\">Fig. 2 — The Q-values as an energy ledger. Measured from ¹³⁷Cs, the β⁻ daughter sits lower, so the decay runs downhill and releases energy. ¹³³I + ⁴He sits higher: α decay would have to climb, and nothing pays for the climb.</figcaption>\n        </figure>", "tcC": "<figure style=\"margin: 0 0 20px; padding: 16px 18px 14px; background: #F7F9FA; border: 1px solid #C3CBD2; border-radius: 2px\">\n          <svg role=\"img\" aria-label=\"A fill-and-drain picture of the generator. A large tank of molybdenum-99 slowly feeds the middle tank of technetium-99m, which starts empty and drains into an inert technetium-99 bin.\" viewBox=\"0 0 580 320\" style=\"display: block; width: 100%; max-width: 580px; height: auto; margin: 0 auto\">\n          <text x=\"110\" y=\"28\" text-anchor=\"middle\" font-family=\"'STIX Two Text', Georgia, serif\" font-size=\"16\" font-weight=\"600\" fill=\"#171A21\">⁹⁹Mo · the cow</text>\n          <rect x=\"40\" y=\"40\" width=\"140\" height=\"120\" rx=\"3\" fill=\"#FFFFFF\" stroke=\"#171A21\" stroke-width=\"2\"/>\n          <rect x=\"42\" y=\"52\" width=\"136\" height=\"106\" fill=\"#D8DEE3\"/>\n          <text x=\"110\" y=\"182\" text-anchor=\"middle\" font-family=\"'IBM Plex Mono', monospace\" font-size=\"11.5\" fill=\"#4A5160\">t½ = 65.9 h</text>\n          <path d=\"M 180 140 L 250 140 L 250 162\" fill=\"none\" stroke=\"#AEB6BF\" stroke-width=\"10\" stroke-linejoin=\"round\"/>\n          <text x=\"215\" y=\"128\" text-anchor=\"middle\" font-family=\"'IBM Plex Sans', system-ui, sans-serif\" font-size=\"12\" font-weight=\"600\" fill=\"#4A5160\">feeds in</text>\n          <rect x=\"200\" y=\"170\" width=\"120\" height=\"90\" rx=\"3\" fill=\"#FFFFFF\" stroke=\"#1F5AD6\" stroke-width=\"2\"/>\n          <rect x=\"202\" y=\"250\" width=\"116\" height=\"8\" fill=\"#E4EBFB\"/>\n          <text x=\"260\" y=\"284\" text-anchor=\"middle\" font-family=\"'STIX Two Text', Georgia, serif\" font-size=\"16\" font-weight=\"600\" fill=\"#171A21\">⁹⁹ᵐTc · the milk</text>\n          <text x=\"260\" y=\"302\" text-anchor=\"middle\" font-family=\"'IBM Plex Mono', monospace\" font-size=\"11.5\" fill=\"#4A5160\">t½ = 6.01 h · starts empty</text>\n          <path d=\"M 320 236 L 410 236 L 410 254\" fill=\"none\" stroke=\"#AEB6BF\" stroke-width=\"10\" stroke-linejoin=\"round\"/>\n          <text x=\"365\" y=\"224\" text-anchor=\"middle\" font-family=\"'IBM Plex Sans', system-ui, sans-serif\" font-size=\"12\" font-weight=\"600\" fill=\"#4A5160\">drains out</text>\n          <rect x=\"370\" y=\"258\" width=\"160\" height=\"34\" rx=\"3\" fill=\"#FFFFFF\" stroke=\"#1F7A55\" stroke-width=\"2\"/>\n          <text x=\"450\" y=\"280\" text-anchor=\"middle\" font-family=\"'STIX Two Text', Georgia, serif\" font-size=\"14\" font-weight=\"600\" fill=\"#171A21\">⁹⁹Tc · inert</text>\n          <circle class=\"anim feed\" cx=\"180\" cy=\"140\" r=\"4.5\" fill=\"#171A21\" style=\"opacity: 0; animation-delay: 0s\"/>\n          <circle class=\"anim feed\" cx=\"180\" cy=\"140\" r=\"4.5\" fill=\"#171A21\" style=\"opacity: 0; animation-delay: 1.5s\"/>\n          <circle class=\"anim feed\" cx=\"180\" cy=\"140\" r=\"4.5\" fill=\"#171A21\" style=\"opacity: 0; animation-delay: 3s\"/>\n          <circle class=\"anim drain\" cx=\"320\" cy=\"236\" r=\"4.5\" fill=\"#1F5AD6\" style=\"opacity: 0; animation-delay: 0s\"/>\n          <circle class=\"anim drain\" cx=\"320\" cy=\"236\" r=\"4.5\" fill=\"#1F5AD6\" style=\"opacity: 0; animation-delay: 0.6s\"/>\n          <circle class=\"anim drain\" cx=\"320\" cy=\"236\" r=\"4.5\" fill=\"#1F5AD6\" style=\"opacity: 0; animation-delay: 1.2s\"/>\n          </svg>\n          <figcaption style=\"margin-top: 10px; font-size: 12.5px; line-height: 1.5; color: #4A5160; max-width: 620px\">Fig. 1 — The generator as fill and drain. ⁹⁹ᵐTc is fed by decays in its parent and emptied by its own decays; each flow runs on its own clock. The middle tank starts empty. What its level does next is your hypothesis.</figcaption>\n        </figure>"};
 
+/* Figures for problems 03–05 */
+const FIG_TEXT = (x, y, s, o = {}) =>
+  `<text x="${x}" y="${y}"${o.anchor ? ` text-anchor="${o.anchor}"` : ""} font-family="${o.font || "'IBM Plex Mono', monospace"}" font-size="${o.size || 11}"${o.weight ? ` font-weight="${o.weight}"` : ""} fill="${o.fill || "#4A5160"}"${o.rot ? ` transform="rotate(-90 ${x} ${y})"` : ""}>${s}</text>`;
+const SERIF = "'STIX Two Text', Georgia, serif";
+const SANS = "'IBM Plex Sans', system-ui, sans-serif";
+const figWrap = (label, vb, w, body, cap) =>
+  `<figure style="margin: 0 0 20px; padding: 16px 18px 14px; background: #F7F9FA; border: 1px solid #C3CBD2; border-radius: 2px">
+  <svg role="img" aria-label="${label}" viewBox="${vb}" style="display: block; width: 100%; max-width: ${w}px; height: auto; margin: 0 auto">${body}</svg>
+  <figcaption style="margin-top: 10px; font-size: 12.5px; line-height: 1.5; color: #4A5160; max-width: 620px">${cap}</figcaption>
+</figure>`;
+
+Object.assign(FIGS, {
+  /* 03 — binding energy per nucleon curve, x = 70 + 1.96A, y = 280 − 120(b̄ − 7) */
+  fiA: figWrap(
+    "Binding energy per nucleon against mass number. The curve rises to a peak near iron at about 8.8 MeV and falls to about 7.6 MeV for uranium-235. Barium-141 and krypton-92 sit higher on the curve than uranium-235; dashed arrows show the split.",
+    "0 0 600 320", 600,
+    `<defs><marker id="mF1" orient="auto" markerWidth="8" markerHeight="8" refX="6" refY="4" markerUnits="userSpaceOnUse"><path d="M0 0 L8 4 L0 8 Z" fill="#1F5AD6"/></marker></defs>
+    <line x1="70" y1="30" x2="70" y2="280" stroke="#4A5160" stroke-width="1.5"/>
+    <line x1="70" y1="280" x2="565" y2="280" stroke="#4A5160" stroke-width="1.5"/>
+    ${[[7.0, 280], [7.5, 220], [8.0, 160], [8.5, 100], [9.0, 40]].map(([v, y]) => `<line x1="64" y1="${y}" x2="70" y2="${y}" stroke="#4A5160" stroke-width="1.5"/><line x1="70" y1="${y}" x2="565" y2="${y}" stroke="#D8DEE3" stroke-width="1" stroke-dasharray="2 4"/>${FIG_TEXT(58, y + 4, v.toFixed(1), { anchor: "end" })}`).join("")}
+    ${[0, 50, 100, 150, 200, 250].map((a) => `<line x1="${70 + 1.96 * a}" y1="280" x2="${70 + 1.96 * a}" y2="286" stroke="#4A5160" stroke-width="1.5"/>${FIG_TEXT(70 + 1.96 * a, 300, a, { anchor: "middle" })}`).join("")}
+    ${FIG_TEXT(318, 316, "A — mass number →", { anchor: "middle", font: SANS, size: 11.5, weight: 600 })}
+    ${FIG_TEXT(18, 160, "B/A — MeV per nucleon", { anchor: "middle", font: SANS, size: 11.5, weight: 600, rot: true })}
+    <polyline points="93.5,198.4 101.4,162.4 128.8,97.6 179.8,65.2 246.4,74.8 305.2,98.8 344.4,115.6 422.8,154 481.6,179.2 536.5,211.6" fill="none" stroke="#171A21" stroke-width="2.5" stroke-linejoin="round"/>
+    ${FIG_TEXT(180, 52, "⁵⁶Fe · peak", { anchor: "middle", font: SANS, size: 11.5, weight: 600, fill: "#171A21" })}
+    <path id="fpBa" d="M 524 214 Q 420 220 352 128" fill="none" stroke="#1F5AD6" stroke-width="2" stroke-dasharray="5 4" marker-end="url(#mF1)"/>
+    <path id="fpKr" d="M 522 220 Q 330 250 256 106" fill="none" stroke="#1F5AD6" stroke-width="2" stroke-dasharray="5 4" marker-end="url(#mF1)"/>
+    <circle cx="530.6" cy="209.1" r="6.5" fill="#FFFFFF" stroke="#171A21" stroke-width="2"/>
+    <circle cx="346.4" cy="120.9" r="6.5" fill="#FFFFFF" stroke="#1F5AD6" stroke-width="2"/>
+    <circle cx="250.3" cy="98.5" r="6.5" fill="#FFFFFF" stroke="#1F5AD6" stroke-width="2"/>
+    ${FIG_TEXT(530, 236, "²³⁵U", { anchor: "middle", font: SERIF, size: 16, weight: 600, fill: "#171A21" })}
+    ${FIG_TEXT(356, 106, "¹⁴¹Ba", { font: SERIF, size: 16, weight: 600, fill: "#171A21" })}
+    ${FIG_TEXT(240, 120, "⁹²Kr", { anchor: "end", font: SERIF, size: 16, weight: 600, fill: "#171A21" })}
+    ${FIG_TEXT(420, 244, "split", { anchor: "middle", font: SANS, size: 13, weight: 600, fill: "#1F5AD6" })}
+    ${["fpBa", "fpKr"].map((id) => `<circle class="anim" r="4.5" fill="#1F5AD6" opacity="0"><animateMotion dur="4s" repeatCount="indefinite" keyPoints="0;1;1" keyTimes="0;0.65;1" calcMode="linear"><mpath href="#${id}"/></animateMotion><animate attributeName="opacity" dur="4s" repeatCount="indefinite" values="0;1;1;0;0" keyTimes="0;0.08;0.65;0.75;1"/></circle>`).join("")}`,
+    "Fig. 1 — Binding energy per nucleon across the chart. ²³⁵U sits on the falling right-hand side; its two fragments land further up the curve. Whether climbing the curve releases energy or costs it — and how much — is what you’re about to commit to."
+  ),
+
+  /* 04 — the Coulomb barrier, x = 70 + 40r (fm), y = 250 − 300V (MeV) */
+  fuA: figWrap(
+    "Potential energy between two protons against separation. Inside the contact distance R1 plus R2 there is a deep, short-range nuclear well. Outside it the Coulomb repulsion falls off as one over r. An incoming proton approaches from the right; where its thermal energy sits on the energy axis is left as a question.",
+    "0 0 600 320", 600,
+    `<defs><marker id="mU1" orient="auto" markerWidth="8" markerHeight="8" refX="6" refY="4" markerUnits="userSpaceOnUse"><path d="M0 0 L8 4 L0 8 Z" fill="#1F5AD6"/></marker></defs>
+    <line x1="70" y1="30" x2="70" y2="305" stroke="#4A5160" stroke-width="1.5"/>
+    <line x1="70" y1="250" x2="565" y2="250" stroke="#4A5160" stroke-width="1.5"/>
+    ${FIG_TEXT(58, 254, "0", { anchor: "end" })}
+    ${FIG_TEXT(18, 165, "V(r) — potential energy", { anchor: "middle", font: SANS, size: 11.5, weight: 600, rot: true })}
+    ${FIG_TEXT(548, 270, "r →", { anchor: "end", font: SANS, size: 11.5, weight: 600 })}
+    <path d="M 70 300 L 166 300 L 166 70 C 178 92, 196 112, 230 142 C 262 162, 300 176, 350 188 C 410 200, 480 210, 560 216" fill="none" stroke="#171A21" stroke-width="2.5" stroke-linejoin="round"/>
+    <line x1="166" y1="250" x2="166" y2="258" stroke="#4A5160" stroke-width="1.5"/>
+    ${FIG_TEXT(174, 272, "R₁ + R₂")}
+    <line x1="166" y1="70" x2="250" y2="70" stroke="#BC4327" stroke-width="1" stroke-dasharray="3 4"/>
+    ${FIG_TEXT(256, 74, "V_C — the barrier top", { font: SANS, size: 12, weight: 600, fill: "#BC4327" })}
+    ${FIG_TEXT(118, 292, "nuclear well", { anchor: "middle", font: SANS, size: 11.5, weight: 600, fill: "#1F7A55" })}
+    ${FIG_TEXT(330, 162, "Coulomb repulsion ∝ Z₁Z₂/r", { font: SANS, size: 12, weight: 600, fill: "#171A21" })}
+    <line x1="545" y1="236" x2="470" y2="236" stroke="#1F5AD6" stroke-width="2" marker-end="url(#mU1)"/>
+    <circle cx="552" cy="236" r="6" fill="#FFFFFF" stroke="#1F5AD6" stroke-width="2"/>
+    ${FIG_TEXT(500, 228, "p, energy ~ kT", { anchor: "middle", font: SANS, size: 11.5, weight: 600, fill: "#1F5AD6" })}
+    ${FIG_TEXT(520, 46, "where is kT?", { anchor: "middle", font: SERIF, size: 16, weight: 600, fill: "#171A21" })}
+    <circle class="anim fuin" cx="552" cy="236" r="4" fill="#1F5AD6" style="opacity: 0"/>`,
+    "Fig. 1 — Two protons, drawn as potential energy against separation. Get them to contact and the short-range nuclear force takes over; on the way in, Coulomb repulsion pushes back. The figure leaves out the one thing that matters: how high on this axis the solar-core kT sits."
+  ),
+
+  /* 05 — two head-on collisions, before only */
+  moA: figWrap(
+    "Two head-on elastic collisions, shown before impact. Top: a neutron heads towards a hydrogen nucleus of the same mass. Bottom: a neutron heads towards a carbon-12 nucleus twelve times heavier. What the neutron keeps afterwards is marked with a question mark.",
+    "0 0 580 260", 580,
+    `<defs><marker id="mM1" orient="auto" markerWidth="8" markerHeight="8" refX="6" refY="4" markerUnits="userSpaceOnUse"><path d="M0 0 L8 4 L0 8 Z" fill="#1F5AD6"/></marker></defs>
+    ${[[80, 12, "¹H", "A = 1 · same mass as n"], [196, 30, "¹²C", "A = 12"]].map(([y, R, nm, sub]) => `
+    <line x1="60" y1="${y}" x2="${300 - R - 4}" y2="${y}" stroke="#AEB6BF" stroke-width="1.5" stroke-dasharray="3 5"/>
+    <circle cx="80" cy="${y}" r="12" fill="#E4EBFB" stroke="#1F5AD6" stroke-width="2"/>
+    ${FIG_TEXT(80, y + 4, "n", { anchor: "middle", font: SERIF, size: 14, weight: 600, fill: "#171A21" })}
+    <line x1="100" y1="${y - 22}" x2="160" y2="${y - 22}" stroke="#1F5AD6" stroke-width="2" marker-end="url(#mM1)"/>
+    ${FIG_TEXT(130, y - 30, "E₀", { anchor: "middle", font: SANS, size: 12, weight: 600, fill: "#1F5AD6" })}
+    <circle cx="300" cy="${y}" r="${R}" fill="#FFFFFF" stroke="#171A21" stroke-width="2"/>
+    ${FIG_TEXT(300, y + 5, nm, { anchor: "middle", font: SERIF, size: R > 20 ? 16 : 12, weight: 600, fill: "#171A21" })}
+    ${FIG_TEXT(300, y + R + 18, sub, { anchor: "middle" })}
+    ${FIG_TEXT(420, y + 5, "n afterwards: E′ = ?", { font: SANS, size: 13, weight: 600, fill: "#171A21" })}
+    <circle class="anim moin" cx="80" cy="${y}" r="4.5" fill="#1F5AD6" style="opacity: 0; --dx: ${300 - R - 92}px"/>`).join("")}`,
+    "Fig. 1 — Two head-on elastic collisions, before impact. Same neutron, same speed; only the target’s mass differs. How much energy the neutron keeps in each case decides how many collisions it takes to thermalise."
+  ),
+});
+
 function Figure({ id }) {
   return <div dangerouslySetInnerHTML={{ __html: FIGS[id] }} />;
 }
@@ -170,6 +261,9 @@ const STAGES = [
 ];
 
 /* ─── Problem definitions ────────────────────────────────────────── */
+
+/* Reads a committed Stage IV value back as a number (NaN if skipped) */
+const cv = (st, k) => parseFloat(st.c4?.vals?.[k]);
 
 const PROBLEMS = [
   {
@@ -405,6 +499,363 @@ const PROBLEMS = [
         "λ₁ = ln2/65.9 ≈ 0.0105 h⁻¹, λ₂ = ln2/6.01 ≈ 0.1153 h⁻¹. Governing equation dN₂/dt = λ₁N₁ − λ₂N₂. Peak at t_max = ln(λ₂/λ₁)/(λ₂−λ₁) ≈ 22.9 h ≈ once a day. After the peak the system is in transient equilibrium: daughter activity declines with the PARENT's half-life. Correct hypothesis: rises, peaks, then falls at the parent's ~66 h rate.",
       lines:
         "what N₂ equals at t = 0 and what that does to each term; which term wins early and which late; what must be true of dN₂/dt exactly at the peak; the units of λ and of ln 2/t½; the limiting case λ₂ ≫ λ₁ and what the daughter's decline rate becomes long after the peak.",
+    },
+  },
+
+  {
+    id: "u235",
+    tab: "03 · ²³⁵U",
+    code: "PROBLEM 03",
+    figs: { identify: "fiA" },
+    card: { kicker: "PROBLEM 03 · FISSION ENERGETICS", name: "Splitting the heavyweight", blurb: "A slow neutron splits ²³⁵U into barium and krypton. Reason out whether that releases energy, how much, and why reactors need so little fuel.", cta: "Start with ²³⁵U →" },
+    title: "Splitting the heavyweight: what does one fission of ²³⁵U pay out?",
+    intro:
+      "A thermal neutron is absorbed by ²³⁵U and the nucleus splits: n + ²³⁵U → ¹⁴¹Ba + ⁹²Kr + 3n. Work out from binding energies whether this releases energy, how much, and what that means per kilogram of fuel.",
+    dataLabel: "Data — binding energy per nucleon b̄ = B/A, in MeV",
+    dataNote: "Free neutrons are unbound: b̄ = 0. Q is the gain in total binding energy. 1 u·c² = 931.5 MeV.",
+    squares: [
+      { main: "²³⁵U", s1: "Z=92", s2: "A=235", val: "b̄=7.591", tag: "target", accent: C.ink },
+      { main: "¹⁴¹Ba", s1: "Z=56", s2: "A=141", val: "b̄=8.326", tag: "fragment", accent: C.beta },
+      { main: "⁹²Kr", s1: "Z=36", s2: "A=92", val: "b̄=8.513", tag: "fragment", accent: C.beta },
+      { main: "n", s1: "Z=0", s2: "A=1", val: "b̄=0", tag: "1 in, 3 out", accent: C.stable },
+    ],
+    subs: [
+      "Before any arithmetic: when ²³⁵U splits into two mid-mass fragments, is energy released or absorbed? Lean on where each nucleus sits on the binding-energy curve.",
+      "Commit to the scale before calculating. Both commitments are tested against your own numbers in Stage V.",
+      "Assemble the Q-value from the binding energies per nucleon, and the fraction of the initial rest mass it represents. Careful: b̄ is per nucleon.",
+      "Now the numbers. Q in MeV to one decimal place; f as a percentage to three.",
+      "Line your result up against your commitments. Where they disagree, decide which was wrong and why — then deliver your verdict as if briefing a reactor physicist.",
+    ],
+    hypoLabel: "Hypothesis — when ²³⁵U splits into ¹⁴¹Ba + ⁹²Kr, energy is…",
+    hypotheses: [
+      { id: "released", label: "Released — the fragments are more tightly bound", note: "binding gained" },
+      { id: "absorbed", label: "Absorbed — splitting means breaking bonds", note: "binding lost" },
+      { id: "neutron", label: "Released — the neutron's energy is amplified", note: "kinetic multiplier" },
+      { id: "none", label: "Neither — nucleon number is conserved", note: "no net change" },
+    ],
+    hypoCorrect: "released",
+    hypoPlaceholder: "e.g. compare where uranium and the fragments sit on the curve…",
+    est: {
+      q: "What scale is the energy released per fission?",
+      options: [
+        { id: "1", label: "~ 1 MeV" },
+        { id: "10", label: "~ 10 MeV" },
+        { id: "200", label: "~ 200 MeV" },
+        { id: "GeV", label: "~ 1 GeV" },
+      ],
+      correct: "200",
+      chips: true,
+    },
+    pred: {
+      q: "Prediction: per kilogram, ²³⁵U fission releases more energy than burning coal (~30 MJ/kg) by a factor of…",
+      options: [
+        { id: "10", label: "~ 10" },
+        { id: "1e3", label: "~ a thousand" },
+        { id: "1e6", label: "~ a million" },
+      ],
+      correct: "1e6",
+      accent: C.alpha,
+    },
+    forms: [
+      {
+        label: "Q-value for n + ²³⁵U → ¹⁴¹Ba + ⁹²Kr + 3n",
+        options: [
+          { id: "a", tex: "Q = b̄(Ba) + b̄(Kr) − b̄(U)", correct: false },
+          { id: "b", tex: "Q = 141·b̄(Ba) + 92·b̄(Kr) − 235·b̄(U)", correct: true },
+          { id: "c", tex: "Q = 235·b̄(U) − 141·b̄(Ba) − 92·b̄(Kr)", correct: false },
+          { id: "d", tex: "Q = 141·b̄(Ba) + 92·b̄(Kr) − 236·b̄(U)", correct: false },
+        ],
+      },
+      {
+        label: "Fraction f of the initial rest mass (n + ²³⁵U, A = 236) released",
+        options: [
+          { id: "a", tex: "f = Q / (u·c²)", correct: false },
+          { id: "b", tex: "f = Q / (A·b̄(U))", correct: false },
+          { id: "c", tex: "f = Q / (A·u·c²)", correct: true },
+          { id: "d", tex: "f = Q / (A·mₑc²)", correct: false },
+        ],
+      },
+    ],
+    formLockNote: "Choose both expressions. The numbers stay locked until the formulation holds up.",
+    numFields: [
+      { key: "q", label: "Q per fission", ans: 173.3, tol: 2, unit: "MeV", dp: 1 },
+      { key: "f", label: "f — fraction of rest mass", ans: 0.079, tol: 0.004, unit: "%", dp: 3 },
+    ],
+    numHint: "b̄ is per nucleon — multiply by A. For f, 236 × 931.5 MeV is the rest energy you start with.",
+    numLockNote: "Enter Q in MeV and f as a percentage.",
+    recon: [
+      {
+        q: "Your hypothesis (Stage I)",
+        yours: (st, p) => p.hypotheses.find((h) => h.id === st.c1?.hypo)?.label || "—",
+        data: () => "Q > 0: the fragments hold their nucleons ~0.8 MeV more tightly each",
+        ok: (st, p) => st.c1?.hypo === p.hypoCorrect,
+      },
+      {
+        q: "Your energy scale (Stage II)",
+        yours: (st, p) => p.est.options.find((o) => o.id === st.c2?.scale)?.label || "—",
+        data: (st) => `computed Q = ${st.c4?.vals.q} MeV`,
+        ok: (st, p) => st.c2?.scale === p.est.correct,
+      },
+      {
+        q: "Your coal comparison (Stage II)",
+        yours: (st, p) => p.pred.options.find((o) => o.id === st.c2?.pred)?.label || "—",
+        data: (st) => {
+          const q = cv(st, "q");
+          return isFinite(q) ? `from your Q: ${((q * 1.602e-13 * 6.022e26) / 235 / 3e7).toExponential(1)} × coal` : "—";
+        },
+        ok: (st, p) => st.c2?.pred === p.pred.correct,
+      },
+    ],
+    verdictPrompt: "Your verdict — why does fission release energy, and how much? (2–4 sentences)",
+    verdictPlaceholder: "Give Q, the physics behind its sign, and — if an earlier commitment was overturned — what misled you…",
+    enrichment:
+      "For interest: the full energy budget of a ²³⁵U fission is ~200 MeV — the fragments' β and γ decays and the antineutrinos add to the prompt ~170 MeV. Under 0.1% of the mass converts, yet that is ~7×10¹³ J/kg: a reactor's annual fuel fits on a lorry.",
+    coach: {
+      problem:
+        '"A thermal neutron is absorbed by U-235, which splits: n + U-235 → Ba-141 + Kr-92 + 3n. Determine whether energy is released, how much, and the fraction of rest mass converted."',
+      data: "binding energy per nucleon b̄(U-235) = 7.591 MeV, b̄(Ba-141) = 8.326 MeV, b̄(Kr-92) = 8.513 MeV, free neutrons b̄ = 0; 1 u c² = 931.5 MeV.",
+      facts:
+        "Q = 141×8.326 + 92×8.513 − 235×7.591 ≈ 173.3 MeV (released). f = Q/(236×931.5 MeV) ≈ 7.9×10⁻⁴ ≈ 0.079%. Per kg ≈ 7×10¹³ J, ~2×10⁶ times coal. Correct hypothesis: released because the fragments are more tightly bound.",
+      lines:
+        "what binding energy means physically (energy you'd need to pull the nucleus apart); whether b̄ is per nucleon or total; where U and the fragments sit on the curve; whether free neutrons carry binding energy; how many nucleons U-235 actually contains; comparing MeV per atom with eV per atom in chemistry.",
+    },
+  },
+
+  {
+    id: "pp",
+    tab: "04 · p + p",
+    code: "PROBLEM 04",
+    figs: { identify: "fuA" },
+    card: { kicker: "PROBLEM 04 · FUSION AND THE COULOMB BARRIER", name: "Too cold to burn", blurb: "The Sun's core is 15 million kelvin — yet that looks far too cold for protons to fuse. Reason out how the Sun shines at all.", cta: "Start with p + p →" },
+    title: "Too cold to burn: how do protons fuse in the Sun?",
+    intro:
+      "Two protons must touch before the strong force can fuse them, and Coulomb repulsion stands in the way. Compare the height of that barrier with the thermal energy in the solar core, and work out what that says about how fusion happens.",
+    dataLabel: "Data — constants for the solar core",
+    dataNote: "Take the contact distance as R₁ + R₂, with R = r₀A^(1/3). Compare the barrier with kT, the characteristic thermal energy.",
+    squares: [
+      { main: "p", s1: "Z=1", s2: "A=1", val: "r₀=1.2 fm", tag: "proton", accent: C.ink },
+      { main: "e²/4πε₀", s1: "", s2: "Coulomb", val: "1.44 MeV·fm", tag: "constant", accent: C.beta },
+      { main: "k_B", s1: "", s2: "Boltzmann", val: "8.617×10⁻⁵ eV/K", tag: "constant", accent: C.beta },
+      { main: "T", s1: "", s2: "solar core", val: "1.57×10⁷ K", tag: "temperature", accent: C.alpha },
+    ],
+    subs: [
+      "No numbers yet. Protons in the core are moving fast and colliding constantly. Commit to how they get close enough to fuse — with the physics that justifies it.",
+      "Orders of magnitude first. Both estimates get tested against your own calculation in Stage V.",
+      "Assemble the barrier height at contact, and the nuclear radius that sets the contact distance.",
+      "Now the numbers. V_C to the nearest keV; kT in keV to two decimal places.",
+      "Set your result against your commitments. Where they disagree, decide which was wrong and why — then deliver your verdict as if explaining it to an astronomer.",
+    ],
+    hypoLabel: "Hypothesis — protons in the solar core fuse because…",
+    hypotheses: [
+      { id: "thermal", label: "Their thermal energy clears the barrier", note: "kT > V_C" },
+      { id: "tunnel", label: "A rare few tunnel through it", note: "quantum, from the fast tail" },
+      { id: "gravity", label: "Gravity squeezes them over it", note: "pressure does the work" },
+      { id: "none", label: "They don't — the Sun runs on something else", note: "no p + p fusion" },
+    ],
+    hypoCorrect: "tunnel",
+    hypoPlaceholder: "e.g. think about how big the barrier is compared with a typical collision…",
+    est: {
+      q: "On what scale is the Coulomb barrier between two protons?",
+      options: [
+        { id: "eV", label: "~ eV" },
+        { id: "keV", label: "~ keV" },
+        { id: "MeV", label: "~ 0.1–1 MeV" },
+        { id: "GeV", label: "~ GeV" },
+      ],
+      correct: "MeV",
+      chips: true,
+    },
+    pred: {
+      q: "Prediction: the barrier exceeds the typical thermal energy kT by a factor of…",
+      options: [
+        { id: "2", label: "~ 2" },
+        { id: "20", label: "~ 20" },
+        { id: "100s", label: "Hundreds or more" },
+      ],
+      correct: "100s",
+      accent: C.alpha,
+    },
+    forms: [
+      {
+        label: "Coulomb barrier height at contact",
+        options: [
+          { id: "a", tex: "V_C = (e²/4πε₀) · Z₁Z₂ / (R₁ + R₂)²", correct: false },
+          { id: "b", tex: "V_C = (e²/4πε₀) · (Z₁ + Z₂) / (R₁ + R₂)", correct: false },
+          { id: "c", tex: "V_C = (e²/4πε₀) · Z₁Z₂ / (R₁ + R₂)", correct: true },
+          { id: "d", tex: "V_C = (e²/4πε₀) · Z₁Z₂ / R₁", correct: false },
+        ],
+      },
+      {
+        label: "Nuclear radius",
+        options: [
+          { id: "a", tex: "R = r₀ A^(1/3)", correct: true },
+          { id: "b", tex: "R = r₀ A", correct: false },
+          { id: "c", tex: "R = r₀ A^(2/3)", correct: false },
+          { id: "d", tex: "R = r₀ A^(−1/3)", correct: false },
+        ],
+      },
+    ],
+    formLockNote: "Choose both expressions. The numbers stay locked until the formulation holds up.",
+    numFields: [
+      { key: "vc", label: "V_C — barrier height", ans: 600, tol: 20, unit: "keV", dp: 0 },
+      { key: "kt", label: "kT in the solar core", ans: 1.35, tol: 0.05, unit: "keV", dp: 2 },
+    ],
+    numHint: "1.44 MeV·fm divided by a distance in fm gives MeV. kT comes out in eV first.",
+    numLockNote: "Enter both values in keV.",
+    recon: [
+      {
+        q: "Your hypothesis (Stage I)",
+        yours: (st, p) => p.hypotheses.find((h) => h.id === st.c1?.hypo)?.label || "—",
+        data: () => "V_C ≫ kT: classically, essentially no proton reaches contact",
+        ok: (st, p) => st.c1?.hypo === p.hypoCorrect,
+      },
+      {
+        q: "Your barrier scale (Stage II)",
+        yours: (st, p) => p.est.options.find((o) => o.id === st.c2?.scale)?.label || "—",
+        data: (st) => `computed V_C = ${st.c4?.vals.vc} keV`,
+        ok: (st, p) => st.c2?.scale === p.est.correct,
+      },
+      {
+        q: "Your V_C / kT ratio (Stage II)",
+        yours: (st, p) => p.pred.options.find((o) => o.id === st.c2?.pred)?.label || "—",
+        data: (st) => {
+          const r = cv(st, "vc") / cv(st, "kt");
+          return isFinite(r) ? `computed V_C / kT ≈ ${Math.round(r)}` : "—";
+        },
+        ok: (st, p) => st.c2?.pred === p.pred.correct,
+      },
+    ],
+    verdictPrompt: "Your verdict — how does the Sun fuse protons, and what settles it? (2–4 sentences)",
+    verdictPlaceholder: "Compare the barrier with kT, say what that rules out, and — if a commitment was overturned — what misled you…",
+    enrichment:
+      "For interest: the tunnelling probability falls as exp(−√(E_G/E)), with Gamow energy E_G ≈ 490 keV for p + p. Multiplied by the Maxwell–Boltzmann tail, the reaction rate peaks near 6 keV — a few kT, far below the barrier. Add that p + p → d needs a weak decay mid-collision, and the Sun burns slowly enough to last ~10¹⁰ years.",
+    coach: {
+      problem:
+        '"Protons in the solar core (T = 1.57×10⁷ K) must reach contact to fuse. Compare the Coulomb barrier with the thermal energy kT and determine how fusion proceeds." Hypotheses: thermal energy clears the barrier, tunnelling, gravity, or no p + p fusion.',
+      data: "r₀ = 1.2 fm with R = r₀A^(1/3); e²/4πε₀ = 1.44 MeV·fm; k_B = 8.617×10⁻⁵ eV/K; T = 1.57×10⁷ K.",
+      facts:
+        "R₁ + R₂ = 2.4 fm; V_C = 1.44/2.4 ≈ 0.60 MeV = 600 keV. kT ≈ 1.35 keV. V_C/kT ≈ 440. Classically almost no protons clear it, even in the Maxwell tail; fusion proceeds by quantum tunnelling (Gamow peak ~6 keV). Correct hypothesis: tunnelling.",
+      lines:
+        "what sets the closest approach; how energy (not force) depends on separation; how radius scales with nucleon number (constant density); converting eV to keV; how many standard deviations into the Maxwell tail a proton at V_C would be; what quantum mechanics allows that classical physics forbids.",
+    },
+  },
+
+  {
+    id: "moderator",
+    tab: "05 · Moderator",
+    code: "PROBLEM 05",
+    figs: { identify: "moA" },
+    card: { kicker: "PROBLEM 05 · NEUTRON MODERATION", name: "Slowing the messenger", blurb: "Fission neutrons are born at ~2 MeV but ²³⁵U wants them slow. Reason out which material slows them in the fewest collisions.", cta: "Start with the moderator →" },
+    title: "Slowing the messenger: which moderator thermalises fastest?",
+    intro:
+      "Fission neutrons are born at about 2 MeV, but ²³⁵U fissions far more readily at thermal energy, 0.025 eV. A moderator slows them by elastic collisions. Work out which nucleus does it in the fewest collisions, and how many it takes.",
+    dataLabel: "Data — candidate moderators and the mean logarithmic energy decrement ξ",
+    dataNote: "ξ = average loss in ln E per elastic collision, isotropic in the centre-of-mass frame. Ignore absorption here.",
+    squares: [
+      { main: "¹H", s1: "A=1", s2: "water", val: "ξ = 1.000", tag: "moderator?", accent: C.beta },
+      { main: "¹²C", s1: "A=12", s2: "graphite", val: "ξ = 0.158", tag: "moderator?", accent: C.beta },
+      { main: "²⁰⁸Pb", s1: "A=208", s2: "lead", val: "ξ = 0.0096", tag: "moderator?", accent: C.beta },
+      { main: "n", s1: "", s2: "fission neutron", val: "2 MeV → 0.025 eV", tag: "born → thermal", accent: C.ink },
+    ],
+    subs: [
+      "Before any formula: which target nucleus takes the most energy off a neutron per collision? Commit, and justify it from the mechanics of an elastic collision.",
+      "Commit to orders of magnitude. Stage V tests both against your own numbers.",
+      "Assemble the energy a neutron keeps after a head-on collision, and the average number of collisions to reach thermal energy.",
+      "Now the numbers: collisions to thermalise in hydrogen (one decimal place) and in carbon (nearest whole number).",
+      "Hold the numbers against your commitments. Where they disagree, decide which was wrong and why — then deliver your verdict as if choosing a reactor's moderator.",
+    ],
+    hypoLabel: "Hypothesis — the fewest collisions to thermalise come from…",
+    hypotheses: [
+      { id: "H", label: "Hydrogen", note: "same mass as the neutron" },
+      { id: "C", label: "Carbon", note: "middle-weight" },
+      { id: "Pb", label: "Lead", note: "heaviest — the hardest wall" },
+      { id: "same", label: "All the same", note: "elastic collisions conserve energy" },
+    ],
+    hypoCorrect: "H",
+    hypoPlaceholder: "e.g. think about a snooker ball hitting another snooker ball, or a wall…",
+    est: {
+      q: "Roughly how many collisions with hydrogen take a 2 MeV neutron down to thermal?",
+      options: [
+        { id: "2", label: "~ 2" },
+        { id: "20", label: "~ 20" },
+        { id: "200", label: "~ 200" },
+        { id: "2000", label: "~ 2000" },
+      ],
+      correct: "20",
+      chips: true,
+    },
+    pred: {
+      q: "Prediction: compared with hydrogen, graphite needs…",
+      options: [
+        { id: "fewer", label: "Fewer collisions" },
+        { id: "same", label: "About the same" },
+        { id: "more", label: "Several times more" },
+      ],
+      correct: "more",
+      accent: C.alpha,
+    },
+    forms: [
+      {
+        label: "Energy kept after a head-on elastic collision with a nucleus of mass number A",
+        options: [
+          { id: "a", tex: "E′/E = (A − 1)/(A + 1)", correct: false },
+          { id: "b", tex: "E′/E = 4A/(A + 1)²", correct: false },
+          { id: "c", tex: "E′/E = 1/A", correct: false },
+          { id: "d", tex: "E′/E = ((A − 1)/(A + 1))²", correct: true },
+        ],
+      },
+      {
+        label: "Average number of collisions to slow from E₀ to E_th",
+        options: [
+          { id: "a", tex: "n = ln(E₀/E_th) / ξ", correct: true },
+          { id: "b", tex: "n = ξ · ln(E₀/E_th)", correct: false },
+          { id: "c", tex: "n = (E₀ − E_th) / ξ", correct: false },
+          { id: "d", tex: "n = log₁₀(E₀/E_th) / ξ", correct: false },
+        ],
+      },
+    ],
+    formLockNote: "Choose both expressions. The numbers stay locked until the formulation holds up.",
+    numFields: [
+      { key: "nh", label: "n — collisions in hydrogen", ans: 18.2, tol: 0.6, unit: "", dp: 1 },
+      { key: "nc", label: "n — collisions in carbon", ans: 115, tol: 4, unit: "", dp: 0 },
+    ],
+    numHint: "Natural log, and both energies in the same unit before taking the ratio.",
+    numLockNote: "Enter both collision counts.",
+    recon: [
+      {
+        q: "Your hypothesis (Stage I)",
+        yours: (st, p) => p.hypotheses.find((h) => h.id === st.c1?.hypo)?.label || "—",
+        data: () => "ξ is largest for hydrogen: an equal-mass target can take all the energy",
+        ok: (st, p) => st.c1?.hypo === p.hypoCorrect,
+      },
+      {
+        q: "Your hydrogen count (Stage II)",
+        yours: (st, p) => p.est.options.find((o) => o.id === st.c2?.scale)?.label || "—",
+        data: (st) => `computed n(H) = ${st.c4?.vals.nh}`,
+        ok: (st, p) => st.c2?.scale === p.est.correct,
+      },
+      {
+        q: "Your graphite prediction (Stage II)",
+        yours: (st, p) => p.pred.options.find((o) => o.id === st.c2?.pred)?.label || "—",
+        data: (st) => {
+          const r = cv(st, "nc") / cv(st, "nh");
+          return isFinite(r) ? `computed n(C) / n(H) ≈ ${r.toFixed(1)}` : "—";
+        },
+        ok: (st, p) => st.c2?.pred === p.pred.correct,
+      },
+    ],
+    verdictPrompt: "Your verdict — which moderator, and what settles it? (2–4 sentences)",
+    verdictPlaceholder: "Name the moderator, the mechanics behind it, and — if a commitment was overturned — what misled you…",
+    enrichment:
+      "For interest: light-water reactors use exactly this — but hydrogen also absorbs neutrons (n + p → d + γ), so natural-uranium designs use heavy water or graphite, accepting more collisions for far less absorption. Lead would need ~1900 collisions: a reflector or coolant, never a moderator.",
+    coach: {
+      problem:
+        '"Fission neutrons are born at 2 MeV and must be slowed to 0.025 eV. Which moderator — hydrogen, carbon or lead — does it in the fewest elastic collisions, and how many are needed?"',
+      data: "ξ(H-1) = 1.000, ξ(C-12) = 0.158, ξ(Pb-208) = 0.0096; E₀ = 2 MeV, E_th = 0.025 eV. Ignore absorption.",
+      facts:
+        "Head-on: E′/E = ((A−1)/(A+1))² — zero for hydrogen, 0.716 for carbon. n = ln(E₀/E_th)/ξ; ln(8×10⁷) ≈ 18.2, so n(H) ≈ 18.2, n(C) ≈ 115, n(Pb) ≈ 1900. Correct hypothesis: hydrogen.",
+      lines:
+        "what happens when a snooker ball hits an identical stationary ball head-on, versus a much heavier one; momentum and energy conservation in an elastic collision; what ξ measures and why a log appears; whether the energy loss per collision is a fixed amount or a fixed fraction; checking the limits A = 1 and A → ∞.",
     },
   },
 ];
@@ -1163,7 +1614,7 @@ function Intro({ onStart }) {
           <div style={{ fontFamily: F.mono, fontSize: 11, letterSpacing: "0.14em", color: C.beta }}>NUCLEAR SCIENCE · PHYSM0047</div>
           <h1 style={{ margin: "6px 0 0", fontFamily: F.phys, fontSize: 44, fontWeight: 600, lineHeight: 1.08, color: C.ink }}>Reason first, calculate second.</h1>
           <p style={{ margin: "14px 0 0", fontFamily: F.ui, fontSize: 16, lineHeight: 1.6, color: C.inkSoft }}>
-            Two problems from nuclear physics. In each one you say what you think is going on — and why — before any numbers unlock. At the end, you hold your calculation up against your own predictions and work out where they agree.
+            Five problems from nuclear physics. In each one you say what you think is going on — and why — before any numbers unlock. At the end, you hold your calculation up against your own predictions and work out where they agree.
           </p>
         </section>
 
@@ -1226,7 +1677,7 @@ function Intro({ onStart }) {
 /* ─── App shell ──────────────────────────────────────────────────── */
 
 const EDUCATOR_NOTES =
-  "This environment enforces commit-before-compute: students must frame the physics (ILO 1), estimate, and formulate (ILO 2–3) before numeric work unlocks. The AI coach is constrained to Socratic questioning — it is prompted never to state, confirm or deny answers, so the valuable cognitive work cannot be delegated to it; that constraint is what makes the task AI-aware by construction. Every attempt produces a structured reasoning trace (hypothesis, estimates, formulation attempts, numeric attempts, verdict) which the coach reads and which could be aggregated per cohort to locate where reasoning breaks. Problems are pure configuration driving a shared five-stage engine — Problem 01 exercises decay identification and Q-value energetics; Problem 02 exercises coupled decay equations and transient equilibrium. Adding a third problem is data entry, not development. The AI call is a single swappable function, ready to be pointed at an institution-funded API proxy for deployment.";
+  "This environment enforces commit-before-compute: students must frame the physics (ILO 1), estimate, and formulate (ILO 2–3) before numeric work unlocks. The AI coach is constrained to Socratic questioning — it is prompted never to state, confirm or deny answers, so the valuable cognitive work cannot be delegated to it; that constraint is what makes the task AI-aware by construction. Every attempt produces a structured reasoning trace (hypothesis, estimates, formulation attempts, numeric attempts, verdict) which the coach reads and which could be aggregated per cohort to locate where reasoning breaks. Problems are pure configuration driving a shared five-stage engine — Problem 01 exercises decay identification and Q-value energetics; Problem 02 coupled decay equations and transient equilibrium; Problem 03 fission energetics from the binding-energy curve; Problem 04 the Coulomb barrier and tunnelling in stellar fusion; Problem 05 neutron moderation kinematics. Adding another problem is data entry, not development. The AI call is a single swappable function, ready to be pointed at an institution-funded API proxy for deployment.";
 
 function App() {
   const [screen, setScreen] = useState("intro"); // "intro" | problem index
@@ -1280,7 +1731,7 @@ function App() {
             </div>
           )}
           {screen !== "intro" && (
-            <nav aria-label="Problems" className="flex gap-1 mt-2.5">
+            <nav aria-label="Problems" className="flex gap-1 mt-2.5 overflow-x-auto">
               {PROBLEMS.map((p, i) => (
                 <button
                   key={p.id}
@@ -1300,6 +1751,8 @@ function App() {
                     borderLeft: `1.5px solid ${screen === i ? C.ink : "transparent"}`,
                     borderRight: `1.5px solid ${screen === i ? C.ink : "transparent"}`,
                     borderBottom: "none",
+                    whiteSpace: "nowrap",
+                    flexShrink: 0,
                     cursor: "pointer",
                   }}
                 >
