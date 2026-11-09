@@ -21,9 +21,6 @@
   @keyframes climba{0%{opacity:0;transform:translate(0,0)}8%{opacity:1}40%{opacity:1;transform:translate(14px,-42px)}75%{opacity:.6;transform:translate(0,0)}85%,100%{opacity:0;transform:translate(0,0)}}
   .fallb{animation:fallb 3.6s 0s infinite both}.climba{animation:climba 3.6s 1.8s infinite both}
   
-  @keyframes feed{0%{opacity:0;transform:translate(0,0)}6%{opacity:1}55%{transform:translate(70px,0)}88%{opacity:1;transform:translate(70px,40px)}100%{opacity:0;transform:translate(70px,46px)}}
-  @keyframes drain{0%{opacity:0;transform:translate(0,0)}6%{opacity:1}60%{transform:translate(90px,0)}90%{opacity:1;transform:translate(90px,22px)}100%{opacity:0;transform:translate(90px,26px)}}
-  .feed{animation:feed 4.5s infinite both}.drain{animation:drain 1.8s infinite both}
   
   @keyframes fuin{0%{opacity:0;transform:translate(0,0)}10%{opacity:1}70%{opacity:1;transform:translate(-90px,0)}85%,100%{opacity:0;transform:translate(-90px,0)}}
   .fuin{animation:fuin 3.5s infinite both}
@@ -48,7 +45,7 @@ const { useState, useRef, useEffect } = React;
 /* ═══════════════════════════════════════════════════════════════════
    REASONING-FIRST PROBLEM ENVIRONMENT — prototype, problem set v2
    01 · ¹³⁷Cs decay identification (Q-values, mass excesses)
-   02 · ⁹⁹Mo/⁹⁹ᵐTc generator (coupled decay, transient equilibrium)
+   02 · γ shielding (exponential attenuation, half-value layer)
    03 · ²³⁵U fission (binding energy, Q-value, rest-mass fraction)
    04 · p + p in the Sun (Coulomb barrier vs kT, tunnelling)
    05 · Neutron moderation (elastic kinematics, collisions to thermal)
@@ -167,7 +164,7 @@ const F = {
 };
 
 /* Figures (SVG illustrations ported from the Design canvas) */
-const FIGS = {"csA": "<figure style=\"margin: 0 0 20px; padding: 16px 18px 14px; background: #F7F9FA; border: 1px solid #C3CBD2; border-radius: 2px\">\n          <svg role=\"img\" aria-label=\"A slice of the chart of nuclides, neutron number 78 to 84 across, proton number 52 to 57 up. Caesium-137 sits at N 82, Z 55. Dashed arrows show where each decay would move it: beta-minus to barium-137, beta-plus or electron capture to xenon-137, alpha to iodine-133.\" viewBox=\"0 0 480 410\" style=\"display: block; width: 100%; max-width: 480px; height: auto; margin: 0 auto\">\n          <defs><marker id=\"mA1\" orient=\"auto\" markerWidth=\"8\" markerHeight=\"8\" refX=\"6\" refY=\"4\" markerUnits=\"userSpaceOnUse\"><path d=\"M0 0 L8 4 L0 8 Z\" fill=\"#1F5AD6\"/></marker><marker id=\"mA2\" orient=\"auto\" markerWidth=\"8\" markerHeight=\"8\" refX=\"6\" refY=\"4\" markerUnits=\"userSpaceOnUse\"><path d=\"M0 0 L8 4 L0 8 Z\" fill=\"#6B4FBF\"/></marker><marker id=\"mA3\" orient=\"auto\" markerWidth=\"8\" markerHeight=\"8\" refX=\"6\" refY=\"4\" markerUnits=\"userSpaceOnUse\"><path d=\"M0 0 L8 4 L0 8 Z\" fill=\"#9A5F00\"/></marker></defs>\n          <rect x=\"60\" y=\"300\" width=\"56\" height=\"56\" fill=\"none\" stroke=\"#D8DEE3\" stroke-width=\"1\"/>\n          <rect x=\"60\" y=\"244\" width=\"56\" height=\"56\" fill=\"none\" stroke=\"#D8DEE3\" stroke-width=\"1\"/>\n          <rect x=\"60\" y=\"188\" width=\"56\" height=\"56\" fill=\"none\" stroke=\"#D8DEE3\" stroke-width=\"1\"/>\n          <rect x=\"60\" y=\"132\" width=\"56\" height=\"56\" fill=\"none\" stroke=\"#D8DEE3\" stroke-width=\"1\"/>\n          <rect x=\"60\" y=\"76\" width=\"56\" height=\"56\" fill=\"none\" stroke=\"#D8DEE3\" stroke-width=\"1\"/>\n          <rect x=\"60\" y=\"20\" width=\"56\" height=\"56\" fill=\"none\" stroke=\"#D8DEE3\" stroke-width=\"1\"/>\n          <rect x=\"116\" y=\"300\" width=\"56\" height=\"56\" fill=\"none\" stroke=\"#D8DEE3\" stroke-width=\"1\"/>\n          <rect x=\"116\" y=\"244\" width=\"56\" height=\"56\" fill=\"none\" stroke=\"#D8DEE3\" stroke-width=\"1\"/>\n          <rect x=\"116\" y=\"188\" width=\"56\" height=\"56\" fill=\"none\" stroke=\"#D8DEE3\" stroke-width=\"1\"/>\n          <rect x=\"116\" y=\"132\" width=\"56\" height=\"56\" fill=\"none\" stroke=\"#D8DEE3\" stroke-width=\"1\"/>\n          <rect x=\"116\" y=\"76\" width=\"56\" height=\"56\" fill=\"none\" stroke=\"#D8DEE3\" stroke-width=\"1\"/>\n          <rect x=\"116\" y=\"20\" width=\"56\" height=\"56\" fill=\"none\" stroke=\"#D8DEE3\" stroke-width=\"1\"/>\n          <rect x=\"172\" y=\"300\" width=\"56\" height=\"56\" fill=\"none\" stroke=\"#D8DEE3\" stroke-width=\"1\"/>\n          <rect x=\"172\" y=\"244\" width=\"56\" height=\"56\" fill=\"none\" stroke=\"#D8DEE3\" stroke-width=\"1\"/>\n          <rect x=\"172\" y=\"188\" width=\"56\" height=\"56\" fill=\"none\" stroke=\"#D8DEE3\" stroke-width=\"1\"/>\n          <rect x=\"172\" y=\"132\" width=\"56\" height=\"56\" fill=\"none\" stroke=\"#D8DEE3\" stroke-width=\"1\"/>\n          <rect x=\"172\" y=\"76\" width=\"56\" height=\"56\" fill=\"none\" stroke=\"#D8DEE3\" stroke-width=\"1\"/>\n          <rect x=\"172\" y=\"20\" width=\"56\" height=\"56\" fill=\"none\" stroke=\"#D8DEE3\" stroke-width=\"1\"/>\n          <rect x=\"228\" y=\"300\" width=\"56\" height=\"56\" fill=\"none\" stroke=\"#D8DEE3\" stroke-width=\"1\"/>\n          <rect x=\"228\" y=\"244\" width=\"56\" height=\"56\" fill=\"none\" stroke=\"#D8DEE3\" stroke-width=\"1\"/>\n          <rect x=\"228\" y=\"188\" width=\"56\" height=\"56\" fill=\"none\" stroke=\"#D8DEE3\" stroke-width=\"1\"/>\n          <rect x=\"228\" y=\"132\" width=\"56\" height=\"56\" fill=\"none\" stroke=\"#D8DEE3\" stroke-width=\"1\"/>\n          <rect x=\"228\" y=\"76\" width=\"56\" height=\"56\" fill=\"none\" stroke=\"#D8DEE3\" stroke-width=\"1\"/>\n          <rect x=\"228\" y=\"20\" width=\"56\" height=\"56\" fill=\"none\" stroke=\"#D8DEE3\" stroke-width=\"1\"/>\n          <rect x=\"284\" y=\"300\" width=\"56\" height=\"56\" fill=\"none\" stroke=\"#D8DEE3\" stroke-width=\"1\"/>\n          <rect x=\"284\" y=\"244\" width=\"56\" height=\"56\" fill=\"none\" stroke=\"#D8DEE3\" stroke-width=\"1\"/>\n          <rect x=\"284\" y=\"188\" width=\"56\" height=\"56\" fill=\"none\" stroke=\"#D8DEE3\" stroke-width=\"1\"/>\n          <rect x=\"284\" y=\"132\" width=\"56\" height=\"56\" fill=\"none\" stroke=\"#D8DEE3\" stroke-width=\"1\"/>\n          <rect x=\"284\" y=\"76\" width=\"56\" height=\"56\" fill=\"none\" stroke=\"#D8DEE3\" stroke-width=\"1\"/>\n          <rect x=\"284\" y=\"20\" width=\"56\" height=\"56\" fill=\"none\" stroke=\"#D8DEE3\" stroke-width=\"1\"/>\n          <rect x=\"340\" y=\"300\" width=\"56\" height=\"56\" fill=\"none\" stroke=\"#D8DEE3\" stroke-width=\"1\"/>\n          <rect x=\"340\" y=\"244\" width=\"56\" height=\"56\" fill=\"none\" stroke=\"#D8DEE3\" stroke-width=\"1\"/>\n          <rect x=\"340\" y=\"188\" width=\"56\" height=\"56\" fill=\"none\" stroke=\"#D8DEE3\" stroke-width=\"1\"/>\n          <rect x=\"340\" y=\"132\" width=\"56\" height=\"56\" fill=\"none\" stroke=\"#D8DEE3\" stroke-width=\"1\"/>\n          <rect x=\"340\" y=\"76\" width=\"56\" height=\"56\" fill=\"none\" stroke=\"#D8DEE3\" stroke-width=\"1\"/>\n          <rect x=\"340\" y=\"20\" width=\"56\" height=\"56\" fill=\"none\" stroke=\"#D8DEE3\" stroke-width=\"1\"/>\n          <rect x=\"396\" y=\"300\" width=\"56\" height=\"56\" fill=\"none\" stroke=\"#D8DEE3\" stroke-width=\"1\"/>\n          <rect x=\"396\" y=\"244\" width=\"56\" height=\"56\" fill=\"none\" stroke=\"#D8DEE3\" stroke-width=\"1\"/>\n          <rect x=\"396\" y=\"188\" width=\"56\" height=\"56\" fill=\"none\" stroke=\"#D8DEE3\" stroke-width=\"1\"/>\n          <rect x=\"396\" y=\"132\" width=\"56\" height=\"56\" fill=\"none\" stroke=\"#D8DEE3\" stroke-width=\"1\"/>\n          <rect x=\"396\" y=\"76\" width=\"56\" height=\"56\" fill=\"none\" stroke=\"#D8DEE3\" stroke-width=\"1\"/>\n          <rect x=\"396\" y=\"20\" width=\"56\" height=\"56\" fill=\"none\" stroke=\"#D8DEE3\" stroke-width=\"1\"/>\n          <line x1=\"172\" y1=\"20\" x2=\"452\" y2=\"300\" stroke=\"#AEB6BF\" stroke-width=\"1.5\" stroke-dasharray=\"3 5\"/>\n          <text x=\"446\" y=\"322\" text-anchor=\"end\" font-family=\"'IBM Plex Mono', monospace\" font-size=\"11\" fill=\"#4A5160\" paint-order=\"stroke\" stroke=\"#F7F9FA\" stroke-width=\"4\" stroke-linejoin=\"round\">A = 137</text>\n          <rect x=\"230\" y=\"78\" width=\"52\" height=\"52\" rx=\"2\" fill=\"#FFFFFF\" stroke=\"#1F5AD6\" stroke-width=\"1.5\" stroke-dasharray=\"5 4\"/>\n          <text x=\"256\" y=\"109\" text-anchor=\"middle\" font-family=\"'STIX Two Text', Georgia, serif\" font-size=\"15\" font-weight=\"600\" fill=\"#171A21\" paint-order=\"stroke\" stroke=\"#F7F9FA\" stroke-width=\"4\" stroke-linejoin=\"round\">¹³⁷Ba</text>\n          <rect x=\"342\" y=\"190\" width=\"52\" height=\"52\" rx=\"2\" fill=\"#FFFFFF\" stroke=\"#6B4FBF\" stroke-width=\"1.5\" stroke-dasharray=\"5 4\"/>\n          <text x=\"368\" y=\"221\" text-anchor=\"middle\" font-family=\"'STIX Two Text', Georgia, serif\" font-size=\"15\" font-weight=\"600\" fill=\"#171A21\" paint-order=\"stroke\" stroke=\"#F7F9FA\" stroke-width=\"4\" stroke-linejoin=\"round\">¹³⁷Xe</text>\n          <rect x=\"174\" y=\"246\" width=\"52\" height=\"52\" rx=\"2\" fill=\"#FFFFFF\" stroke=\"#9A5F00\" stroke-width=\"1.5\" stroke-dasharray=\"5 4\"/>\n          <text x=\"200\" y=\"277\" text-anchor=\"middle\" font-family=\"'STIX Two Text', Georgia, serif\" font-size=\"15\" font-weight=\"600\" fill=\"#171A21\" paint-order=\"stroke\" stroke=\"#F7F9FA\" stroke-width=\"4\" stroke-linejoin=\"round\">¹³³I</text>\n          <rect x=\"286\" y=\"134\" width=\"52\" height=\"52\" rx=\"2\" fill=\"#FFFFFF\" stroke=\"#171A21\" stroke-width=\"2\"/>\n          <text x=\"312\" y=\"165\" text-anchor=\"middle\" font-family=\"'STIX Two Text', Georgia, serif\" font-size=\"15\" font-weight=\"600\" fill=\"#171A21\" paint-order=\"stroke\" stroke=\"#F7F9FA\" stroke-width=\"4\" stroke-linejoin=\"round\">¹³⁷Cs</text>\n          <line x1=\"297.9\" y1=\"145.9\" x2=\"271.6\" y2=\"119.6\" stroke=\"#1F5AD6\" stroke-width=\"2\" stroke-dasharray=\"5 4\" marker-end=\"url(#mA1)\"/>\n          <line x1=\"326.1\" y1=\"174.1\" x2=\"352.4\" y2=\"200.4\" stroke=\"#6B4FBF\" stroke-width=\"2\" stroke-dasharray=\"5 4\" marker-end=\"url(#mA2)\"/>\n          <line x1=\"297.9\" y1=\"174.1\" x2=\"215.6\" y2=\"256.4\" stroke=\"#9A5F00\" stroke-width=\"2\" stroke-dasharray=\"5 4\" marker-end=\"url(#mA3)\"/>\n          <text x=\"292\" y=\"120\" font-family=\"'IBM Plex Sans', system-ui, sans-serif\" font-size=\"13\" font-weight=\"600\" fill=\"#1F5AD6\" paint-order=\"stroke\" stroke=\"#F7F9FA\" stroke-width=\"4\" stroke-linejoin=\"round\">β⁻</text>\n          <text x=\"346\" y=\"180\" font-family=\"'IBM Plex Sans', system-ui, sans-serif\" font-size=\"13\" font-weight=\"600\" fill=\"#6B4FBF\" paint-order=\"stroke\" stroke=\"#F7F9FA\" stroke-width=\"4\" stroke-linejoin=\"round\">β⁺ / EC</text>\n          <text x=\"252\" y=\"236\" text-anchor=\"end\" font-family=\"'IBM Plex Sans', system-ui, sans-serif\" font-size=\"13\" font-weight=\"600\" fill=\"#9A5F00\" paint-order=\"stroke\" stroke=\"#F7F9FA\" stroke-width=\"4\" stroke-linejoin=\"round\">α</text>\n          <circle class=\"anim mvb\" cx=\"312\" cy=\"160\" r=\"5\" fill=\"#1F5AD6\" style=\"opacity: 0\"/>\n          <circle class=\"anim mvp\" cx=\"312\" cy=\"160\" r=\"5\" fill=\"#6B4FBF\" style=\"opacity: 0\"/>\n          <circle class=\"anim mva\" cx=\"312\" cy=\"160\" r=\"5\" fill=\"#9A5F00\" style=\"opacity: 0\"/>\n          <text x=\"88\" y=\"374\" text-anchor=\"middle\" font-family=\"'IBM Plex Mono', monospace\" font-size=\"11\" fill=\"#4A5160\">78</text>\n          <text x=\"144\" y=\"374\" text-anchor=\"middle\" font-family=\"'IBM Plex Mono', monospace\" font-size=\"11\" fill=\"#4A5160\">79</text>\n          <text x=\"200\" y=\"374\" text-anchor=\"middle\" font-family=\"'IBM Plex Mono', monospace\" font-size=\"11\" fill=\"#4A5160\">80</text>\n          <text x=\"256\" y=\"374\" text-anchor=\"middle\" font-family=\"'IBM Plex Mono', monospace\" font-size=\"11\" fill=\"#4A5160\">81</text>\n          <text x=\"312\" y=\"374\" text-anchor=\"middle\" font-family=\"'IBM Plex Mono', monospace\" font-size=\"11\" fill=\"#4A5160\">82</text>\n          <text x=\"368\" y=\"374\" text-anchor=\"middle\" font-family=\"'IBM Plex Mono', monospace\" font-size=\"11\" fill=\"#4A5160\">83</text>\n          <text x=\"424\" y=\"374\" text-anchor=\"middle\" font-family=\"'IBM Plex Mono', monospace\" font-size=\"11\" fill=\"#4A5160\">84</text>\n          <text x=\"50\" y=\"332\" text-anchor=\"end\" font-family=\"'IBM Plex Mono', monospace\" font-size=\"11\" fill=\"#4A5160\">52</text>\n          <text x=\"50\" y=\"276\" text-anchor=\"end\" font-family=\"'IBM Plex Mono', monospace\" font-size=\"11\" fill=\"#4A5160\">53</text>\n          <text x=\"50\" y=\"220\" text-anchor=\"end\" font-family=\"'IBM Plex Mono', monospace\" font-size=\"11\" fill=\"#4A5160\">54</text>\n          <text x=\"50\" y=\"164\" text-anchor=\"end\" font-family=\"'IBM Plex Mono', monospace\" font-size=\"11\" fill=\"#4A5160\">55</text>\n          <text x=\"50\" y=\"108\" text-anchor=\"end\" font-family=\"'IBM Plex Mono', monospace\" font-size=\"11\" fill=\"#4A5160\">56</text>\n          <text x=\"50\" y=\"52\" text-anchor=\"end\" font-family=\"'IBM Plex Mono', monospace\" font-size=\"11\" fill=\"#4A5160\">57</text>\n          <text x=\"256\" y=\"400\" text-anchor=\"middle\" font-family=\"'IBM Plex Sans', system-ui, sans-serif\" font-size=\"11.5\" font-weight=\"600\" fill=\"#4A5160\">N — neutrons →</text>\n          <text x=\"14\" y=\"188\" text-anchor=\"middle\" transform=\"rotate(-90 14 188)\" font-family=\"'IBM Plex Sans', system-ui, sans-serif\" font-size=\"11.5\" font-weight=\"600\" fill=\"#4A5160\">Z — protons →</text>\n          </svg>\n          <div style=\"display: flex; flex-wrap: wrap; gap: 8px 20px; margin-top: 8px; font-family: 'IBM Plex Mono', monospace; font-size: 11.5px; color: #4A5160\">\n            <span><b style=\"color: #1F5AD6\">β⁻</b> n → p · Z + 1, N − 1</span>\n            <span><b style=\"color: #6B4FBF\">β⁺ / EC</b> p → n · Z − 1, N + 1</span>\n            <span><b style=\"color: #9A5F00\">α</b> loses 2p + 2n · Z − 2, N − 2</span>\n          </div>\n          <figcaption style=\"margin-top: 10px; font-size: 12.5px; line-height: 1.5; color: #4A5160; max-width: 620px\">Fig. 1 — A slice of the chart of nuclides around ¹³⁷Cs. Each candidate decay moves the nucleus to a different square. Which of those moves actually releases energy is what the data will settle.</figcaption>\n        </figure>", "csB": "<figure style=\"margin: 0 0 20px; padding: 16px 18px 14px; background: #F7F9FA; border: 1px solid #C3CBD2; border-radius: 2px\">\n          <svg role=\"img\" aria-label=\"Energy ledger measured from caesium-137 at zero. Barium-137 sits 1.17 MeV lower, so beta-minus decay releases energy. Iodine-133 plus helium-4 sits 3.11 MeV higher, so alpha decay would need energy put in.\" viewBox=\"0 0 600 320\" style=\"display: block; width: 100%; max-width: 600px; height: auto; margin: 0 auto\">\n          <defs><marker id=\"mB1\" orient=\"auto\" markerWidth=\"8\" markerHeight=\"8\" refX=\"6\" refY=\"4\" markerUnits=\"userSpaceOnUse\"><path d=\"M0 0 L8 4 L0 8 Z\" fill=\"#1F7A55\"/></marker><marker id=\"mB2\" orient=\"auto\" markerWidth=\"8\" markerHeight=\"8\" refX=\"6\" refY=\"4\" markerUnits=\"userSpaceOnUse\"><path d=\"M0 0 L8 4 L0 8 Z\" fill=\"#BC4327\"/></marker></defs>\n          <line x1=\"70\" y1=\"24\" x2=\"70\" y2=\"300\" stroke=\"#4A5160\" stroke-width=\"1.5\"/>\n          <line x1=\"64\" y1=\"50\" x2=\"70\" y2=\"50\" stroke=\"#4A5160\" stroke-width=\"1.5\"/>\n          <text x=\"58\" y=\"54\" text-anchor=\"end\" font-family=\"'IBM Plex Mono', monospace\" font-size=\"11\" fill=\"#4A5160\">+3</text>\n          <line x1=\"64\" y1=\"100\" x2=\"70\" y2=\"100\" stroke=\"#4A5160\" stroke-width=\"1.5\"/>\n          <text x=\"58\" y=\"104\" text-anchor=\"end\" font-family=\"'IBM Plex Mono', monospace\" font-size=\"11\" fill=\"#4A5160\">+2</text>\n          <line x1=\"64\" y1=\"150\" x2=\"70\" y2=\"150\" stroke=\"#4A5160\" stroke-width=\"1.5\"/>\n          <text x=\"58\" y=\"154\" text-anchor=\"end\" font-family=\"'IBM Plex Mono', monospace\" font-size=\"11\" fill=\"#4A5160\">+1</text>\n          <line x1=\"64\" y1=\"200\" x2=\"70\" y2=\"200\" stroke=\"#4A5160\" stroke-width=\"1.5\"/>\n          <text x=\"58\" y=\"204\" text-anchor=\"end\" font-family=\"'IBM Plex Mono', monospace\" font-size=\"11\" fill=\"#4A5160\">0</text>\n          <line x1=\"64\" y1=\"250\" x2=\"70\" y2=\"250\" stroke=\"#4A5160\" stroke-width=\"1.5\"/>\n          <text x=\"58\" y=\"254\" text-anchor=\"end\" font-family=\"'IBM Plex Mono', monospace\" font-size=\"11\" fill=\"#4A5160\">−1</text>\n          <text x=\"18\" y=\"160\" text-anchor=\"middle\" transform=\"rotate(-90 18 160)\" font-family=\"'IBM Plex Sans', system-ui, sans-serif\" font-size=\"11.5\" font-weight=\"600\" fill=\"#4A5160\">Energy relative to ¹³⁷Cs (MeV)</text>\n          <line x1=\"70\" y1=\"200\" x2=\"560\" y2=\"200\" stroke=\"#D8DEE3\" stroke-width=\"1\" stroke-dasharray=\"2 4\"/>\n          <line x1=\"140\" y1=\"200\" x2=\"290\" y2=\"200\" stroke=\"#171A21\" stroke-width=\"3\"/>\n          <text x=\"215\" y=\"188\" text-anchor=\"middle\" font-family=\"'STIX Two Text', Georgia, serif\" font-size=\"16\" font-weight=\"600\" fill=\"#171A21\">¹³⁷Cs</text>\n          <line x1=\"350\" y1=\"259\" x2=\"520\" y2=\"259\" stroke=\"#1F7A55\" stroke-width=\"3\"/>\n          <text x=\"435\" y=\"248\" text-anchor=\"middle\" font-family=\"'STIX Two Text', Georgia, serif\" font-size=\"16\" font-weight=\"600\" fill=\"#171A21\">¹³⁷Ba</text>\n          <text x=\"435\" y=\"280\" text-anchor=\"middle\" font-family=\"'IBM Plex Mono', monospace\" font-size=\"11.5\" fill=\"#1F7A55\">Qβ = +1.17 MeV · released</text>\n          <line x1=\"350\" y1=\"45\" x2=\"520\" y2=\"45\" stroke=\"#BC4327\" stroke-width=\"3\" stroke-dasharray=\"8 5\"/>\n          <text x=\"435\" y=\"34\" text-anchor=\"middle\" font-family=\"'STIX Two Text', Georgia, serif\" font-size=\"16\" font-weight=\"600\" fill=\"#171A21\">¹³³I + ⁴He</text>\n          <text x=\"435\" y=\"66\" text-anchor=\"middle\" font-family=\"'IBM Plex Mono', monospace\" font-size=\"11.5\" fill=\"#BC4327\">Qα = −3.11 MeV · must be paid in</text>\n          <line x1=\"296\" y1=\"204\" x2=\"342\" y2=\"253\" stroke=\"#1F7A55\" stroke-width=\"2\" marker-end=\"url(#mB1)\"/>\n          <line x1=\"296\" y1=\"194\" x2=\"344\" y2=\"54\" stroke=\"#BC4327\" stroke-width=\"2\" stroke-dasharray=\"5 4\" marker-end=\"url(#mB2)\"/>\n          <circle class=\"anim fallb\" cx=\"296\" cy=\"200\" r=\"5\" fill=\"#1F7A55\" style=\"opacity: 0\"/>\n          <circle class=\"anim climba\" cx=\"296\" cy=\"200\" r=\"5\" fill=\"#BC4327\" style=\"opacity: 0\"/>\n          </svg>\n          <figcaption style=\"margin-top: 10px; font-size: 12.5px; line-height: 1.5; color: #4A5160; max-width: 620px\">Fig. 2 — The Q-values as an energy ledger. Measured from ¹³⁷Cs, the β⁻ daughter sits lower, so the decay runs downhill and releases energy. ¹³³I + ⁴He sits higher: α decay would have to climb, and nothing pays for the climb.</figcaption>\n        </figure>", "tcC": "<figure style=\"margin: 0 0 20px; padding: 16px 18px 14px; background: #F7F9FA; border: 1px solid #C3CBD2; border-radius: 2px\">\n          <svg role=\"img\" aria-label=\"A fill-and-drain picture of the generator. A large tank of molybdenum-99 slowly feeds the middle tank of technetium-99m, which starts empty and drains into an inert technetium-99 bin.\" viewBox=\"0 0 580 320\" style=\"display: block; width: 100%; max-width: 580px; height: auto; margin: 0 auto\">\n          <text x=\"110\" y=\"28\" text-anchor=\"middle\" font-family=\"'STIX Two Text', Georgia, serif\" font-size=\"16\" font-weight=\"600\" fill=\"#171A21\">⁹⁹Mo · the cow</text>\n          <rect x=\"40\" y=\"40\" width=\"140\" height=\"120\" rx=\"3\" fill=\"#FFFFFF\" stroke=\"#171A21\" stroke-width=\"2\"/>\n          <rect x=\"42\" y=\"52\" width=\"136\" height=\"106\" fill=\"#D8DEE3\"/>\n          <text x=\"110\" y=\"182\" text-anchor=\"middle\" font-family=\"'IBM Plex Mono', monospace\" font-size=\"11.5\" fill=\"#4A5160\">t½ = 65.9 h</text>\n          <path d=\"M 180 140 L 250 140 L 250 162\" fill=\"none\" stroke=\"#AEB6BF\" stroke-width=\"10\" stroke-linejoin=\"round\"/>\n          <text x=\"215\" y=\"128\" text-anchor=\"middle\" font-family=\"'IBM Plex Sans', system-ui, sans-serif\" font-size=\"12\" font-weight=\"600\" fill=\"#4A5160\">feeds in</text>\n          <rect x=\"200\" y=\"170\" width=\"120\" height=\"90\" rx=\"3\" fill=\"#FFFFFF\" stroke=\"#1F5AD6\" stroke-width=\"2\"/>\n          <rect x=\"202\" y=\"250\" width=\"116\" height=\"8\" fill=\"#E4EBFB\"/>\n          <text x=\"260\" y=\"284\" text-anchor=\"middle\" font-family=\"'STIX Two Text', Georgia, serif\" font-size=\"16\" font-weight=\"600\" fill=\"#171A21\">⁹⁹ᵐTc · the milk</text>\n          <text x=\"260\" y=\"302\" text-anchor=\"middle\" font-family=\"'IBM Plex Mono', monospace\" font-size=\"11.5\" fill=\"#4A5160\">t½ = 6.01 h · starts empty</text>\n          <path d=\"M 320 236 L 410 236 L 410 254\" fill=\"none\" stroke=\"#AEB6BF\" stroke-width=\"10\" stroke-linejoin=\"round\"/>\n          <text x=\"365\" y=\"224\" text-anchor=\"middle\" font-family=\"'IBM Plex Sans', system-ui, sans-serif\" font-size=\"12\" font-weight=\"600\" fill=\"#4A5160\">drains out</text>\n          <rect x=\"370\" y=\"258\" width=\"160\" height=\"34\" rx=\"3\" fill=\"#FFFFFF\" stroke=\"#1F7A55\" stroke-width=\"2\"/>\n          <text x=\"450\" y=\"280\" text-anchor=\"middle\" font-family=\"'STIX Two Text', Georgia, serif\" font-size=\"14\" font-weight=\"600\" fill=\"#171A21\">⁹⁹Tc · inert</text>\n          <circle class=\"anim feed\" cx=\"180\" cy=\"140\" r=\"4.5\" fill=\"#171A21\" style=\"opacity: 0; animation-delay: 0s\"/>\n          <circle class=\"anim feed\" cx=\"180\" cy=\"140\" r=\"4.5\" fill=\"#171A21\" style=\"opacity: 0; animation-delay: 1.5s\"/>\n          <circle class=\"anim feed\" cx=\"180\" cy=\"140\" r=\"4.5\" fill=\"#171A21\" style=\"opacity: 0; animation-delay: 3s\"/>\n          <circle class=\"anim drain\" cx=\"320\" cy=\"236\" r=\"4.5\" fill=\"#1F5AD6\" style=\"opacity: 0; animation-delay: 0s\"/>\n          <circle class=\"anim drain\" cx=\"320\" cy=\"236\" r=\"4.5\" fill=\"#1F5AD6\" style=\"opacity: 0; animation-delay: 0.6s\"/>\n          <circle class=\"anim drain\" cx=\"320\" cy=\"236\" r=\"4.5\" fill=\"#1F5AD6\" style=\"opacity: 0; animation-delay: 1.2s\"/>\n          </svg>\n          <figcaption style=\"margin-top: 10px; font-size: 12.5px; line-height: 1.5; color: #4A5160; max-width: 620px\">Fig. 1 — The generator as fill and drain. ⁹⁹ᵐTc is fed by decays in its parent and emptied by its own decays; each flow runs on its own clock. The middle tank starts empty. What its level does next is your hypothesis.</figcaption>\n        </figure>"};
+const FIGS = {"csA": "<figure style=\"margin: 0 0 20px; padding: 16px 18px 14px; background: #F7F9FA; border: 1px solid #C3CBD2; border-radius: 2px\">\n          <svg role=\"img\" aria-label=\"A slice of the chart of nuclides, neutron number 78 to 84 across, proton number 52 to 57 up. Caesium-137 sits at N 82, Z 55. Dashed arrows show where each decay would move it: beta-minus to barium-137, beta-plus or electron capture to xenon-137, alpha to iodine-133.\" viewBox=\"0 0 480 410\" style=\"display: block; width: 100%; max-width: 480px; height: auto; margin: 0 auto\">\n          <defs><marker id=\"mA1\" orient=\"auto\" markerWidth=\"8\" markerHeight=\"8\" refX=\"6\" refY=\"4\" markerUnits=\"userSpaceOnUse\"><path d=\"M0 0 L8 4 L0 8 Z\" fill=\"#1F5AD6\"/></marker><marker id=\"mA2\" orient=\"auto\" markerWidth=\"8\" markerHeight=\"8\" refX=\"6\" refY=\"4\" markerUnits=\"userSpaceOnUse\"><path d=\"M0 0 L8 4 L0 8 Z\" fill=\"#6B4FBF\"/></marker><marker id=\"mA3\" orient=\"auto\" markerWidth=\"8\" markerHeight=\"8\" refX=\"6\" refY=\"4\" markerUnits=\"userSpaceOnUse\"><path d=\"M0 0 L8 4 L0 8 Z\" fill=\"#9A5F00\"/></marker></defs>\n          <rect x=\"60\" y=\"300\" width=\"56\" height=\"56\" fill=\"none\" stroke=\"#D8DEE3\" stroke-width=\"1\"/>\n          <rect x=\"60\" y=\"244\" width=\"56\" height=\"56\" fill=\"none\" stroke=\"#D8DEE3\" stroke-width=\"1\"/>\n          <rect x=\"60\" y=\"188\" width=\"56\" height=\"56\" fill=\"none\" stroke=\"#D8DEE3\" stroke-width=\"1\"/>\n          <rect x=\"60\" y=\"132\" width=\"56\" height=\"56\" fill=\"none\" stroke=\"#D8DEE3\" stroke-width=\"1\"/>\n          <rect x=\"60\" y=\"76\" width=\"56\" height=\"56\" fill=\"none\" stroke=\"#D8DEE3\" stroke-width=\"1\"/>\n          <rect x=\"60\" y=\"20\" width=\"56\" height=\"56\" fill=\"none\" stroke=\"#D8DEE3\" stroke-width=\"1\"/>\n          <rect x=\"116\" y=\"300\" width=\"56\" height=\"56\" fill=\"none\" stroke=\"#D8DEE3\" stroke-width=\"1\"/>\n          <rect x=\"116\" y=\"244\" width=\"56\" height=\"56\" fill=\"none\" stroke=\"#D8DEE3\" stroke-width=\"1\"/>\n          <rect x=\"116\" y=\"188\" width=\"56\" height=\"56\" fill=\"none\" stroke=\"#D8DEE3\" stroke-width=\"1\"/>\n          <rect x=\"116\" y=\"132\" width=\"56\" height=\"56\" fill=\"none\" stroke=\"#D8DEE3\" stroke-width=\"1\"/>\n          <rect x=\"116\" y=\"76\" width=\"56\" height=\"56\" fill=\"none\" stroke=\"#D8DEE3\" stroke-width=\"1\"/>\n          <rect x=\"116\" y=\"20\" width=\"56\" height=\"56\" fill=\"none\" stroke=\"#D8DEE3\" stroke-width=\"1\"/>\n          <rect x=\"172\" y=\"300\" width=\"56\" height=\"56\" fill=\"none\" stroke=\"#D8DEE3\" stroke-width=\"1\"/>\n          <rect x=\"172\" y=\"244\" width=\"56\" height=\"56\" fill=\"none\" stroke=\"#D8DEE3\" stroke-width=\"1\"/>\n          <rect x=\"172\" y=\"188\" width=\"56\" height=\"56\" fill=\"none\" stroke=\"#D8DEE3\" stroke-width=\"1\"/>\n          <rect x=\"172\" y=\"132\" width=\"56\" height=\"56\" fill=\"none\" stroke=\"#D8DEE3\" stroke-width=\"1\"/>\n          <rect x=\"172\" y=\"76\" width=\"56\" height=\"56\" fill=\"none\" stroke=\"#D8DEE3\" stroke-width=\"1\"/>\n          <rect x=\"172\" y=\"20\" width=\"56\" height=\"56\" fill=\"none\" stroke=\"#D8DEE3\" stroke-width=\"1\"/>\n          <rect x=\"228\" y=\"300\" width=\"56\" height=\"56\" fill=\"none\" stroke=\"#D8DEE3\" stroke-width=\"1\"/>\n          <rect x=\"228\" y=\"244\" width=\"56\" height=\"56\" fill=\"none\" stroke=\"#D8DEE3\" stroke-width=\"1\"/>\n          <rect x=\"228\" y=\"188\" width=\"56\" height=\"56\" fill=\"none\" stroke=\"#D8DEE3\" stroke-width=\"1\"/>\n          <rect x=\"228\" y=\"132\" width=\"56\" height=\"56\" fill=\"none\" stroke=\"#D8DEE3\" stroke-width=\"1\"/>\n          <rect x=\"228\" y=\"76\" width=\"56\" height=\"56\" fill=\"none\" stroke=\"#D8DEE3\" stroke-width=\"1\"/>\n          <rect x=\"228\" y=\"20\" width=\"56\" height=\"56\" fill=\"none\" stroke=\"#D8DEE3\" stroke-width=\"1\"/>\n          <rect x=\"284\" y=\"300\" width=\"56\" height=\"56\" fill=\"none\" stroke=\"#D8DEE3\" stroke-width=\"1\"/>\n          <rect x=\"284\" y=\"244\" width=\"56\" height=\"56\" fill=\"none\" stroke=\"#D8DEE3\" stroke-width=\"1\"/>\n          <rect x=\"284\" y=\"188\" width=\"56\" height=\"56\" fill=\"none\" stroke=\"#D8DEE3\" stroke-width=\"1\"/>\n          <rect x=\"284\" y=\"132\" width=\"56\" height=\"56\" fill=\"none\" stroke=\"#D8DEE3\" stroke-width=\"1\"/>\n          <rect x=\"284\" y=\"76\" width=\"56\" height=\"56\" fill=\"none\" stroke=\"#D8DEE3\" stroke-width=\"1\"/>\n          <rect x=\"284\" y=\"20\" width=\"56\" height=\"56\" fill=\"none\" stroke=\"#D8DEE3\" stroke-width=\"1\"/>\n          <rect x=\"340\" y=\"300\" width=\"56\" height=\"56\" fill=\"none\" stroke=\"#D8DEE3\" stroke-width=\"1\"/>\n          <rect x=\"340\" y=\"244\" width=\"56\" height=\"56\" fill=\"none\" stroke=\"#D8DEE3\" stroke-width=\"1\"/>\n          <rect x=\"340\" y=\"188\" width=\"56\" height=\"56\" fill=\"none\" stroke=\"#D8DEE3\" stroke-width=\"1\"/>\n          <rect x=\"340\" y=\"132\" width=\"56\" height=\"56\" fill=\"none\" stroke=\"#D8DEE3\" stroke-width=\"1\"/>\n          <rect x=\"340\" y=\"76\" width=\"56\" height=\"56\" fill=\"none\" stroke=\"#D8DEE3\" stroke-width=\"1\"/>\n          <rect x=\"340\" y=\"20\" width=\"56\" height=\"56\" fill=\"none\" stroke=\"#D8DEE3\" stroke-width=\"1\"/>\n          <rect x=\"396\" y=\"300\" width=\"56\" height=\"56\" fill=\"none\" stroke=\"#D8DEE3\" stroke-width=\"1\"/>\n          <rect x=\"396\" y=\"244\" width=\"56\" height=\"56\" fill=\"none\" stroke=\"#D8DEE3\" stroke-width=\"1\"/>\n          <rect x=\"396\" y=\"188\" width=\"56\" height=\"56\" fill=\"none\" stroke=\"#D8DEE3\" stroke-width=\"1\"/>\n          <rect x=\"396\" y=\"132\" width=\"56\" height=\"56\" fill=\"none\" stroke=\"#D8DEE3\" stroke-width=\"1\"/>\n          <rect x=\"396\" y=\"76\" width=\"56\" height=\"56\" fill=\"none\" stroke=\"#D8DEE3\" stroke-width=\"1\"/>\n          <rect x=\"396\" y=\"20\" width=\"56\" height=\"56\" fill=\"none\" stroke=\"#D8DEE3\" stroke-width=\"1\"/>\n          <line x1=\"172\" y1=\"20\" x2=\"452\" y2=\"300\" stroke=\"#AEB6BF\" stroke-width=\"1.5\" stroke-dasharray=\"3 5\"/>\n          <text x=\"446\" y=\"322\" text-anchor=\"end\" font-family=\"'IBM Plex Mono', monospace\" font-size=\"11\" fill=\"#4A5160\" paint-order=\"stroke\" stroke=\"#F7F9FA\" stroke-width=\"4\" stroke-linejoin=\"round\">A = 137</text>\n          <rect x=\"230\" y=\"78\" width=\"52\" height=\"52\" rx=\"2\" fill=\"#FFFFFF\" stroke=\"#1F5AD6\" stroke-width=\"1.5\" stroke-dasharray=\"5 4\"/>\n          <text x=\"256\" y=\"109\" text-anchor=\"middle\" font-family=\"'STIX Two Text', Georgia, serif\" font-size=\"15\" font-weight=\"600\" fill=\"#171A21\" paint-order=\"stroke\" stroke=\"#F7F9FA\" stroke-width=\"4\" stroke-linejoin=\"round\">¹³⁷Ba</text>\n          <rect x=\"342\" y=\"190\" width=\"52\" height=\"52\" rx=\"2\" fill=\"#FFFFFF\" stroke=\"#6B4FBF\" stroke-width=\"1.5\" stroke-dasharray=\"5 4\"/>\n          <text x=\"368\" y=\"221\" text-anchor=\"middle\" font-family=\"'STIX Two Text', Georgia, serif\" font-size=\"15\" font-weight=\"600\" fill=\"#171A21\" paint-order=\"stroke\" stroke=\"#F7F9FA\" stroke-width=\"4\" stroke-linejoin=\"round\">¹³⁷Xe</text>\n          <rect x=\"174\" y=\"246\" width=\"52\" height=\"52\" rx=\"2\" fill=\"#FFFFFF\" stroke=\"#9A5F00\" stroke-width=\"1.5\" stroke-dasharray=\"5 4\"/>\n          <text x=\"200\" y=\"277\" text-anchor=\"middle\" font-family=\"'STIX Two Text', Georgia, serif\" font-size=\"15\" font-weight=\"600\" fill=\"#171A21\" paint-order=\"stroke\" stroke=\"#F7F9FA\" stroke-width=\"4\" stroke-linejoin=\"round\">¹³³I</text>\n          <rect x=\"286\" y=\"134\" width=\"52\" height=\"52\" rx=\"2\" fill=\"#FFFFFF\" stroke=\"#171A21\" stroke-width=\"2\"/>\n          <text x=\"312\" y=\"165\" text-anchor=\"middle\" font-family=\"'STIX Two Text', Georgia, serif\" font-size=\"15\" font-weight=\"600\" fill=\"#171A21\" paint-order=\"stroke\" stroke=\"#F7F9FA\" stroke-width=\"4\" stroke-linejoin=\"round\">¹³⁷Cs</text>\n          <line x1=\"297.9\" y1=\"145.9\" x2=\"271.6\" y2=\"119.6\" stroke=\"#1F5AD6\" stroke-width=\"2\" stroke-dasharray=\"5 4\" marker-end=\"url(#mA1)\"/>\n          <line x1=\"326.1\" y1=\"174.1\" x2=\"352.4\" y2=\"200.4\" stroke=\"#6B4FBF\" stroke-width=\"2\" stroke-dasharray=\"5 4\" marker-end=\"url(#mA2)\"/>\n          <line x1=\"297.9\" y1=\"174.1\" x2=\"215.6\" y2=\"256.4\" stroke=\"#9A5F00\" stroke-width=\"2\" stroke-dasharray=\"5 4\" marker-end=\"url(#mA3)\"/>\n          <text x=\"292\" y=\"120\" font-family=\"'IBM Plex Sans', system-ui, sans-serif\" font-size=\"13\" font-weight=\"600\" fill=\"#1F5AD6\" paint-order=\"stroke\" stroke=\"#F7F9FA\" stroke-width=\"4\" stroke-linejoin=\"round\">β⁻</text>\n          <text x=\"346\" y=\"180\" font-family=\"'IBM Plex Sans', system-ui, sans-serif\" font-size=\"13\" font-weight=\"600\" fill=\"#6B4FBF\" paint-order=\"stroke\" stroke=\"#F7F9FA\" stroke-width=\"4\" stroke-linejoin=\"round\">β⁺ / EC</text>\n          <text x=\"252\" y=\"236\" text-anchor=\"end\" font-family=\"'IBM Plex Sans', system-ui, sans-serif\" font-size=\"13\" font-weight=\"600\" fill=\"#9A5F00\" paint-order=\"stroke\" stroke=\"#F7F9FA\" stroke-width=\"4\" stroke-linejoin=\"round\">α</text>\n          <circle class=\"anim mvb\" cx=\"312\" cy=\"160\" r=\"5\" fill=\"#1F5AD6\" style=\"opacity: 0\"/>\n          <circle class=\"anim mvp\" cx=\"312\" cy=\"160\" r=\"5\" fill=\"#6B4FBF\" style=\"opacity: 0\"/>\n          <circle class=\"anim mva\" cx=\"312\" cy=\"160\" r=\"5\" fill=\"#9A5F00\" style=\"opacity: 0\"/>\n          <text x=\"88\" y=\"374\" text-anchor=\"middle\" font-family=\"'IBM Plex Mono', monospace\" font-size=\"11\" fill=\"#4A5160\">78</text>\n          <text x=\"144\" y=\"374\" text-anchor=\"middle\" font-family=\"'IBM Plex Mono', monospace\" font-size=\"11\" fill=\"#4A5160\">79</text>\n          <text x=\"200\" y=\"374\" text-anchor=\"middle\" font-family=\"'IBM Plex Mono', monospace\" font-size=\"11\" fill=\"#4A5160\">80</text>\n          <text x=\"256\" y=\"374\" text-anchor=\"middle\" font-family=\"'IBM Plex Mono', monospace\" font-size=\"11\" fill=\"#4A5160\">81</text>\n          <text x=\"312\" y=\"374\" text-anchor=\"middle\" font-family=\"'IBM Plex Mono', monospace\" font-size=\"11\" fill=\"#4A5160\">82</text>\n          <text x=\"368\" y=\"374\" text-anchor=\"middle\" font-family=\"'IBM Plex Mono', monospace\" font-size=\"11\" fill=\"#4A5160\">83</text>\n          <text x=\"424\" y=\"374\" text-anchor=\"middle\" font-family=\"'IBM Plex Mono', monospace\" font-size=\"11\" fill=\"#4A5160\">84</text>\n          <text x=\"50\" y=\"332\" text-anchor=\"end\" font-family=\"'IBM Plex Mono', monospace\" font-size=\"11\" fill=\"#4A5160\">52</text>\n          <text x=\"50\" y=\"276\" text-anchor=\"end\" font-family=\"'IBM Plex Mono', monospace\" font-size=\"11\" fill=\"#4A5160\">53</text>\n          <text x=\"50\" y=\"220\" text-anchor=\"end\" font-family=\"'IBM Plex Mono', monospace\" font-size=\"11\" fill=\"#4A5160\">54</text>\n          <text x=\"50\" y=\"164\" text-anchor=\"end\" font-family=\"'IBM Plex Mono', monospace\" font-size=\"11\" fill=\"#4A5160\">55</text>\n          <text x=\"50\" y=\"108\" text-anchor=\"end\" font-family=\"'IBM Plex Mono', monospace\" font-size=\"11\" fill=\"#4A5160\">56</text>\n          <text x=\"50\" y=\"52\" text-anchor=\"end\" font-family=\"'IBM Plex Mono', monospace\" font-size=\"11\" fill=\"#4A5160\">57</text>\n          <text x=\"256\" y=\"400\" text-anchor=\"middle\" font-family=\"'IBM Plex Sans', system-ui, sans-serif\" font-size=\"11.5\" font-weight=\"600\" fill=\"#4A5160\">N — neutrons →</text>\n          <text x=\"14\" y=\"188\" text-anchor=\"middle\" transform=\"rotate(-90 14 188)\" font-family=\"'IBM Plex Sans', system-ui, sans-serif\" font-size=\"11.5\" font-weight=\"600\" fill=\"#4A5160\">Z — protons →</text>\n          </svg>\n          <div style=\"display: flex; flex-wrap: wrap; gap: 8px 20px; margin-top: 8px; font-family: 'IBM Plex Mono', monospace; font-size: 11.5px; color: #4A5160\">\n            <span><b style=\"color: #1F5AD6\">β⁻</b> n → p · Z + 1, N − 1</span>\n            <span><b style=\"color: #6B4FBF\">β⁺ / EC</b> p → n · Z − 1, N + 1</span>\n            <span><b style=\"color: #9A5F00\">α</b> loses 2p + 2n · Z − 2, N − 2</span>\n          </div>\n          <figcaption style=\"margin-top: 10px; font-size: 12.5px; line-height: 1.5; color: #4A5160; max-width: 620px\">Fig. 1 — A slice of the chart of nuclides around ¹³⁷Cs. Each candidate decay moves the nucleus to a different square. Which of those moves actually releases energy is what the data will settle.</figcaption>\n        </figure>", "csB": "<figure style=\"margin: 0 0 20px; padding: 16px 18px 14px; background: #F7F9FA; border: 1px solid #C3CBD2; border-radius: 2px\">\n          <svg role=\"img\" aria-label=\"Energy ledger measured from caesium-137 at zero. Barium-137 sits 1.17 MeV lower, so beta-minus decay releases energy. Iodine-133 plus helium-4 sits 3.11 MeV higher, so alpha decay would need energy put in.\" viewBox=\"0 0 600 320\" style=\"display: block; width: 100%; max-width: 600px; height: auto; margin: 0 auto\">\n          <defs><marker id=\"mB1\" orient=\"auto\" markerWidth=\"8\" markerHeight=\"8\" refX=\"6\" refY=\"4\" markerUnits=\"userSpaceOnUse\"><path d=\"M0 0 L8 4 L0 8 Z\" fill=\"#1F7A55\"/></marker><marker id=\"mB2\" orient=\"auto\" markerWidth=\"8\" markerHeight=\"8\" refX=\"6\" refY=\"4\" markerUnits=\"userSpaceOnUse\"><path d=\"M0 0 L8 4 L0 8 Z\" fill=\"#BC4327\"/></marker></defs>\n          <line x1=\"70\" y1=\"24\" x2=\"70\" y2=\"300\" stroke=\"#4A5160\" stroke-width=\"1.5\"/>\n          <line x1=\"64\" y1=\"50\" x2=\"70\" y2=\"50\" stroke=\"#4A5160\" stroke-width=\"1.5\"/>\n          <text x=\"58\" y=\"54\" text-anchor=\"end\" font-family=\"'IBM Plex Mono', monospace\" font-size=\"11\" fill=\"#4A5160\">+3</text>\n          <line x1=\"64\" y1=\"100\" x2=\"70\" y2=\"100\" stroke=\"#4A5160\" stroke-width=\"1.5\"/>\n          <text x=\"58\" y=\"104\" text-anchor=\"end\" font-family=\"'IBM Plex Mono', monospace\" font-size=\"11\" fill=\"#4A5160\">+2</text>\n          <line x1=\"64\" y1=\"150\" x2=\"70\" y2=\"150\" stroke=\"#4A5160\" stroke-width=\"1.5\"/>\n          <text x=\"58\" y=\"154\" text-anchor=\"end\" font-family=\"'IBM Plex Mono', monospace\" font-size=\"11\" fill=\"#4A5160\">+1</text>\n          <line x1=\"64\" y1=\"200\" x2=\"70\" y2=\"200\" stroke=\"#4A5160\" stroke-width=\"1.5\"/>\n          <text x=\"58\" y=\"204\" text-anchor=\"end\" font-family=\"'IBM Plex Mono', monospace\" font-size=\"11\" fill=\"#4A5160\">0</text>\n          <line x1=\"64\" y1=\"250\" x2=\"70\" y2=\"250\" stroke=\"#4A5160\" stroke-width=\"1.5\"/>\n          <text x=\"58\" y=\"254\" text-anchor=\"end\" font-family=\"'IBM Plex Mono', monospace\" font-size=\"11\" fill=\"#4A5160\">−1</text>\n          <text x=\"18\" y=\"160\" text-anchor=\"middle\" transform=\"rotate(-90 18 160)\" font-family=\"'IBM Plex Sans', system-ui, sans-serif\" font-size=\"11.5\" font-weight=\"600\" fill=\"#4A5160\">Energy relative to ¹³⁷Cs (MeV)</text>\n          <line x1=\"70\" y1=\"200\" x2=\"560\" y2=\"200\" stroke=\"#D8DEE3\" stroke-width=\"1\" stroke-dasharray=\"2 4\"/>\n          <line x1=\"140\" y1=\"200\" x2=\"290\" y2=\"200\" stroke=\"#171A21\" stroke-width=\"3\"/>\n          <text x=\"215\" y=\"188\" text-anchor=\"middle\" font-family=\"'STIX Two Text', Georgia, serif\" font-size=\"16\" font-weight=\"600\" fill=\"#171A21\">¹³⁷Cs</text>\n          <line x1=\"350\" y1=\"259\" x2=\"520\" y2=\"259\" stroke=\"#1F7A55\" stroke-width=\"3\"/>\n          <text x=\"435\" y=\"248\" text-anchor=\"middle\" font-family=\"'STIX Two Text', Georgia, serif\" font-size=\"16\" font-weight=\"600\" fill=\"#171A21\">¹³⁷Ba</text>\n          <text x=\"435\" y=\"280\" text-anchor=\"middle\" font-family=\"'IBM Plex Mono', monospace\" font-size=\"11.5\" fill=\"#1F7A55\">Qβ = +1.17 MeV · released</text>\n          <line x1=\"350\" y1=\"45\" x2=\"520\" y2=\"45\" stroke=\"#BC4327\" stroke-width=\"3\" stroke-dasharray=\"8 5\"/>\n          <text x=\"435\" y=\"34\" text-anchor=\"middle\" font-family=\"'STIX Two Text', Georgia, serif\" font-size=\"16\" font-weight=\"600\" fill=\"#171A21\">¹³³I + ⁴He</text>\n          <text x=\"435\" y=\"66\" text-anchor=\"middle\" font-family=\"'IBM Plex Mono', monospace\" font-size=\"11.5\" fill=\"#BC4327\">Qα = −3.11 MeV · must be paid in</text>\n          <line x1=\"296\" y1=\"204\" x2=\"342\" y2=\"253\" stroke=\"#1F7A55\" stroke-width=\"2\" marker-end=\"url(#mB1)\"/>\n          <line x1=\"296\" y1=\"194\" x2=\"344\" y2=\"54\" stroke=\"#BC4327\" stroke-width=\"2\" stroke-dasharray=\"5 4\" marker-end=\"url(#mB2)\"/>\n          <circle class=\"anim fallb\" cx=\"296\" cy=\"200\" r=\"5\" fill=\"#1F7A55\" style=\"opacity: 0\"/>\n          <circle class=\"anim climba\" cx=\"296\" cy=\"200\" r=\"5\" fill=\"#BC4327\" style=\"opacity: 0\"/>\n          </svg>\n          <figcaption style=\"margin-top: 10px; font-size: 12.5px; line-height: 1.5; color: #4A5160; max-width: 620px\">Fig. 2 — The Q-values as an energy ledger. Measured from ¹³⁷Cs, the β⁻ daughter sits lower, so the decay runs downhill and releases energy. ¹³³I + ⁴He sits higher: α decay would have to climb, and nothing pays for the climb.</figcaption>\n        </figure>"};
 
 /* Figures for problems 03–05 */
 const FIG_TEXT = (x, y, s, o = {}) =>
@@ -230,6 +227,31 @@ Object.assign(FIGS, {
     ${FIG_TEXT(520, 46, "where is kT?", { anchor: "middle", font: SERIF, size: 16, weight: 600, fill: "#171A21" })}
     <circle class="anim fuin" cx="552" cy="236" r="4" fill="#1F5AD6" style="opacity: 0"/>`,
     "Fig. 1 — Two protons, drawn as potential energy against separation. Get them to contact and the short-range nuclear force takes over; on the way in, Coulomb repulsion pushes back. The figure leaves out the one thing that matters: how high on this axis the solar-core kT sits."
+  ),
+
+  /* 02 — a narrow beam through one slab of lead, a second slab to come */
+  shA: figWrap(
+    "A caesium-137 source on the left sends a narrow beam of 662 keV gamma rays to the right, through a slab of lead of thickness x, towards a detector. A second identical slab is drawn dashed, with a question mark over what the detector then reads.",
+    "0 0 600 260", 600,
+    `<defs><marker id="mS1" orient="auto" markerWidth="8" markerHeight="8" refX="6" refY="4" markerUnits="userSpaceOnUse"><path d="M0 0 L8 4 L0 8 Z" fill="#1F5AD6"/></marker></defs>
+    <rect x="28" y="104" width="64" height="52" rx="3" fill="#FFFFFF" stroke="#171A21" stroke-width="2"/>
+    ${FIG_TEXT(60, 136, "¹³⁷Cs", { anchor: "middle", font: SERIF, size: 15, weight: 600, fill: "#171A21" })}
+    ${FIG_TEXT(60, 178, "662 keV γ", { anchor: "middle" })}
+    <line x1="92" y1="130" x2="222" y2="130" stroke="#1F5AD6" stroke-width="2.5" marker-end="url(#mS1)"/>
+    ${FIG_TEXT(156, 120, "I₀", { anchor: "middle", font: SERIF, size: 16, weight: 600, fill: "#1F5AD6" })}
+    <rect x="228" y="56" width="44" height="148" fill="#AEB6BF" stroke="#171A21" stroke-width="2"/>
+    ${FIG_TEXT(250, 46, "Pb · x", { anchor: "middle", font: SANS, size: 12, weight: 600, fill: "#171A21" })}
+    ${FIG_TEXT(250, 226, "lets through", { anchor: "middle" })}
+    ${FIG_TEXT(250, 242, "a fraction f", { anchor: "middle" })}
+    <line x1="272" y1="130" x2="292" y2="130" stroke="#1F5AD6" stroke-width="2"/>
+    <rect x="296" y="56" width="44" height="148" fill="none" stroke="#4A5160" stroke-width="2" stroke-dasharray="6 5"/>
+    ${FIG_TEXT(318, 46, "+ another x", { anchor: "middle", font: SANS, size: 12, weight: 600, fill: "#4A5160" })}
+    <line x1="340" y1="130" x2="462" y2="130" stroke="#1F5AD6" stroke-width="2" stroke-dasharray="5 5" marker-end="url(#mS1)"/>
+    ${FIG_TEXT(400, 120, "I = ?", { anchor: "middle", font: SERIF, size: 16, weight: 600, fill: "#171A21" })}
+    <rect x="468" y="100" width="64" height="60" rx="3" fill="#FFFFFF" stroke="#171A21" stroke-width="2"/>
+    ${FIG_TEXT(500, 178, "detector", { anchor: "middle" })}
+    ${[0, 0.7, 1.4, 2.1].map((d, k) => `<circle class="anim" r="4" fill="#1F5AD6" opacity="0"><animateMotion dur="2.8s" begin="${d}s" repeatCount="indefinite" path="M96 130 L${k === 3 ? 466 : 230} 130" keyPoints="0;1;1" keyTimes="0;0.7;1" calcMode="linear"/><animate attributeName="opacity" dur="2.8s" begin="${d}s" repeatCount="indefinite" values="0;1;1;0;0" keyTimes="0;0.08;0.68;0.74;1"/></circle>`).join("")}`,
+    "Fig. 1 — A narrow beam of ¹³⁷Cs γ-rays meets a slab of lead, which lets through some fraction f. Add a second, identical slab: what reaches the detector then is your hypothesis."
   ),
 
   /* 05 — two head-on collisions, before only */
@@ -380,112 +402,112 @@ const PROBLEMS = [
   },
 
   {
-    id: "tc99m",
-    tab: "02 · ⁹⁹ᵐTc",
+    id: "shield",
+    tab: "02 · γ shielding",
     code: "PROBLEM 02",
-    figs: { identify: "tcC" },
-    card: { kicker: "PROBLEM 02 · COUPLED DECAY", name: "Milking the cow", blurb: "Hospitals grow ⁹⁹ᵐTc on site from a ⁹⁹Mo generator. Reason out when it’s worth harvesting it, and what sets that time.", cta: "Start with ⁹⁹ᵐTc →" },
-    title: "Milking the cow: when do you harvest ⁹⁹ᵐTc?",
+    figs: { identify: "shA" },
+    card: { kicker: "PROBLEM 02 · γ-RAY ATTENUATION", name: "Behind the lead wall", blurb: "The 662 keV γ-rays from ¹³⁷Cs go straight through most things. Reason out how much lead it takes to tame them, and why lead.", cta: "Start with shielding →" },
+    title: "Behind the lead wall: how much lead stops a γ-ray beam?",
     intro:
-      "Technetium-99m sits behind roughly 8 in 10 nuclear-medicine scans, and hospitals grow it on site in a ⁹⁹Mo generator — 'the cow'. A fresh cow is loaded at t = 0 with pure ⁹⁹Mo and no daughter at all. Your job: reason out when the milking is worth doing.",
-    dataLabel: "Data — the decay chain (half-lives from the chart of nuclides)",
-    dataNote:
-      "⁹⁹Mo β⁻-decays to ⁹⁹ᵐTc. Treat the chain as Mo → Tcᵐ → Tc, with the granddaughter inert on any timescale you care about.",
+      "A ¹³⁷Cs source sends a narrow beam of 662 keV γ-rays at a detector. You need to cut the count rate by a factor of a thousand. Work out how attenuation scales with thickness, then how much lead — or aluminium — the job takes.",
+    dataLabel: "Data — narrow-beam attenuation coefficients at 662 keV",
+    dataNote: "μ is the chance per cm that a photon is removed from the beam. Ignore build-up from scattered photons.",
     squares: [
-      { main: "⁹⁹Mo", s1: "Z=42", s2: "N=57", val: "t½=65.9 h", tag: "parent — the cow", accent: C.ink },
-      { main: "⁹⁹ᵐTc", s1: "Z=43", s2: "isomer", val: "t½=6.01 h", tag: "daughter — the milk", accent: C.beta },
-      { main: "⁹⁹Tc", s1: "Z=43", s2: "N=56", val: "t½=2.1×10⁵ y", tag: "granddaughter — inert", accent: C.stable },
+      { main: "γ", s1: "662 keV", s2: "from ¹³⁷Cs", val: "narrow beam", tag: "source", accent: C.ink },
+      { main: "Pb", s1: "Z=82", s2: "ρ=11.35 g/cm³", val: "μ=1.23 cm⁻¹", tag: "shield", accent: C.beta },
+      { main: "Al", s1: "Z=13", s2: "ρ=2.70 g/cm³", val: "μ=0.202 cm⁻¹", tag: "alternative", accent: C.alpha },
     ],
     subs: [
-      "No equations yet. A fresh generator holds pure ⁹⁹Mo and zero ⁹⁹ᵐTc. Sketch in your head what the daughter's activity does over the days that follow — and commit to the shape, with your physical reasoning.",
-      "Orders of magnitude before arithmetic. Both commitments here get tested against your own calculation in Stage V.",
-      "Two things to assemble: the differential equation that governs the daughter population, and the expression for when its activity peaks. λ₁ is the parent's decay constant, λ₂ the daughter's, N₁ and N₂ their populations.",
-      "Now the numbers. Convert the half-lives to decay constants and find the peak time. Same units throughout — hours are kind here.",
-      "Line your calculation up against your Stage I–II commitments. Where they disagree, work out which was wrong and why — then deliver your verdict as if advising the radiopharmacy.",
+      "No numbers yet. One slab of lead lets through some fraction f of the beam. Commit to what a second, identical slab does — and why, in terms of what happens to each photon.",
+      "Orders of magnitude before arithmetic. Both commitments get tested against your own calculation in Stage V.",
+      "Assemble the law for the transmitted intensity, and the thickness that gives a chosen reduction factor F = I₀/I.",
+      "Now the numbers, for lead: the half-value layer, and the thickness for a factor-of-1000 reduction, both in cm to two decimal places.",
+      "Line your result up against your commitments. Where they disagree, decide which was wrong and why — then deliver your verdict as if specifying the shield.",
     ],
-    hypoLabel: "Hypothesis — after loading at t = 0, the ⁹⁹ᵐTc activity…",
+    hypoLabel: "Hypothesis — adding a second, identical slab of lead…",
     hypotheses: [
-      { id: "decays", label: "Falls from the start", note: "it only ever decays" },
-      { id: "peak-own", label: "Rises, peaks, then falls at its own 6 h rate", note: "daughter clock" },
-      { id: "peak-parent", label: "Rises, peaks, then falls at the parent's ~66 h rate", note: "parent clock" },
-      { id: "locks", label: "Rises and locks onto the Mo activity for good", note: "exact tracking" },
+      { id: "factor", label: "Cuts the beam by the same factor again", note: "f, then f²" },
+      { id: "amount", label: "Removes the same number of photons again", note: "equal steps down" },
+      { id: "little", label: "Barely changes it — the first slab did the work", note: "only weak photons stopped" },
+      { id: "all", label: "Stops the beam completely", note: "two slabs is enough" },
     ],
-    hypoCorrect: "peak-parent",
-    hypoPlaceholder: "e.g. think about what feeds ⁹⁹ᵐTc, what drains it, and which wins when…",
+    hypoCorrect: "factor",
+    hypoPlaceholder: "e.g. think about one photon entering the second slab — does it know about the first?…",
     est: {
-      q: "How long after loading does the ⁹⁹ᵐTc activity peak?",
+      q: "Roughly how much lead cuts the beam by a factor of 1000?",
       options: [
-        { id: "30min", label: "~30 min" },
-        { id: "6h", label: "~6 h" },
-        { id: "day", label: "~1 day" },
-        { id: "week", label: "~1 week" },
+        { id: "mm", label: "~ 1 mm" },
+        { id: "cm", label: "~ 1 cm" },
+        { id: "5cm", label: "~ 5 cm" },
+        { id: "50cm", label: "~ 50 cm" },
       ],
-      correct: "day",
+      correct: "5cm",
       chips: true,
     },
     pred: {
-      q: "Prediction: just after t = 0, which term dominates dN₂/dt?",
+      q: "Prediction: for the same reduction, aluminium needs to be…",
       options: [
-        { id: "production", label: "Production — decays of ⁹⁹Mo feeding in" },
-        { id: "loss", label: "Loss — decays of ⁹⁹ᵐTc draining out" },
-        { id: "cancel", label: "They cancel exactly from the start" },
+        { id: "same", label: "About as thick — it's the photons that matter" },
+        { id: "few", label: "A few times thicker" },
+        { id: "dozens", label: "Dozens of times thicker" },
       ],
-      correct: "production",
+      correct: "few",
       accent: C.alpha,
     },
     forms: [
       {
-        label: "Governing equation for the daughter population N₂",
+        label: "Transmitted intensity after a thickness x",
         options: [
-          { id: "a", tex: "dN₂/dt = λ₁N₁ − λ₂N₂", correct: true },
-          { id: "b", tex: "dN₂/dt = −λ₂N₂", correct: false },
-          { id: "c", tex: "dN₂/dt = λ₁N₁ + λ₂N₂", correct: false },
-          { id: "d", tex: "dN₂/dt = λ₂N₂ − λ₁N₁", correct: false },
+          { id: "a", tex: "I = I₀ (1 − μx)", correct: false },
+          { id: "b", tex: "I = I₀ e^(−x/μ)", correct: false },
+          { id: "c", tex: "I = I₀ e^(−μx)", correct: true },
+          { id: "d", tex: "I = I₀ / (1 + μx)", correct: false },
         ],
       },
       {
-        label: "Time at which the daughter activity peaks",
+        label: "Thickness x for a reduction factor F = I₀ / I",
         options: [
-          { id: "a", tex: "t_max = ln 2 / (λ₂ − λ₁)", correct: false },
-          { id: "b", tex: "t_max = ln(λ₂/λ₁) / (λ₂ − λ₁)", correct: true },
-          { id: "c", tex: "t_max = ln(λ₁/λ₂) / (λ₂ − λ₁)", correct: false },
-          { id: "d", tex: "t_max = 1/λ₂ − 1/λ₁", correct: false },
+          { id: "a", tex: "x = ln F / μ", correct: true },
+          { id: "b", tex: "x = F / μ", correct: false },
+          { id: "c", tex: "x = μ · ln F", correct: false },
+          { id: "d", tex: "x = log₁₀ F / μ", correct: false },
         ],
       },
     ],
-    formLockNote:
-      "Choose the governing equation and the peak-time expression. The numeric stage stays locked until the formulation is sound — this is exactly where coupled-decay reasoning usually breaks.",
+    formLockNote: "Choose both expressions. The numbers stay locked until the formulation holds up.",
     numFields: [
-      { key: "l2", label: "λ₂ for ⁹⁹ᵐTc", ans: 0.1153, tol: 0.004, unit: "h⁻¹", dp: 4 },
-      { key: "tmax", label: "t_max — peak of the milk", ans: 22.9, tol: 0.7, unit: "h", dp: 1 },
+      { key: "hvl", label: "Half-value layer of lead", ans: 0.564, tol: 0.02, unit: "cm", dp: 2 },
+      { key: "x", label: "Lead for a 1000× reduction", ans: 5.62, tol: 0.15, unit: "cm", dp: 2 },
     ],
-    numHint: "λ = ln 2 / t½ — and t_max wants both λs in the same units before anything else.",
-    numLockNote: "Enter both values. λ₂ in h⁻¹ to four decimal places, t_max in hours to one.",
+    numHint: "Natural logs throughout: ln 2 for the half-value layer, ln 1000 for the factor of a thousand.",
+    numLockNote: "Enter both thicknesses in cm.",
     recon: [
       {
         q: "Your hypothesis (Stage I)",
         yours: (st, p) => p.hypotheses.find((h) => h.id === st.c1?.hypo)?.label || "—",
-        data: () => "t_max > 0, and past the peak the λ₂ term shadows the parent: rise, peak, then the parent's clock",
+        data: () => "each slab multiplies by the same f: attenuation is exponential in x",
         ok: (st, p) => st.c1?.hypo === p.hypoCorrect,
       },
       {
-        q: "Your peak-time scale (Stage II)",
+        q: "Your thickness scale (Stage II)",
         yours: (st, p) => p.est.options.find((o) => o.id === st.c2?.scale)?.label || "—",
-        data: (st) => `computed t_max = ${st.c4?.vals.tmax} h`,
+        data: (st) => `computed x = ${st.c4?.vals.x} cm of lead`,
         ok: (st, p) => st.c2?.scale === p.est.correct,
       },
       {
-        q: "Your t → 0 prediction (Stage II)",
+        q: "Your aluminium prediction (Stage II)",
         yours: (st, p) => p.pred.options.find((o) => o.id === st.c2?.pred)?.label || "—",
-        data: () => "at t = 0, N₂ = 0 — the loss term λ₂N₂ is identically zero",
+        data: (st) => {
+          const x = cv(st, "x");
+          return isFinite(x) ? `μ(Pb)/μ(Al) ≈ 6.1 → about ${(x * 1.23 / 0.202).toFixed(0)} cm of aluminium` : "μ(Pb)/μ(Al) ≈ 6.1";
+        },
         ok: (st, p) => st.c2?.pred === p.pred.correct,
       },
     ],
-    verdictPrompt: "Your verdict — when do you milk the cow, and what settles it? (2–4 sentences)",
-    verdictPlaceholder:
-      "Give the elution time, the reasoning that fixes it, and — if an earlier commitment was overturned — what misled you…",
+    verdictPrompt: "Your verdict — how thick a shield, and what sets it? (2–4 sentences)",
+    verdictPlaceholder: "Give the thickness, the law behind it, and — if an earlier commitment was overturned — what misled you…",
     enrichment:
-      "For interest: real generators are eluted roughly every 23 hours — once a day on the ward, which is exactly your t_max. Past the peak the daughter rides the parent's 66 h half-life (transient equilibrium), and the 6 h half-life plus a clean 140 keV γ is precisely what makes ⁹⁹ᵐTc the workhorse of nuclear medicine. In reality ~87.5% of ⁹⁹Mo decays feed the metastable state — a refinement that shifts activities, not the peak time.",
+      "For interest: real shields are made somewhat thicker than this, because scattered photons still reach the detector (the build-up factor). Lead wins per centimetre partly through density and partly because its high Z adds photoelectric absorption. Per gram, the gap shrinks to about 1.5×: at 662 keV, Compton scattering, which depends on electron density, does most of the work.",
   },
 
   {
@@ -948,16 +970,32 @@ function coachErrorText(e) {
   return "The coach couldn't be reached just now — try again in a moment.";
 }
 
-function CoachPanel({ problemId, trace, stageLabel, thread, setThread }) {
+/* The coach docks to the bottom of the screen. Closed, it is one bar:
+   label, starters and the message box. Sending, or the chevron, opens it
+   upwards into a sheet with the conversation. "?" explains the rules. */
+const COACH_LIME = "#E9F7B8";
+
+function ChevronIcon({ up }) {
+  return (
+    <svg aria-hidden="true" width="18" height="18" viewBox="0 0 18 18" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round">
+      <path d={up ? "M4 11 L9 6 L14 11" : "M4 7 L9 12 L14 7"} />
+    </svg>
+  );
+}
+
+function CoachPanel({ problemId, trace, stageLabel, stageNum, thread, setThread }) {
   const [input, setInput] = useState("");
   const [busy, setBusy] = useState(false);
-  const [opened, setOpened] = useState(thread.length > 0);
+  const [expanded, setExpanded] = useState(false);
+  const [showHelp, setShowHelp] = useState(false);
   const bottomRef = useRef(null);
   const inputRef = useRef(null);
 
   useEffect(() => {
-    if (bottomRef.current) bottomRef.current.scrollIntoView({ behavior: "smooth", block: "nearest" });
-  }, [thread, busy]);
+    if (expanded && bottomRef.current) bottomRef.current.scrollIntoView({ behavior: "smooth", block: "nearest" });
+  }, [thread, busy, expanded]);
+
+  const focusInput = () => setTimeout(() => inputRef.current && inputRef.current.focus(), 0);
 
   const send = async (text) => {
     if (busy) return;
@@ -973,23 +1011,29 @@ function CoachPanel({ problemId, trace, stageLabel, thread, setThread }) {
     setBusy(false);
   };
 
-  const open = (starter) => {
-    setOpened(true);
-    if (starter === "think") {
+  const expand = () => {
+    setExpanded(true);
+    setShowHelp(false);
+    if (thread.length === 0 && !busy) send(null);
+    focusInput();
+  };
+
+  const starter = (val) => {
+    setExpanded(true);
+    setShowHelp(false);
+    if (val === "think") {
       setInput("Here’s my thinking: ");
-      setTimeout(() => inputRef.current && inputRef.current.focus(), 0);
       if (thread.length === 0) send(null);
+      focusInput();
       return;
     }
-    if (starter) {
-      send(starter);
-      return;
-    }
-    if (thread.length === 0) send(null);
+    send(val);
   };
 
   const submit = () => {
     if (input.trim() && !busy) {
+      setExpanded(true);
+      setShowHelp(false);
       send(input.trim());
       setInput("");
     }
@@ -1001,123 +1045,188 @@ function CoachPanel({ problemId, trace, stageLabel, thread, setThread }) {
     ["Make sense of a wrong attempt", "After a “doesn’t hold up”, ask why. It helps you find the flaw rather than naming it."],
   ];
   const STARTERS = [
-    ["“Here’s my thinking: …”", "think"],
-    ["“Which data should I look at?”", "Which data should I look at?"],
-    ["“Why didn’t that work?”", "Why didn’t that work?"],
+    ["Here’s my thinking…", "think"],
+    ["Which data should I look at?", "Which data should I look at?"],
+    ["Why didn’t that work?", "Why didn’t that work?"],
   ];
+  const dot = busy ? "#F2B84B" : expanded ? "#5FD39B" : C.stable;
+  const canSend = !busy && input.trim();
+
+  const helpButton = (dark) => (
+    <button
+      type="button"
+      onClick={() => setShowHelp((v) => !v)}
+      aria-expanded={showHelp}
+      aria-label="How the coach works"
+      className="flex-shrink-0 flex items-center justify-center rounded-full"
+      style={{ width: 32, height: 32, border: `1px solid ${dark ? "#4A5160" : C.line}`, background: dark ? "transparent" : C.card, color: dark ? "#FFFFFF" : C.inkSoft, fontFamily: F.mono, fontSize: 13, cursor: "pointer" }}
+    >
+      ?
+    </button>
+  );
+
+  const starters = (
+    <div className="flex gap-2 overflow-x-auto" style={{ scrollbarWidth: "none" }}>
+      {STARTERS.map(([label, val]) => (
+        <button
+          key={val}
+          type="button"
+          onClick={() => starter(val)}
+          disabled={busy}
+          className="flex-shrink-0"
+          style={{ minHeight: 34, padding: "0 12px", background: C.card, color: C.ink, border: `1px solid ${C.line}`, borderRadius: 17, fontFamily: F.ui, fontSize: 12.5, cursor: busy ? "wait" : "pointer", whiteSpace: "nowrap" }}
+        >
+          {label}
+        </button>
+      ))}
+    </div>
+  );
+
+  const composer = (
+    <div className="flex gap-2">
+      <input
+        ref={inputRef}
+        value={input}
+        onChange={(e) => setInput(e.target.value)}
+        onKeyDown={(e) => {
+          if (e.key === "Enter") submit();
+        }}
+        placeholder="Explain your thinking, or say where you’re stuck…"
+        aria-label="Message to coach"
+        className="flex-1 rounded-sm"
+        style={{ minWidth: 0, minHeight: 48, padding: "0 14px", border: `1.5px solid ${C.ink}`, fontFamily: F.ui, fontSize: 16, color: C.ink, outline: "none", background: C.card }}
+      />
+      <button
+        type="button"
+        onClick={submit}
+        disabled={!canSend}
+        className="rounded-sm flex-shrink-0"
+        style={{ minHeight: 48, padding: "0 22px", fontFamily: F.ui, fontSize: 14, fontWeight: 600, background: canSend ? C.beta : C.grid, color: canSend ? "#FFFFFF" : C.inkSoft, border: "none", cursor: canSend ? "pointer" : "not-allowed" }}
+      >
+        Send
+      </button>
+    </div>
+  );
+
+  const help = showHelp && (
+    <div role="note" className="rounded-sm" style={{ position: "absolute", bottom: "calc(100% + 8px)", right: 0, width: "min(420px, calc(100vw - 32px))", background: C.card, border: `1.5px solid ${C.ink}`, boxShadow: "0 8px 24px rgba(23,26,33,0.18)", padding: "14px 16px", color: C.ink }}>
+      <div className="flex items-start justify-between gap-3">
+        <p style={{ margin: 0, fontSize: 13.5, lineHeight: 1.55 }}>
+          The coach reads everything you’ve committed so far and replies only with questions. It won’t give you the answer, a formula or a number, even if you ask.
+        </p>
+        <button type="button" onClick={() => setShowHelp(false)} aria-label="Close" style={{ minWidth: 32, minHeight: 32, border: "none", background: "transparent", fontSize: 18, lineHeight: 1, color: C.inkSoft, cursor: "pointer" }}>
+          ×
+        </button>
+      </div>
+      <ul style={{ listStyle: "none", margin: "10px 0 0", padding: 0, display: "flex", flexDirection: "column", gap: 8 }}>
+        {USES.map(([t, d]) => (
+          <li key={t} style={{ fontSize: 12.5, lineHeight: 1.5, color: C.inkSoft }}>
+            <b style={{ color: C.ink, fontWeight: 600 }}>{t}.</b> {d}
+          </li>
+        ))}
+      </ul>
+    </div>
+  );
+
+  if (!expanded) {
+    return (
+      <aside aria-label="Socratic coach" style={{ position: "fixed", left: 0, right: 0, bottom: 0, zIndex: 40, background: COACH_LIME, borderTop: `2px solid ${C.ink}`, boxShadow: "0 -6px 18px rgba(23,26,33,0.10)", fontFamily: F.ui }}>
+        <div className="max-w-5xl mx-auto px-4 md:px-0 flex flex-col gap-2.5" style={{ padding: "10px 16px 12px", position: "relative" }}>
+          {help}
+          <div className="flex flex-wrap items-center gap-x-3 gap-y-2">
+            <div className="flex items-center gap-2.5" style={{ minWidth: 0, flex: "1 1 auto" }}>
+              <span aria-hidden="true" className="inline-block rounded-full flex-shrink-0" style={{ width: 10, height: 10, background: dot }} />
+              <span style={{ fontFamily: F.phys, fontSize: 24, fontWeight: 600, lineHeight: 1.1, color: C.ink }}>Coach</span>
+              <span style={{ fontSize: 14, color: C.ink, minWidth: 0 }}>
+                Discuss <b style={{ fontWeight: 600 }}>Stage {stageNum}</b> here<span className="hidden sm:inline"> — it asks you questions, never gives answers</span>
+              </span>
+              {helpButton(false)}
+              {thread.length > 0 && (
+                <button
+                  type="button"
+                  onClick={expand}
+                  aria-label="Open the conversation"
+                  className="flex-shrink-0 flex items-center gap-1 rounded-sm"
+                  style={{ minHeight: 32, padding: "0 8px", border: `1px solid ${C.ink}`, background: C.card, color: C.ink, fontSize: 12.5, cursor: "pointer" }}
+                >
+                  <ChevronIcon up /> {thread.filter((m) => !m.error).length}
+                </button>
+              )}
+            </div>
+            {starters}
+          </div>
+          {composer}
+        </div>
+      </aside>
+    );
+  }
 
   return (
-    <section aria-label="Socratic coach" className="rounded-sm flex flex-col overflow-hidden" style={{ border: `2px solid ${C.ink}`, fontFamily: F.ui }}>
-      <div className="flex flex-col gap-3.5" style={{ background: C.ink, color: "#FFFFFF", padding: "18px 22px 20px" }}>
-        <div className="flex flex-wrap items-start justify-between gap-3.5">
-          <div style={{ flex: "1 1 380px", minWidth: 0 }}>
-            <div className="flex items-center gap-2" style={{ fontFamily: F.mono, fontSize: 11, letterSpacing: "0.12em", color: "#C3CBD2" }}>
-              <span aria-hidden="true" className="inline-block rounded-full" style={{ width: 8, height: 8, background: busy ? "#F2B84B" : "#5FD39B" }} />
-              <span>COACH · ASKS, NEVER ANSWERS</span>
-            </div>
-            <h3 style={{ margin: "6px 0 0", fontFamily: F.phys, fontSize: 22, fontWeight: 600, lineHeight: 1.2, color: "#FFFFFF" }}>Stuck, or not sure? Talk it through.</h3>
-            <p style={{ margin: "6px 0 0", fontSize: 13.5, lineHeight: 1.55, color: "#D8DEE3", maxWidth: 620 }}>
-              The coach reads everything you’ve committed so far — your hypothesis, estimates and attempts — and replies only with questions. It won’t give you the answer, a formula or a number, even if you ask. It’s there to help you find them yourself.
-            </p>
+    <>
+      <div aria-hidden="true" className="sm:hidden" onClick={() => setExpanded(false)} style={{ position: "fixed", inset: 0, zIndex: 39, background: "rgba(23,26,33,0.28)" }} />
+      <aside
+        aria-label="Socratic coach"
+        onKeyDown={(e) => {
+          if (e.key === "Escape") setExpanded(false);
+        }}
+        className="flex flex-col"
+        style={{ position: "fixed", left: 0, right: 0, bottom: 0, margin: "0 auto", width: "100%", maxWidth: 1024, height: "min(540px, 76vh)", zIndex: 40, background: C.card, border: `2px solid ${C.ink}`, borderBottom: "none", borderRadius: "6px 6px 0 0", boxShadow: "0 -10px 28px rgba(23,26,33,0.16)", fontFamily: F.ui }}
+      >
+        <div style={{ background: C.ink, color: "#FFFFFF", borderRadius: "4px 4px 0 0", position: "relative" }}>
+          <div className="sm:hidden flex justify-center" style={{ paddingTop: 8 }}>
+            <span aria-hidden="true" style={{ width: 40, height: 4, borderRadius: 2, background: "#6B7280" }} />
           </div>
-          {!opened && (
-            <button
-              type="button"
-              onClick={() => open(null)}
-              className="rounded-sm flex-shrink-0"
-              style={{ minHeight: 48, padding: "0 22px", background: "#FFFFFF", color: C.ink, border: "none", fontFamily: F.ui, fontSize: 14, fontWeight: 600, cursor: "pointer" }}
-            >
-              Talk it through →
-            </button>
-          )}
-        </div>
-
-        <div className="grid gap-2.5" style={{ gridTemplateColumns: "repeat(auto-fit, minmax(220px, 1fr))" }}>
-          {USES.map(([t, d]) => (
-            <div key={t} className="rounded-sm" style={{ padding: "10px 12px", border: "1px solid #4A5160" }}>
-              <div style={{ fontSize: 13, fontWeight: 600, color: "#FFFFFF" }}>{t}</div>
-              <div style={{ marginTop: 4, fontSize: 12.5, lineHeight: 1.5, color: "#C3CBD2" }}>{d}</div>
+          <div className="flex items-center gap-2.5" style={{ minHeight: 52, padding: "0 8px 0 18px" }}>
+            <span aria-hidden="true" className="inline-block rounded-full flex-shrink-0" style={{ width: 10, height: 10, background: dot }} />
+            <span style={{ fontFamily: F.phys, fontSize: 22, fontWeight: 600, lineHeight: 1.1 }}>Coach</span>
+            <span style={{ fontSize: 13, color: "#D8DEE3", minWidth: 0 }}>
+              Stage {stageNum}<span className="hidden sm:inline"> — asks you questions, never gives answers</span>
+            </span>
+            <span style={{ flex: 1 }} />
+            <div style={{ position: "relative" }}>
+              {helpButton(true)}
+              {help}
             </div>
-          ))}
-        </div>
-
-        <div className="flex flex-wrap items-center gap-2">
-          <span style={{ fontFamily: F.mono, fontSize: 11, color: "#C3CBD2" }}>Try starting with</span>
-          {STARTERS.map(([label, val]) => (
             <button
-              key={val}
               type="button"
-              onClick={() => open(val)}
-              disabled={busy}
-              style={{ minHeight: 36, padding: "0 12px", background: "transparent", color: "#FFFFFF", border: "1px solid #AEB6BF", borderRadius: 18, fontFamily: F.ui, fontSize: 12.5, cursor: busy ? "wait" : "pointer" }}
+              onClick={() => setExpanded(false)}
+              aria-label="Minimise the coach"
+              className="flex items-center justify-center"
+              style={{ width: 44, height: 44, border: "none", background: "transparent", color: "#FFFFFF", cursor: "pointer" }}
             >
-              {label}
+              <ChevronIcon />
             </button>
-          ))}
+          </div>
         </div>
-      </div>
-
-      {opened && (
-        <div style={{ background: C.card }}>
-          <div className="flex flex-col gap-2 overflow-y-auto" style={{ padding: "14px 16px", maxHeight: 320 }} aria-live="polite">
-            {thread.map((m, i) => (
-              <div key={i} className="flex" style={{ justifyContent: m.role === "student" ? "flex-end" : "flex-start" }}>
-                <div
-                  className="rounded-sm"
-                  style={{
-                    maxWidth: "85%",
-                    padding: "8px 12px",
-                    background: m.error ? C.dangerSoft : m.role === "student" ? C.betaSoft : C.paper,
-                    border: `1px solid ${m.error ? C.danger : m.role === "student" ? C.beta : C.line}`,
-                    fontSize: 14,
-                    lineHeight: 1.5,
-                    color: C.ink,
-                    whiteSpace: "pre-wrap",
-                  }}
-                >
-                  {m.text}
-                </div>
+        <div className="flex-1 flex flex-col gap-2.5 overflow-y-auto" style={{ padding: "16px 20px" }} aria-live="polite">
+          {thread.map((m, i) => (
+            <div key={i} className="flex" style={{ justifyContent: m.role === "student" ? "flex-end" : "flex-start" }}>
+              <div
+                className="rounded-sm"
+                style={{
+                  maxWidth: "80%",
+                  padding: "10px 14px",
+                  background: m.error ? C.dangerSoft : m.role === "student" ? C.betaSoft : C.paper,
+                  border: `1px solid ${m.error ? C.danger : m.role === "student" ? C.beta : C.line}`,
+                  fontSize: 15,
+                  lineHeight: 1.5,
+                  color: C.ink,
+                  whiteSpace: "pre-wrap",
+                }}
+              >
+                {m.text}
               </div>
-            ))}
-            {busy && <div style={{ fontFamily: F.mono, fontSize: 11.5, color: C.inkSoft }}>coach is thinking…</div>}
-            <div ref={bottomRef} />
-          </div>
-          <div className="flex gap-2" style={{ padding: "0 16px 16px" }}>
-            <input
-              ref={inputRef}
-              value={input}
-              onChange={(e) => setInput(e.target.value)}
-              onKeyDown={(e) => {
-                if (e.key === "Enter") submit();
-              }}
-              placeholder="Explain your thinking, or say where you’re stuck…"
-              aria-label="Message to coach"
-              className="flex-1 rounded-sm"
-              style={{ minWidth: 0, minHeight: 44, padding: "0 12px", border: `1.5px solid ${C.line}`, fontFamily: F.ui, fontSize: 14, color: C.ink, outline: "none", background: C.card }}
-            />
-            <button
-              type="button"
-              onClick={submit}
-              disabled={busy || !input.trim()}
-              className="rounded-sm"
-              style={{
-                minHeight: 44,
-                padding: "0 18px",
-                fontFamily: F.ui,
-                fontSize: 13,
-                fontWeight: 600,
-                background: busy || !input.trim() ? C.grid : C.beta,
-                color: busy || !input.trim() ? C.inkSoft : "#FFFFFF",
-                border: "none",
-                cursor: busy || !input.trim() ? "not-allowed" : "pointer",
-              }}
-            >
-              Send
-            </button>
-          </div>
+            </div>
+          ))}
+          {busy && <div style={{ fontFamily: F.mono, fontSize: 11.5, color: C.inkSoft }}>coach is thinking…</div>}
+          <div ref={bottomRef} />
         </div>
-      )}
-    </section>
+        <div className="flex flex-col gap-2.5" style={{ padding: "12px 20px 16px", background: COACH_LIME, borderTop: `1px solid ${C.line}` }}>
+          {starters}
+          {composer}
+        </div>
+      </aside>
+    </>
   );
 }
 
@@ -1535,7 +1644,7 @@ function ProblemEngine({ p }) {
       </div>
 
       {/* Body */}
-      <main className="px-4 md:px-8 py-5">
+      <main className="px-4 md:px-8 py-5" style={{ paddingBottom: 200 }}>
         <div className="max-w-5xl mx-auto flex flex-col gap-4">
           <section className="rounded-sm px-4 py-4 md:px-6 md:py-5" style={{ background: C.card, border: `1.5px solid ${C.ink}` }}>
             {renderers[current]()}
@@ -1546,6 +1655,7 @@ function ProblemEngine({ p }) {
             problemId={p.id}
             trace={buildTrace()}
             stageLabel={`Stage ${STAGES[current].n} — ${STAGES[current].title}`}
+            stageNum={STAGES[current].n}
             thread={stageThread}
             setThread={setThread(STAGES[current].id)}
           />
@@ -1636,7 +1746,7 @@ function Intro({ onStart }) {
 /* ─── App shell ──────────────────────────────────────────────────── */
 
 const EDUCATOR_NOTES =
-  "This environment enforces commit-before-compute: students must frame the physics (ILO 1), estimate, and formulate (ILO 2–3) before numeric work unlocks. The AI coach is constrained to Socratic questioning — it is prompted never to state, confirm or deny answers, so the valuable cognitive work cannot be delegated to it; that constraint is what makes the task AI-aware by construction. Every attempt produces a structured reasoning trace (hypothesis, estimates, formulation attempts, numeric attempts, verdict) which the coach reads and which could be aggregated per cohort to locate where reasoning breaks. Problems are pure configuration driving a shared five-stage engine — Problem 01 exercises decay identification and Q-value energetics; Problem 02 coupled decay equations and transient equilibrium; Problem 03 fission energetics from the binding-energy curve; Problem 04 the Coulomb barrier and tunnelling in stellar fusion; Problem 05 neutron moderation kinematics. Adding another problem is data entry, not development. The AI call is a single swappable function, ready to be pointed at an institution-funded API proxy for deployment.";
+  "This environment enforces commit-before-compute: students must frame the physics (ILO 1), estimate, and formulate (ILO 2–3) before numeric work unlocks. The AI coach is constrained to Socratic questioning — it is prompted never to state, confirm or deny answers, so the valuable cognitive work cannot be delegated to it; that constraint is what makes the task AI-aware by construction. Every attempt produces a structured reasoning trace (hypothesis, estimates, formulation attempts, numeric attempts, verdict) which the coach reads and which could be aggregated per cohort to locate where reasoning breaks. Problems are pure configuration driving a shared five-stage engine — Problem 01 exercises decay identification and Q-value energetics; Problem 02 exponential attenuation and shielding; Problem 03 fission energetics from the binding-energy curve; Problem 04 the Coulomb barrier and tunnelling in stellar fusion; Problem 05 neutron moderation kinematics. Adding another problem is data entry, not development. The AI call is a single swappable function, ready to be pointed at an institution-funded API proxy for deployment.";
 
 function App() {
   const [screen, setScreen] = useState("intro"); // "intro" | problem index

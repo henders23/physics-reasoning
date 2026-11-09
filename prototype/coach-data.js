@@ -26,14 +26,14 @@ const PROBLEMS = {
       "what happens to N and Z under each decay mode; where Cs-137 sits relative to the valley of stability; what the sign of Q means physically; whether atomic mass excesses already include electron masses; comparing magnitudes on the binding-energy curve.",
   },
 
-  tc99m: {
+  shield: {
     problem:
-      '"A hospital ⁹⁹Mo/⁹⁹ᵐTc generator is loaded at t = 0 with pure ⁹⁹Mo and no daughter. Determine how the ⁹⁹ᵐTc activity evolves and when it is best eluted (milked)." Hypothesis options describe the shape of the daughter activity curve.',
-    data: "half-lives t½(Mo-99) = 65.9 h, t½(Tc-99m) = 6.01 h, t½(Tc-99) = 2.1×10⁵ y (treat as inert). Chain: Mo → Tcᵐ → Tc.",
+      '"A Cs-137 source sends a narrow beam of 662 keV γ-rays at a detector. Determine how the transmitted intensity depends on shield thickness, and how much lead (or aluminium) cuts the count rate by a factor of 1000." Hypotheses describe what a second identical slab does.',
+    data: "narrow-beam linear attenuation coefficients at 662 keV: μ(Pb) = 1.23 cm⁻¹ (ρ = 11.35 g/cm³), μ(Al) = 0.202 cm⁻¹ (ρ = 2.70 g/cm³). Ignore build-up.",
     facts:
-      "λ₁ = ln2/65.9 ≈ 0.0105 h⁻¹, λ₂ = ln2/6.01 ≈ 0.1153 h⁻¹. Governing equation dN₂/dt = λ₁N₁ − λ₂N₂. Peak at t_max = ln(λ₂/λ₁)/(λ₂−λ₁) ≈ 22.9 h ≈ once a day. After the peak the system is in transient equilibrium: daughter activity declines with the PARENT's half-life. Correct hypothesis: rises, peaks, then falls at the parent's ~66 h rate.",
+      "I = I₀ e^(−μx): each slab multiplies the beam by the same factor, so two slabs give f². Half-value layer = ln2/μ ≈ 0.56 cm of lead. x = ln F/μ; for F = 1000, ln 1000 ≈ 6.91, x ≈ 5.62 cm of lead, ≈ 34 cm of aluminium (about 6× thicker). Correct hypothesis: cuts the beam by the same factor again.",
     lines:
-      "what N₂ equals at t = 0 and what that does to each term; which term wins early and which late; what must be true of dN₂/dt exactly at the peak; the units of λ and of ln 2/t½; the limiting case λ₂ ≫ λ₁ and what the daughter's decline rate becomes long after the peak.",
+      "what happens to a single photon entering the second slab, and whether it remembers the first; whether a fixed thickness removes a fixed number or a fixed fraction of photons; what μ means as a probability per unit length; the units of μx; natural versus base-10 logarithms; why μ differs between lead and aluminium beyond density.",
   },
 
   u235: {

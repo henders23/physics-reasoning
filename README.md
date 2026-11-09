@@ -13,7 +13,7 @@ An interactive problem set for PHYSM0047 (Nuclear Science, University of Bristol
 ## Problems
 
 - **01 · ¹³⁷Cs — The stubborn nucleus:** decay identification and Q-values from atomic mass excesses.
-- **02 · ⁹⁹ᵐTc — Milking the cow:** coupled decay and transient equilibrium in a ⁹⁹Mo generator.
+- **02 · γ shielding — Behind the lead wall:** exponential attenuation of ¹³⁷Cs γ-rays, the half-value layer, and lead against aluminium.
 - **03 · ²³⁵U — Splitting the heavyweight:** fission Q-value from binding energy per nucleon, and the rest-mass fraction released.
 - **04 · p + p — Too cold to burn:** the Coulomb barrier against kT in the solar core, and why fusion needs tunnelling.
 - **05 · Moderator — Slowing the messenger:** elastic-collision kinematics and the number of collisions to thermalise in H, C and Pb.
@@ -24,9 +24,9 @@ An interactive problem set for PHYSM0047 (Nuclear Science, University of Bristol
 | --- | --- |
 | `prototype/` | The working prototype as a single HTML page (React and Tailwind from CDNs, compiled in the browser): an intro screen, all five problems with the gated stages, answer checking, diagrams (¹³⁷Cs Stages I and V, and Stage I of every other problem) and the live coach. |
 | `api/` | `coach.js`, the Vercel function that calls Claude for the coach. |
-| `design/` | The redesign, as Claude Design canvas source: an intro screen, all five ¹³⁷Cs stages, ⁹⁹ᵐTc Stage I, and the shared header and coach panel. `canvas.json` holds the layout and the notes, including the ⁹⁹ᵐTc text for Stages II–V. These files open in Claude Design; they need its runtime (`support.js`) and won't render on their own. |
+| `design/` | The redesign, as Claude Design canvas source: an intro screen, all five ¹³⁷Cs stages, ⁹⁹ᵐTc Stage I, and the shared header and coach panel. `canvas.json` holds the layout and the notes, including the ⁹⁹ᵐTc text for Stages II–V. The ⁹⁹ᵐTc problem has since been replaced in the prototype by γ shielding, and the coach is now a bar docked to the bottom of the screen. These files open in Claude Design; they need its runtime (`support.js`) and won't render on their own. |
 
-The prototype follows the design in `design/`. Two parts of the design aren't drawn as screens yet: ⁹⁹ᵐTc Stages II–V and the completion messages, whose text is in the canvas notes. The prototype already implements both from the problem configuration.
+The prototype otherwise follows the design in `design/`. The completion messages aren't drawn as screens there; their text is in the canvas notes, and the prototype builds them from the problem configuration.
 
 ## The coach and deployment
 
