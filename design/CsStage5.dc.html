@@ -1,0 +1,105 @@
+<!doctype html>
+<html lang="en-GB">
+<head>
+<meta charset="utf-8">
+<title>¹³⁷Cs — Stage V: Reconcile</title>
+<script src="./support.js"></script>
+</head>
+<body>
+<x-dc>
+<helmet>
+<link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=IBM+Plex+Mono:wght@400;500&amp;family=IBM+Plex+Sans:wght@400;500;600&amp;family=STIX+Two+Text:ital,wght@0,400;0,600;1,400&amp;display=swap">
+<style>
+body{margin:0}
+a{color:#1F5AD6}a:hover{color:#163F99}
+@keyframes fallb{0%{opacity:0;transform:translate(0,0)}8%{opacity:1}55%{opacity:1;transform:translate(46px,55px)}70%,100%{opacity:0;transform:translate(46px,55px)}}
+@keyframes climba{0%{opacity:0;transform:translate(0,0)}8%{opacity:1}40%{opacity:1;transform:translate(14px,-42px)}75%{opacity:.6;transform:translate(0,0)}85%,100%{opacity:0;transform:translate(0,0)}}
+.fallb{animation:fallb 3.6s 0s infinite both}.climba{animation:climba 3.6s 1.8s infinite both}
+@media (prefers-reduced-motion: reduce){.anim{animation:none !important;opacity:0 !important}}
+</style>
+</helmet>
+<div style="font-family: 'IBM Plex Sans', system-ui, sans-serif; color: #171A21; background-color: #EDF0F2; background-image: linear-gradient(#D8DEE3 1px, transparent 1px), linear-gradient(90deg, #D8DEE3 1px, transparent 1px); background-size: 28px 28px; min-height: 100vh">
+  <dc-import name="Header" problem="cs" hint-size="100%,360px"></dc-import>
+
+  <main style="max-width: 1100px; margin: 0 auto; padding: 20px 24px; box-sizing: border-box; display: flex; flex-direction: column; gap: 16px">
+
+    <div style="flex: 999 1 560px; min-width: 0; display: flex; flex-direction: column; gap: 16px">
+      <section style="background: #FFFFFF; border: 1.5px solid #171A21; border-radius: 2px; padding: 22px 26px">
+        <div style="margin-bottom: 18px">
+          <div style="font-family: 'IBM Plex Mono', ui-monospace, monospace; font-size: 11px; letter-spacing: 0.12em; color: #1F5AD6">STAGE V · DELIVER YOUR VERDICT</div>
+          <h2 style="margin: 2px 0 0; font-family: 'STIX Two Text', Georgia, serif; font-size: 26px; font-weight: 600; line-height: 1.15">Reconcile</h2>
+          <p style="margin: 6px 0 0; font-size: 14px; line-height: 1.5; color: #4A5160; max-width: 560px">Hold your calculation up against your own earlier commitments. Where they disagree, decide which was wrong and why — then deliver your verdict as if briefing a colleague.</p>
+        </div>
+
+        <div style="border: 1.5px solid #171A21; border-radius: 2px; overflow: hidden; margin-bottom: 18px">
+          <div style="display: flex; flex-wrap: wrap">
+            <div style="flex: 1 1 180px; padding: 8px 12px; background: #EDF0F2; font-size: 12.5px; font-weight: 600">Your hypothesis (Stage I)</div>
+            <div style="flex: 1 1 180px; padding: 8px 12px; font-family: 'STIX Two Text', Georgia, serif; font-size: 14px">β⁻ decay</div>
+            <div style="flex: 1 1 220px; padding: 8px 12px; font-family: 'IBM Plex Mono', monospace; font-size: 12px; color: #1F7A55">Qβ &gt; 0, Qα &lt; 0 — the data permits exactly one decay mode · agrees</div>
+          </div>
+          <div style="display: flex; flex-wrap: wrap; border-top: 1px solid #C3CBD2">
+            <div style="flex: 1 1 180px; padding: 8px 12px; background: #EDF0F2; font-size: 12.5px; font-weight: 600">Your Qβ scale (Stage II)</div>
+            <div style="flex: 1 1 180px; padding: 8px 12px; font-family: 'STIX Two Text', Georgia, serif; font-size: 14px">~ MeV</div>
+            <div style="flex: 1 1 220px; padding: 8px 12px; font-family: 'IBM Plex Mono', monospace; font-size: 12px; color: #1F7A55">computed |Qβ| = 1.17 MeV · agrees</div>
+          </div>
+          <div style="display: flex; flex-wrap: wrap; border-top: 1px solid #C3CBD2">
+            <div style="flex: 1 1 180px; padding: 8px 12px; background: #EDF0F2; font-size: 12.5px; font-weight: 600">Your α prediction (Stage II)</div>
+            <div style="flex: 1 1 180px; padding: 8px 12px; font-family: 'STIX Two Text', Georgia, serif; font-size: 14px">Genuinely unsure</div>
+            <div style="flex: 1 1 220px; padding: 8px 12px; font-family: 'IBM Plex Mono', monospace; font-size: 12px; color: #BC4327">computed Qα = −3.11 MeV · tension</div>
+          </div>
+        </div>
+
+        <figure style="margin: 0 0 20px; padding: 16px 18px 14px; background: #F7F9FA; border: 1px solid #C3CBD2; border-radius: 2px">
+          <svg role="img" aria-label="Energy ledger measured from caesium-137 at zero. Barium-137 sits 1.17 MeV lower, so beta-minus decay releases energy. Iodine-133 plus helium-4 sits 3.11 MeV higher, so alpha decay would need energy put in." viewBox="0 0 600 320" style="display: block; width: 100%; max-width: 600px; height: auto; margin: 0 auto">
+          <defs><marker id="mB1" orient="auto" markerWidth="8" markerHeight="8" refX="6" refY="4" markerUnits="userSpaceOnUse"><path d="M0 0 L8 4 L0 8 Z" fill="#1F7A55"/></marker><marker id="mB2" orient="auto" markerWidth="8" markerHeight="8" refX="6" refY="4" markerUnits="userSpaceOnUse"><path d="M0 0 L8 4 L0 8 Z" fill="#BC4327"/></marker></defs>
+          <line x1="70" y1="24" x2="70" y2="300" stroke="#4A5160" stroke-width="1.5"/>
+          <line x1="64" y1="50" x2="70" y2="50" stroke="#4A5160" stroke-width="1.5"/>
+          <text x="58" y="54" text-anchor="end" font-family="'IBM Plex Mono', monospace" font-size="11" fill="#4A5160">+3</text>
+          <line x1="64" y1="100" x2="70" y2="100" stroke="#4A5160" stroke-width="1.5"/>
+          <text x="58" y="104" text-anchor="end" font-family="'IBM Plex Mono', monospace" font-size="11" fill="#4A5160">+2</text>
+          <line x1="64" y1="150" x2="70" y2="150" stroke="#4A5160" stroke-width="1.5"/>
+          <text x="58" y="154" text-anchor="end" font-family="'IBM Plex Mono', monospace" font-size="11" fill="#4A5160">+1</text>
+          <line x1="64" y1="200" x2="70" y2="200" stroke="#4A5160" stroke-width="1.5"/>
+          <text x="58" y="204" text-anchor="end" font-family="'IBM Plex Mono', monospace" font-size="11" fill="#4A5160">0</text>
+          <line x1="64" y1="250" x2="70" y2="250" stroke="#4A5160" stroke-width="1.5"/>
+          <text x="58" y="254" text-anchor="end" font-family="'IBM Plex Mono', monospace" font-size="11" fill="#4A5160">−1</text>
+          <text x="18" y="160" text-anchor="middle" transform="rotate(-90 18 160)" font-family="'IBM Plex Sans', system-ui, sans-serif" font-size="11.5" font-weight="600" fill="#4A5160">Energy relative to ¹³⁷Cs (MeV)</text>
+          <line x1="70" y1="200" x2="560" y2="200" stroke="#D8DEE3" stroke-width="1" stroke-dasharray="2 4"/>
+          <line x1="140" y1="200" x2="290" y2="200" stroke="#171A21" stroke-width="3"/>
+          <text x="215" y="188" text-anchor="middle" font-family="'STIX Two Text', Georgia, serif" font-size="16" font-weight="600" fill="#171A21">¹³⁷Cs</text>
+          <line x1="350" y1="259" x2="520" y2="259" stroke="#1F7A55" stroke-width="3"/>
+          <text x="435" y="248" text-anchor="middle" font-family="'STIX Two Text', Georgia, serif" font-size="16" font-weight="600" fill="#171A21">¹³⁷Ba</text>
+          <text x="435" y="280" text-anchor="middle" font-family="'IBM Plex Mono', monospace" font-size="11.5" fill="#1F7A55">Qβ = +1.17 MeV · released</text>
+          <line x1="350" y1="45" x2="520" y2="45" stroke="#BC4327" stroke-width="3" stroke-dasharray="8 5"/>
+          <text x="435" y="34" text-anchor="middle" font-family="'STIX Two Text', Georgia, serif" font-size="16" font-weight="600" fill="#171A21">¹³³I + ⁴He</text>
+          <text x="435" y="66" text-anchor="middle" font-family="'IBM Plex Mono', monospace" font-size="11.5" fill="#BC4327">Qα = −3.11 MeV · must be paid in</text>
+          <line x1="296" y1="204" x2="342" y2="253" stroke="#1F7A55" stroke-width="2" marker-end="url(#mB1)"/>
+          <line x1="296" y1="194" x2="344" y2="54" stroke="#BC4327" stroke-width="2" stroke-dasharray="5 4" marker-end="url(#mB2)"/>
+          <circle class="anim fallb" cx="296" cy="200" r="5" fill="#1F7A55" style="opacity: 0"/>
+          <circle class="anim climba" cx="296" cy="200" r="5" fill="#BC4327" style="opacity: 0"/>
+          </svg>
+          <figcaption style="margin-top: 10px; font-size: 12.5px; line-height: 1.5; color: #4A5160; max-width: 620px">Fig. 2 — Your Q-values as an energy ledger. Measured from ¹³⁷Cs, the β⁻ daughter sits lower, so the decay runs downhill and releases energy. ¹³³I + ⁴He sits higher: α decay would have to climb, and nothing pays for the climb.</figcaption>
+        </figure>
+        <div style="margin-bottom: 18px">
+          <label for="cs-verdict" style="display: block; font-size: 11px; font-weight: 600; letter-spacing: 0.08em; text-transform: uppercase; color: #4A5160; margin-bottom: 6px">Your verdict — what does ¹³⁷Cs do, and what settles it? (2–4 sentences)</label>
+          <textarea id="cs-verdict" rows="4" style="width: 100%; box-sizing: border-box; padding: 8px 12px; border: 1.5px solid #C3CBD2; border-radius: 2px; font-family: 'STIX Two Text', Georgia, serif; font-size: 15px; line-height: 1.45; color: #171A21; background: #FFFFFF; resize: vertical">¹³⁷Cs decays by β⁻ to ¹³⁷Ba: Qβ is +1.17 MeV, so the decay releases energy, while Qα is −3.11 MeV, so α emission would need energy put in. I wasn’t sure about α at Stage II because I hadn’t thought about how much binding the ⁴He takes with it — the negative Q settles it.</textarea>
+        </div>
+
+        <a href="TcStage1.dc.html" style="display: inline-flex; align-items: center; min-height: 44px; padding: 0 18px; background: #171A21; color: #FFFFFF; border-radius: 2px; font-size: 13.5px; font-weight: 600; letter-spacing: 0.02em; text-decoration: none">Deliver verdict — complete the problem</a>
+        <p style="margin: 10px 0 0; font-family: 'IBM Plex Mono', monospace; font-size: 11.5px; color: #4A5160">A verdict needs substance — a couple of sentences connecting the sign of each Q-value to the physical outcome, and an honest word about any commitment the data overturned.</p>
+      </section>
+
+      <dc-import name="Coach" open="{{ false }}" hint-size="100%,300px"></dc-import>
+    </div>
+  </main>
+</div>
+</x-dc>
+<script type="text/x-dc" data-dc-script data-props='{"$preview":{"width":1280,"height":1640}}'>
+class Component extends DCLogic {
+  renderVals() {
+    return {};
+  }
+}
+</script>
+</body>
+</html>

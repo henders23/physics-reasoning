@@ -1,0 +1,126 @@
+<!doctype html>
+<html lang="en-GB">
+<head>
+<meta charset="utf-8">
+<title>Problem set header, tabs and data strip</title>
+<script src="./support.js"></script>
+</head>
+<body>
+<x-dc>
+<helmet>
+<link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=IBM+Plex+Mono:wght@400;500&amp;family=IBM+Plex+Sans:wght@400;500;600&amp;family=STIX+Two+Text:ital,wght@0,400;0,600;1,400&amp;display=swap">
+<style>
+body{margin:0}
+</style>
+</helmet>
+<div style="font-family: 'IBM Plex Sans', system-ui, sans-serif; color: #171A21; background: #FFFFFF">
+
+  <header style="border-bottom: 1.5px solid #171A21; padding: 16px 0 0">
+    <div style="max-width: 1100px; margin: 0 auto; padding: 0 24px; box-sizing: border-box">
+      <div style="display: flex; flex-wrap: wrap; align-items: center; justify-content: space-between; gap: 12px">
+        <div style="font-family: 'IBM Plex Mono', ui-monospace, monospace; font-size: 11.5px; letter-spacing: 0.14em">PROBLEM SET</div>
+        <button type="button" style="min-height: 44px; padding: 0 14px; border: 1px solid #C3CBD2; border-radius: 2px; background: #EDF0F2; font-family: 'IBM Plex Sans', system-ui, sans-serif; font-size: 12.5px; color: #4A5160; cursor: pointer">For educators</button>
+      </div>
+
+      <sc-if value="{{ isCs }}" hint-placeholder-val="{{ true }}">
+        <nav aria-label="Problems" style="display: flex; gap: 4px; margin-top: 10px">
+          <a href="Main.dc.html" aria-current="page" style="display: inline-flex; align-items: center; min-height: 44px; padding: 0 16px; border: 1.5px solid #171A21; border-bottom: none; border-radius: 2px 2px 0 0; background: #EDF0F2; font-family: 'IBM Plex Mono', monospace; font-size: 12.5px; font-weight: 500; color: #171A21; text-decoration: none">01 · ¹³⁷Cs</a>
+          <a href="TcStage1.dc.html" style="display: inline-flex; align-items: center; min-height: 44px; padding: 0 16px; border: 1.5px solid transparent; border-bottom: none; font-family: 'IBM Plex Mono', monospace; font-size: 12.5px; font-weight: 500; color: #4A5160; text-decoration: none">02 · ⁹⁹ᵐTc</a>
+        </nav>
+      </sc-if>
+      <sc-if value="{{ isTc }}" hint-placeholder-val="{{ false }}">
+        <nav aria-label="Problems" style="display: flex; gap: 4px; margin-top: 10px">
+          <a href="Main.dc.html" style="display: inline-flex; align-items: center; min-height: 44px; padding: 0 16px; border: 1.5px solid transparent; border-bottom: none; font-family: 'IBM Plex Mono', monospace; font-size: 12.5px; font-weight: 500; color: #4A5160; text-decoration: none">01 · ¹³⁷Cs</a>
+          <a href="TcStage1.dc.html" aria-current="page" style="display: inline-flex; align-items: center; min-height: 44px; padding: 0 16px; border: 1.5px solid #171A21; border-bottom: none; border-radius: 2px 2px 0 0; background: #EDF0F2; font-family: 'IBM Plex Mono', monospace; font-size: 12.5px; font-weight: 500; color: #171A21; text-decoration: none">02 · ⁹⁹ᵐTc</a>
+        </nav>
+      </sc-if>
+    </div>
+  </header>
+
+  <sc-if value="{{ isCs }}" hint-placeholder-val="{{ true }}">
+    <div style="border-bottom: 1px solid #C3CBD2; padding: 18px 0 14px">
+      <div style="max-width: 1100px; margin: 0 auto; padding: 0 24px; box-sizing: border-box">
+        <h1 style="margin: 0; font-family: 'STIX Two Text', Georgia, serif; font-size: 28px; font-weight: 600; line-height: 1.12">The stubborn nucleus: what does ¹³⁷Cs actually do?</h1>
+        <p style="margin: 6px 0 0; font-size: 13.5px; line-height: 1.5; color: #4A5160; max-width: 660px">Caesium-137 is among the most consequential fission products in the nuclear industry. Work out — commit by commit — which decay is physically permitted. The algebra stays locked until the reasoning is on record.</p>
+      </div>
+    </div>
+    <div style="border-bottom: 1px solid #C3CBD2; padding: 12px 0 14px">
+      <div style="max-width: 1100px; margin: 0 auto; padding: 0 24px; box-sizing: border-box">
+        <div style="font-size: 10.5px; font-weight: 600; letter-spacing: 0.1em; text-transform: uppercase; color: #4A5160; margin-bottom: 8px">Data — atomic mass excesses Δ, in MeV (from the chart of nuclides)</div>
+        <div style="display: flex; flex-wrap: wrap; align-items: stretch; gap: 8px">
+          <div style="min-width: 96px; padding: 6px 8px; border: 1.5px solid #171A21; border-radius: 2px; font-family: 'IBM Plex Mono', monospace; display: flex; flex-direction: column; gap: 1px">
+            <div style="display: flex; align-items: baseline; justify-content: space-between; gap: 8px"><span style="font-family: 'STIX Two Text', Georgia, serif; font-size: 19px; font-weight: 600">¹³⁷Cs</span><span style="font-size: 10px; color: #4A5160">Z=55</span></div>
+            <div style="font-size: 10.5px; color: #4A5160">N=82</div>
+            <div style="font-size: 11px">Δ=−86.55</div>
+            <div style="font-size: 9px; letter-spacing: 0.04em; text-transform: uppercase; color: #5C6470">parent</div>
+          </div>
+          <div style="min-width: 96px; padding: 6px 8px; border: 1.5px solid #1F5AD6; border-radius: 2px; font-family: 'IBM Plex Mono', monospace; display: flex; flex-direction: column; gap: 1px">
+            <div style="display: flex; align-items: baseline; justify-content: space-between; gap: 8px"><span style="font-family: 'STIX Two Text', Georgia, serif; font-size: 19px; font-weight: 600">¹³⁷Ba</span><span style="font-size: 10px; color: #4A5160">Z=56</span></div>
+            <div style="font-size: 10.5px; color: #4A5160">N=81</div>
+            <div style="font-size: 11px">Δ=−87.72</div>
+            <div style="font-size: 9px; letter-spacing: 0.04em; text-transform: uppercase; color: #5C6470">β⁻ daughter?</div>
+          </div>
+          <div style="min-width: 96px; padding: 6px 8px; border: 1.5px solid #D99114; border-radius: 2px; font-family: 'IBM Plex Mono', monospace; display: flex; flex-direction: column; gap: 1px">
+            <div style="display: flex; align-items: baseline; justify-content: space-between; gap: 8px"><span style="font-family: 'STIX Two Text', Georgia, serif; font-size: 19px; font-weight: 600">¹³³I</span><span style="font-size: 10px; color: #4A5160">Z=53</span></div>
+            <div style="font-size: 10.5px; color: #4A5160">N=80</div>
+            <div style="font-size: 11px">Δ=−85.86</div>
+            <div style="font-size: 9px; letter-spacing: 0.04em; text-transform: uppercase; color: #5C6470">α daughter?</div>
+          </div>
+          <div style="min-width: 96px; padding: 6px 8px; border: 1.5px solid #D99114; border-radius: 2px; font-family: 'IBM Plex Mono', monospace; display: flex; flex-direction: column; gap: 1px">
+            <div style="display: flex; align-items: baseline; justify-content: space-between; gap: 8px"><span style="font-family: 'STIX Two Text', Georgia, serif; font-size: 19px; font-weight: 600">⁴He</span><span style="font-size: 10px; color: #4A5160">Z=2</span></div>
+            <div style="font-size: 10.5px; color: #4A5160">N=2</div>
+            <div style="font-size: 11px">Δ=+2.42</div>
+            <div style="font-size: 9px; letter-spacing: 0.04em; text-transform: uppercase; color: #5C6470">α particle</div>
+          </div>
+          <div style="display: flex; align-items: center; max-width: 280px; padding: 0 8px; font-family: 'IBM Plex Mono', monospace; font-size: 11px; line-height: 1.45; color: #4A5160">Δ ≡ (M_atomic − A·u)c². Atomic, not nuclear — the electrons are already in the ledger.</div>
+        </div>
+      </div>
+    </div>
+  </sc-if>
+
+  <sc-if value="{{ isTc }}" hint-placeholder-val="{{ false }}">
+    <div style="border-bottom: 1px solid #C3CBD2; padding: 18px 0 14px">
+      <div style="max-width: 1100px; margin: 0 auto; padding: 0 24px; box-sizing: border-box">
+        <h1 style="margin: 0; font-family: 'STIX Two Text', Georgia, serif; font-size: 28px; font-weight: 600; line-height: 1.12">Milking the cow: when do you harvest ⁹⁹ᵐTc?</h1>
+        <p style="margin: 6px 0 0; font-size: 13.5px; line-height: 1.5; color: #4A5160; max-width: 660px">Technetium-99m sits behind roughly 8 in 10 nuclear-medicine scans, and hospitals grow it on site in a ⁹⁹Mo generator — ‘the cow’. A fresh cow is loaded at t = 0 with pure ⁹⁹Mo and no daughter at all. Your job: reason out when the milking is worth doing.</p>
+      </div>
+    </div>
+    <div style="border-bottom: 1px solid #C3CBD2; padding: 12px 0 14px">
+      <div style="max-width: 1100px; margin: 0 auto; padding: 0 24px; box-sizing: border-box">
+        <div style="font-size: 10.5px; font-weight: 600; letter-spacing: 0.1em; text-transform: uppercase; color: #4A5160; margin-bottom: 8px">Data — the decay chain (half-lives from the chart of nuclides)</div>
+        <div style="display: flex; flex-wrap: wrap; align-items: stretch; gap: 8px">
+          <div style="min-width: 96px; padding: 6px 8px; border: 1.5px solid #171A21; border-radius: 2px; font-family: 'IBM Plex Mono', monospace; display: flex; flex-direction: column; gap: 1px">
+            <div style="display: flex; align-items: baseline; justify-content: space-between; gap: 8px"><span style="font-family: 'STIX Two Text', Georgia, serif; font-size: 19px; font-weight: 600">⁹⁹Mo</span><span style="font-size: 10px; color: #4A5160">Z=42</span></div>
+            <div style="font-size: 10.5px; color: #4A5160">N=57</div>
+            <div style="font-size: 11px">t½=65.9 h</div>
+            <div style="font-size: 9px; letter-spacing: 0.04em; text-transform: uppercase; color: #5C6470">parent — the cow</div>
+          </div>
+          <div style="min-width: 96px; padding: 6px 8px; border: 1.5px solid #1F5AD6; border-radius: 2px; font-family: 'IBM Plex Mono', monospace; display: flex; flex-direction: column; gap: 1px">
+            <div style="display: flex; align-items: baseline; justify-content: space-between; gap: 8px"><span style="font-family: 'STIX Two Text', Georgia, serif; font-size: 19px; font-weight: 600">⁹⁹ᵐTc</span><span style="font-size: 10px; color: #4A5160">Z=43</span></div>
+            <div style="font-size: 10.5px; color: #4A5160">isomer</div>
+            <div style="font-size: 11px">t½=6.01 h</div>
+            <div style="font-size: 9px; letter-spacing: 0.04em; text-transform: uppercase; color: #5C6470">daughter — the milk</div>
+          </div>
+          <div style="min-width: 96px; padding: 6px 8px; border: 1.5px solid #1F7A55; border-radius: 2px; font-family: 'IBM Plex Mono', monospace; display: flex; flex-direction: column; gap: 1px">
+            <div style="display: flex; align-items: baseline; justify-content: space-between; gap: 8px"><span style="font-family: 'STIX Two Text', Georgia, serif; font-size: 19px; font-weight: 600">⁹⁹Tc</span><span style="font-size: 10px; color: #4A5160">Z=43</span></div>
+            <div style="font-size: 10.5px; color: #4A5160">N=56</div>
+            <div style="font-size: 11px">t½=2.1×10⁵ y</div>
+            <div style="font-size: 9px; letter-spacing: 0.04em; text-transform: uppercase; color: #5C6470">granddaughter — inert</div>
+          </div>
+          <div style="display: flex; align-items: center; max-width: 300px; padding: 0 8px; font-family: 'IBM Plex Mono', monospace; font-size: 11px; line-height: 1.45; color: #4A5160">⁹⁹Mo β⁻-decays to ⁹⁹ᵐTc. Treat the chain as Mo → Tcᵐ → Tc, with the granddaughter inert on any timescale you care about.</div>
+        </div>
+      </div>
+    </div>
+  </sc-if>
+</div>
+</x-dc>
+<script type="text/x-dc" data-dc-script data-props='{"problem":{"editor":"enum","options":["cs","tc"],"default":"cs"},"$preview":{"width":1280,"height":360}}'>
+class Component extends DCLogic {
+  renderVals() {
+    const problem = this.props.problem ?? 'cs';
+    return { isCs: problem === 'cs', isTc: problem === 'tc' };
+  }
+}
+</script>
+</body>
+</html>

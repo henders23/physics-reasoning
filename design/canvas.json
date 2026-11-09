@@ -1,0 +1,154 @@
+{
+  "v": 3,
+  "createdOnFiles": {
+    "v": 1,
+    "at": "2026-11-09T15:26:00Z"
+  },
+  "title": "Reasoning-First Nuclear Problem Set — redesign",
+  "launch": {
+    "view": "canvas"
+  },
+  "pages": [],
+  "boards": {
+    "Main.dc.html": {
+      "x": 0,
+      "y": 0,
+      "w": 1280,
+      "h": 1760,
+      "title": "¹³⁷Cs · Stage I — Frame the physics",
+      "expand": "fill",
+      "is_interactive": true
+    },
+    "CsStage2.dc.html": {
+      "x": 1360,
+      "y": 0,
+      "w": 1280,
+      "h": 1180,
+      "title": "¹³⁷Cs · Stage II — Estimate first",
+      "expand": "fill",
+      "is_interactive": true
+    },
+    "CsStage3.dc.html": {
+      "x": 2720,
+      "y": 0,
+      "w": 1280,
+      "h": 1720,
+      "title": "¹³⁷Cs · Stage III — Formulate (after one wrong attempt, coach open)",
+      "expand": "fill",
+      "is_interactive": true
+    },
+    "CsStage4.dc.html": {
+      "x": 4080,
+      "y": 0,
+      "w": 1280,
+      "h": 1040,
+      "title": "¹³⁷Cs · Stage IV — Solve",
+      "expand": "fill",
+      "is_interactive": true
+    },
+    "CsStage5.dc.html": {
+      "x": 5440,
+      "y": 0,
+      "w": 1280,
+      "h": 1640,
+      "title": "¹³⁷Cs · Stage V — Reconcile",
+      "expand": "fill",
+      "is_interactive": true
+    },
+    "TcStage1.dc.html": {
+      "x": 0,
+      "y": 2260,
+      "w": 1280,
+      "h": 1700,
+      "title": "⁹⁹ᵐTc · Stage I — before anything is committed",
+      "expand": "fill",
+      "is_interactive": true
+    },
+    "Header.dc.html": {
+      "x": 0,
+      "y": 4420,
+      "w": 1280,
+      "h": 330,
+      "title": "Shared · Header, tabs and data strip"
+    },
+    "Coach.dc.html": {
+      "x": 1360,
+      "y": 4420,
+      "w": 860,
+      "h": 560,
+      "title": "Shared · Coach panel"
+    },
+    "Intro.dc.html": {
+      "x": -1360,
+      "y": 0,
+      "w": 1280,
+      "h": 1180,
+      "title": "Intro — welcome and choose a problem",
+      "expand": "fill",
+      "is_interactive": true
+    }
+  },
+  "order": [
+    "Header.dc.html",
+    "Coach.dc.html",
+    "Main.dc.html",
+    "CsStage2.dc.html",
+    "CsStage3.dc.html",
+    "CsStage4.dc.html",
+    "CsStage5.dc.html",
+    "TcStage1.dc.html",
+    "Intro.dc.html"
+  ],
+  "notes": {
+    "t0": {
+      "x": -1360,
+      "y": -300,
+      "text": "Intro, then Problem 01 · ¹³⁷Cs — the five-stage flow",
+      "kind": "title1",
+      "maxW": 8080
+    },
+    "t1": {
+      "x": 0,
+      "y": 1960,
+      "text": "Problem 02 · ⁹⁹ᵐTc — and notes on the rest",
+      "kind": "title1",
+      "maxW": 3360
+    },
+    "t2": {
+      "x": 0,
+      "y": 4120,
+      "text": "Shared pieces — edit once, every screen updates",
+      "kind": "title1",
+      "maxW": 2540
+    },
+    "howto": {
+      "x": 1360,
+      "y": 2260,
+      "w": 440,
+      "fill": "orange",
+      "text": "How this canvas works\n\n• Row 1 is the full ¹³⁷Cs flow, one screen per stage, with example student answers filled in. Press Play on the Intro (far left) or Stage I and click the black Commit buttons to step through; the problem tabs are clickable too.\n• The header and the coach panel are shared pieces (bottom row). Edit them there and every screen picks up the change.\n• Everything else, including all the wording, is plain text on each screen: click and retype.\n• Change the flow by adding, removing or reordering screens. When you're happy, ask Claude to rebuild the working prototype from this canvas."
+    },
+    "tcrest": {
+      "x": 1880,
+      "y": 2260,
+      "w": 440,
+      "fill": "blue",
+      "text": "⁹⁹ᵐTc — text for Stages II–V (not yet drawn)\n\nII · Estimate first\n\"Orders of magnitude before arithmetic. Both commitments here get tested against your own calculation in Stage V.\"\nQ: How long after loading does the ⁹⁹ᵐTc activity peak? ~30 min / ~6 h / ~1 day ✓ / ~1 week\nQ: Just after t = 0, which term dominates dN₂/dt? Production ✓ / Loss / They cancel exactly\n\nIII · Formulate\n\"Two things to assemble: the differential equation that governs the daughter population, and the expression for when its activity peaks.\"\nGoverning equation: dN₂/dt = λ₁N₁ − λ₂N₂ ✓ / −λ₂N₂ / λ₁N₁ + λ₂N₂ / λ₂N₂ − λ₁N₁\nPeak time: ln(λ₂/λ₁)/(λ₂ − λ₁) ✓ / ln 2/(λ₂ − λ₁) / ln(λ₁/λ₂)/(λ₂ − λ₁) / 1/λ₂ − 1/λ₁\n\nIV · Solve\n\"Convert the half-lives to decay constants and find the peak time. Same units throughout — hours are kind here.\"\nλ₂ = 0.1153 h⁻¹ (±0.004) · t_max = 22.9 h (±0.7)\nHint: λ = ln 2 / t½ — and t_max wants both λs in the same units.\n\nV · Reconcile\n\"Line your calculation up against your Stage I–II commitments … then deliver your verdict as if advising the radiopharmacy.\"\nVerdict prompt: When do you milk the cow, and what settles it? (2–4 sentences)"
+    },
+    "endtext": {
+      "x": 2400,
+      "y": 2260,
+      "w": 440,
+      "fill": "green",
+      "text": "Shown when a problem is completed\n\n¹³⁷Cs: \"For interest: real ¹³⁷Cs does exactly this — β⁻ to ¹³⁷ᵐBa (t½ ≈ 30.1 y), followed by the famous 0.662 MeV γ used to calibrate half the world's detectors. α decay is walled off by that negative Q: the binding-energy ledger simply doesn't balance.\"\n\n⁹⁹ᵐTc: \"For interest: real generators are eluted roughly every 23 hours — once a day on the ward, which is exactly your t_max. Past the peak the daughter rides the parent's 66 h half-life (transient equilibrium), and the 6 h half-life plus a clean 140 keV γ is what makes ⁹⁹ᵐTc the workhorse of nuclear medicine. In reality ~87.5% of ⁹⁹Mo decays feed the metastable state — a refinement that shifts activities, not the peak time.\""
+    },
+    "edu": {
+      "x": 2920,
+      "y": 2260,
+      "w": 440,
+      "fill": "gray",
+      "text": "\"For educators\" panel (opens from the header button)\n\nDesign notes. This environment enforces commit-before-compute: students must frame the physics (ILO 1), estimate, and formulate (ILO 2–3) before numeric work unlocks. The AI coach is constrained to Socratic questioning — it is prompted never to state, confirm or deny answers, so the valuable cognitive work cannot be delegated to it; that constraint is what makes the task AI-aware by construction. Every attempt produces a structured reasoning trace (hypothesis, estimates, formulation attempts, numeric attempts, verdict) which the coach reads and which could be aggregated per cohort to locate where reasoning breaks. Problems are pure configuration driving a shared five-stage engine. Adding a third problem is data entry, not development."
+    }
+  },
+  "designSystems": []
+}

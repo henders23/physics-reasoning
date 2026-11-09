@@ -1,0 +1,91 @@
+<!doctype html>
+<html lang="en-GB">
+<head>
+<meta charset="utf-8">
+<title>⁹⁹ᵐTc — Stage I: Frame the physics</title>
+<script src="./support.js"></script>
+</head>
+<body>
+<x-dc>
+<helmet>
+<link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=IBM+Plex+Mono:wght@400;500&amp;family=IBM+Plex+Sans:wght@400;500;600&amp;family=STIX+Two+Text:ital,wght@0,400;0,600;1,400&amp;display=swap">
+<style>
+body{margin:0}
+a{color:#1F5AD6}a:hover{color:#163F99}
+@keyframes feed{0%{opacity:0;transform:translate(0,0)}6%{opacity:1}55%{transform:translate(70px,0)}88%{opacity:1;transform:translate(70px,40px)}100%{opacity:0;transform:translate(70px,46px)}}
+@keyframes drain{0%{opacity:0;transform:translate(0,0)}6%{opacity:1}60%{transform:translate(90px,0)}90%{opacity:1;transform:translate(90px,22px)}100%{opacity:0;transform:translate(90px,26px)}}
+.feed{animation:feed 4.5s infinite both}.drain{animation:drain 1.8s infinite both}
+@media (prefers-reduced-motion: reduce){.anim{animation:none !important;opacity:0 !important}}
+</style>
+</helmet>
+<div style="font-family: 'IBM Plex Sans', system-ui, sans-serif; color: #171A21; background-color: #EDF0F2; background-image: linear-gradient(#D8DEE3 1px, transparent 1px), linear-gradient(90deg, #D8DEE3 1px, transparent 1px); background-size: 28px 28px; min-height: 100vh">
+  <dc-import name="Header" problem="tc" hint-size="100%,360px"></dc-import>
+
+  <main style="max-width: 1100px; margin: 0 auto; padding: 20px 24px; box-sizing: border-box; display: flex; flex-direction: column; gap: 16px">
+
+    <div style="flex: 999 1 560px; min-width: 0; display: flex; flex-direction: column; gap: 16px">
+      <section style="background: #FFFFFF; border: 1.5px solid #171A21; border-radius: 2px; padding: 22px 26px">
+        <div style="margin-bottom: 18px">
+          <div style="font-family: 'IBM Plex Mono', ui-monospace, monospace; font-size: 11px; letter-spacing: 0.12em; color: #1F5AD6">STAGE I · COMMIT TO A HYPOTHESIS</div>
+          <h2 style="margin: 2px 0 0; font-family: 'STIX Two Text', Georgia, serif; font-size: 26px; font-weight: 600; line-height: 1.15">Frame the physics</h2>
+          <p style="margin: 6px 0 0; font-size: 14px; line-height: 1.5; color: #4A5160; max-width: 560px">No equations yet. A fresh generator holds pure ⁹⁹Mo and zero ⁹⁹ᵐTc. Sketch in your head what the daughter’s activity does over the days that follow — and commit to the shape, with your physical reasoning.</p>
+        </div>
+
+        <figure style="margin: 0 0 20px; padding: 16px 18px 14px; background: #F7F9FA; border: 1px solid #C3CBD2; border-radius: 2px">
+          <svg role="img" aria-label="A fill-and-drain picture of the generator. A large tank of molybdenum-99 slowly feeds the middle tank of technetium-99m, which starts empty and drains into an inert technetium-99 bin." viewBox="0 0 580 320" style="display: block; width: 100%; max-width: 580px; height: auto; margin: 0 auto">
+          <text x="110" y="28" text-anchor="middle" font-family="'STIX Two Text', Georgia, serif" font-size="16" font-weight="600" fill="#171A21">⁹⁹Mo · the cow</text>
+          <rect x="40" y="40" width="140" height="120" rx="3" fill="#FFFFFF" stroke="#171A21" stroke-width="2"/>
+          <rect x="42" y="52" width="136" height="106" fill="#D8DEE3"/>
+          <text x="110" y="182" text-anchor="middle" font-family="'IBM Plex Mono', monospace" font-size="11.5" fill="#4A5160">t½ = 65.9 h</text>
+          <path d="M 180 140 L 250 140 L 250 162" fill="none" stroke="#AEB6BF" stroke-width="10" stroke-linejoin="round"/>
+          <text x="215" y="128" text-anchor="middle" font-family="'IBM Plex Sans', system-ui, sans-serif" font-size="12" font-weight="600" fill="#4A5160">feeds in</text>
+          <rect x="200" y="170" width="120" height="90" rx="3" fill="#FFFFFF" stroke="#1F5AD6" stroke-width="2"/>
+          <rect x="202" y="250" width="116" height="8" fill="#E4EBFB"/>
+          <text x="260" y="284" text-anchor="middle" font-family="'STIX Two Text', Georgia, serif" font-size="16" font-weight="600" fill="#171A21">⁹⁹ᵐTc · the milk</text>
+          <text x="260" y="302" text-anchor="middle" font-family="'IBM Plex Mono', monospace" font-size="11.5" fill="#4A5160">t½ = 6.01 h · starts empty</text>
+          <path d="M 320 236 L 410 236 L 410 254" fill="none" stroke="#AEB6BF" stroke-width="10" stroke-linejoin="round"/>
+          <text x="365" y="224" text-anchor="middle" font-family="'IBM Plex Sans', system-ui, sans-serif" font-size="12" font-weight="600" fill="#4A5160">drains out</text>
+          <rect x="370" y="258" width="160" height="34" rx="3" fill="#FFFFFF" stroke="#1F7A55" stroke-width="2"/>
+          <text x="450" y="280" text-anchor="middle" font-family="'STIX Two Text', Georgia, serif" font-size="14" font-weight="600" fill="#171A21">⁹⁹Tc · inert</text>
+          <circle class="anim feed" cx="180" cy="140" r="4.5" fill="#171A21" style="opacity: 0; animation-delay: 0s"/>
+          <circle class="anim feed" cx="180" cy="140" r="4.5" fill="#171A21" style="opacity: 0; animation-delay: 1.5s"/>
+          <circle class="anim feed" cx="180" cy="140" r="4.5" fill="#171A21" style="opacity: 0; animation-delay: 3s"/>
+          <circle class="anim drain" cx="320" cy="236" r="4.5" fill="#1F5AD6" style="opacity: 0; animation-delay: 0s"/>
+          <circle class="anim drain" cx="320" cy="236" r="4.5" fill="#1F5AD6" style="opacity: 0; animation-delay: 0.6s"/>
+          <circle class="anim drain" cx="320" cy="236" r="4.5" fill="#1F5AD6" style="opacity: 0; animation-delay: 1.2s"/>
+          </svg>
+          <figcaption style="margin-top: 10px; font-size: 12.5px; line-height: 1.5; color: #4A5160; max-width: 620px">Fig. 1 — The generator as fill and drain. ⁹⁹ᵐTc is fed by decays in its parent and emptied by its own decays; each flow runs on its own clock. The middle tank starts empty. What its level does next is your hypothesis.</figcaption>
+        </figure>
+        <div style="margin-bottom: 18px">
+          <div style="font-size: 11px; font-weight: 600; letter-spacing: 0.08em; text-transform: uppercase; color: #4A5160; margin-bottom: 6px">Hypothesis — after loading at t = 0, the ⁹⁹ᵐTc activity…</div>
+          <div style="display: flex; flex-direction: column; gap: 6px">
+            <button type="button" style="display: flex; align-items: center; justify-content: space-between; gap: 12px; min-height: 44px; padding: 8px 12px; border: 1.5px solid #C3CBD2; background: #FFFFFF; border-radius: 2px; font-family: 'STIX Two Text', Georgia, serif; font-size: 15px; color: #171A21; text-align: left; cursor: pointer"><span>Falls from the start</span><span style="font-family: 'IBM Plex Mono', monospace; font-size: 11px; color: #4A5160">it only ever decays</span></button>
+            <button type="button" style="display: flex; align-items: center; justify-content: space-between; gap: 12px; min-height: 44px; padding: 8px 12px; border: 1.5px solid #C3CBD2; background: #FFFFFF; border-radius: 2px; font-family: 'STIX Two Text', Georgia, serif; font-size: 15px; color: #171A21; text-align: left; cursor: pointer"><span>Rises, peaks, then falls at its own 6 h rate</span><span style="font-family: 'IBM Plex Mono', monospace; font-size: 11px; color: #4A5160">daughter clock</span></button>
+            <button type="button" style="display: flex; align-items: center; justify-content: space-between; gap: 12px; min-height: 44px; padding: 8px 12px; border: 1.5px solid #C3CBD2; background: #FFFFFF; border-radius: 2px; font-family: 'STIX Two Text', Georgia, serif; font-size: 15px; color: #171A21; text-align: left; cursor: pointer"><span>Rises, peaks, then falls at the parent’s ~66 h rate</span><span style="font-family: 'IBM Plex Mono', monospace; font-size: 11px; color: #4A5160">parent clock</span></button>
+            <button type="button" style="display: flex; align-items: center; justify-content: space-between; gap: 12px; min-height: 44px; padding: 8px 12px; border: 1.5px solid #C3CBD2; background: #FFFFFF; border-radius: 2px; font-family: 'STIX Two Text', Georgia, serif; font-size: 15px; color: #171A21; text-align: left; cursor: pointer"><span>Rises and locks onto the Mo activity for good</span><span style="font-family: 'IBM Plex Mono', monospace; font-size: 11px; color: #4A5160">exact tracking</span></button>
+          </div>
+        </div>
+
+        <div style="margin-bottom: 18px">
+          <label for="tc-why" style="display: block; font-size: 11px; font-weight: 600; letter-spacing: 0.08em; text-transform: uppercase; color: #4A5160; margin-bottom: 6px">Justify it — one or two sentences of physics</label>
+          <textarea id="tc-why" rows="3" placeholder="e.g. think about what feeds ⁹⁹ᵐTc, what drains it, and which wins when…" style="width: 100%; box-sizing: border-box; padding: 8px 12px; border: 1.5px solid #C3CBD2; border-radius: 2px; font-family: 'STIX Two Text', Georgia, serif; font-size: 15px; line-height: 1.45; color: #171A21; background: #FFFFFF; resize: vertical"></textarea>
+        </div>
+
+        <button type="button" disabled style="min-height: 44px; padding: 0 18px; background: #D8DEE3; color: #4A5160; border: 1.5px solid #D8DEE3; border-radius: 2px; font-family: 'IBM Plex Sans', system-ui, sans-serif; font-size: 13.5px; font-weight: 600; letter-spacing: 0.02em; cursor: not-allowed">Commit hypothesis → unlock Stage II</button>
+        <div style="margin-top: 12px; padding: 8px 12px; background: #EDF0F2; border: 1px dashed #C3CBD2; border-radius: 2px; font-family: 'IBM Plex Mono', monospace; font-size: 11.5px; line-height: 1.5; color: #4A5160">Stage II stays locked until you commit a hypothesis with a real justification (a sentence or two). There’s no marking here — this is a prediction the data will test.</div>
+      </section>
+
+      <dc-import name="Coach" open="{{ false }}" hint-size="100%,300px"></dc-import>
+    </div>
+  </main>
+</div>
+</x-dc>
+<script type="text/x-dc" data-dc-script data-props='{"$preview":{"width":1280,"height":1700}}'>
+class Component extends DCLogic {
+  renderVals() {
+    return {};
+  }
+}
+</script>
+</body>
+</html>

@@ -1,0 +1,101 @@
+<!doctype html>
+<html lang="en-GB">
+<head>
+<meta charset="utf-8">
+<title>Problem set — introduction</title>
+<script src="./support.js"></script>
+</head>
+<body>
+<x-dc>
+<helmet>
+<link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=IBM+Plex+Mono:wght@400;500&amp;family=IBM+Plex+Sans:wght@400;500;600&amp;family=STIX+Two+Text:ital,wght@0,400;0,600;1,400&amp;display=swap">
+<style>
+body{margin:0}
+a{color:#1F5AD6}a:hover{color:#163F99}
+@keyframes steppulse{0%,16%{background:#1F5AD6;border-color:#1F5AD6;color:#FFFFFF}22%,100%{background:#FFFFFF;border-color:#171A21;color:#171A21}}
+.stepbadge{animation:steppulse 10s infinite both}
+@media (prefers-reduced-motion: reduce){.stepbadge{animation:none !important}}
+</style>
+</helmet>
+<div style="font-family: 'IBM Plex Sans', system-ui, sans-serif; color: #171A21; background-color: #EDF0F2; background-image: linear-gradient(#D8DEE3 1px, transparent 1px), linear-gradient(90deg, #D8DEE3 1px, transparent 1px); background-size: 28px 28px; min-height: 100vh">
+
+  <header style="background: #FFFFFF; border-bottom: 1.5px solid #171A21; padding: 12px 0">
+    <div style="max-width: 1100px; margin: 0 auto; padding: 0 24px; box-sizing: border-box; display: flex; flex-wrap: wrap; align-items: center; justify-content: space-between; gap: 12px">
+      <div style="font-family: 'IBM Plex Mono', ui-monospace, monospace; font-size: 11.5px; letter-spacing: 0.14em">PROBLEM SET</div>
+      <button type="button" style="min-height: 44px; padding: 0 14px; border: 1px solid #C3CBD2; border-radius: 2px; background: #EDF0F2; font-family: 'IBM Plex Sans', system-ui, sans-serif; font-size: 12.5px; color: #4A5160; cursor: pointer">For educators</button>
+    </div>
+  </header>
+
+  <main style="max-width: 1100px; margin: 0 auto; padding: 40px 24px 48px; box-sizing: border-box; display: flex; flex-direction: column; gap: 28px">
+
+    <section style="max-width: 720px">
+      <div style="font-family: 'IBM Plex Mono', monospace; font-size: 11px; letter-spacing: 0.14em; color: #1F5AD6">NUCLEAR SCIENCE · PHYSM0047</div>
+      <h1 style="margin: 6px 0 0; font-family: 'STIX Two Text', Georgia, serif; font-size: 44px; font-weight: 600; line-height: 1.08">Reason first, calculate second.</h1>
+      <p style="margin: 14px 0 0; font-size: 16px; line-height: 1.6; color: #4A5160">Two problems from nuclear physics. In each one you say what you think is going on — and why — before any numbers unlock. At the end, you hold your calculation up against your own predictions and work out where they agree.</p>
+    </section>
+
+    <section aria-labelledby="how-title" style="background: #FFFFFF; border: 1.5px solid #171A21; border-radius: 2px; padding: 22px 26px">
+      <h2 id="how-title" style="margin: 0; font-family: 'STIX Two Text', Georgia, serif; font-size: 22px; font-weight: 600">How each problem works</h2>
+      <p style="margin: 6px 0 0; font-size: 14px; line-height: 1.5; color: #4A5160; max-width: 640px">Five stages. Each one unlocks only when you’ve committed to the one before, and commitments can’t be changed later.</p>
+      <ol style="list-style: none; margin: 18px 0 0; padding: 0; display: grid; grid-template-columns: repeat(auto-fit, minmax(170px, 1fr)); gap: 12px">
+        <li style="display: flex; flex-direction: column; gap: 8px; padding: 12px; border: 1px solid #C3CBD2; border-radius: 2px">
+          <span aria-hidden="true" class="stepbadge" style="width: 36px; height: 36px; display: flex; align-items: center; justify-content: center; border: 1.5px solid #171A21; border-radius: 2px; box-sizing: border-box; font-family: 'STIX Two Text', Georgia, serif; font-size: 15px; font-weight: 600; animation-delay: 0s">I</span>
+          <span style="font-size: 14px; font-weight: 600">Frame the physics</span>
+          <span style="font-size: 13px; line-height: 1.5; color: #4A5160">Commit to a hypothesis and say why.</span>
+        </li>
+        <li style="display: flex; flex-direction: column; gap: 8px; padding: 12px; border: 1px solid #C3CBD2; border-radius: 2px">
+          <span aria-hidden="true" class="stepbadge" style="width: 36px; height: 36px; display: flex; align-items: center; justify-content: center; border: 1.5px solid #171A21; border-radius: 2px; box-sizing: border-box; font-family: 'STIX Two Text', Georgia, serif; font-size: 15px; font-weight: 600; animation-delay: 2s">II</span>
+          <span style="font-size: 14px; font-weight: 600">Estimate first</span>
+          <span style="font-size: 13px; line-height: 1.5; color: #4A5160">Orders of magnitude before any arithmetic.</span>
+        </li>
+        <li style="display: flex; flex-direction: column; gap: 8px; padding: 12px; border: 1px solid #C3CBD2; border-radius: 2px">
+          <span aria-hidden="true" class="stepbadge" style="width: 36px; height: 36px; display: flex; align-items: center; justify-content: center; border: 1.5px solid #171A21; border-radius: 2px; box-sizing: border-box; font-family: 'STIX Two Text', Georgia, serif; font-size: 15px; font-weight: 600; animation-delay: 4s">III</span>
+          <span style="font-size: 14px; font-weight: 600">Formulate</span>
+          <span style="font-size: 13px; line-height: 1.5; color: #4A5160">Assemble the expressions that govern it.</span>
+        </li>
+        <li style="display: flex; flex-direction: column; gap: 8px; padding: 12px; border: 1px solid #C3CBD2; border-radius: 2px">
+          <span aria-hidden="true" class="stepbadge" style="width: 36px; height: 36px; display: flex; align-items: center; justify-content: center; border: 1.5px solid #171A21; border-radius: 2px; box-sizing: border-box; font-family: 'STIX Two Text', Georgia, serif; font-size: 15px; font-weight: 600; animation-delay: 6s">IV</span>
+          <span style="font-size: 14px; font-weight: 600">Solve</span>
+          <span style="font-size: 13px; line-height: 1.5; color: #4A5160">Only now, the numbers.</span>
+        </li>
+        <li style="display: flex; flex-direction: column; gap: 8px; padding: 12px; border: 1px solid #C3CBD2; border-radius: 2px">
+          <span aria-hidden="true" class="stepbadge" style="width: 36px; height: 36px; display: flex; align-items: center; justify-content: center; border: 1.5px solid #171A21; border-radius: 2px; box-sizing: border-box; font-family: 'STIX Two Text', Georgia, serif; font-size: 15px; font-weight: 600; animation-delay: 8s">V</span>
+          <span style="font-size: 14px; font-weight: 600">Reconcile</span>
+          <span style="font-size: 13px; line-height: 1.5; color: #4A5160">Check your result against your own predictions.</span>
+        </li>
+      </ol>
+      <div style="margin-top: 16px; display: flex; align-items: flex-start; gap: 10px; padding: 12px 14px; background: #171A21; color: #FFFFFF; border-radius: 2px">
+        <span aria-hidden="true" style="flex-shrink: 0; margin-top: 6px; display: inline-block; width: 8px; height: 8px; border-radius: 50%; background: #5FD39B"></span>
+        <span style="font-size: 13.5px; line-height: 1.55; color: #D8DEE3"><b style="color: #FFFFFF">A coach is on hand at every stage.</b> It reads what you’ve committed and answers only with questions — never the answer — so the thinking stays yours.</span>
+      </div>
+    </section>
+
+    <section aria-labelledby="choose-title">
+      <h2 id="choose-title" style="margin: 0 0 12px; font-family: 'STIX Two Text', Georgia, serif; font-size: 22px; font-weight: 600">Choose a problem</h2>
+      <div style="display: grid; grid-template-columns: repeat(auto-fit, minmax(300px, 1fr)); gap: 16px">
+        <div style="display: flex; flex-direction: column; gap: 10px; padding: 20px 22px; background: #FFFFFF; border: 1.5px solid #171A21; border-radius: 2px">
+          <div style="font-family: 'IBM Plex Mono', monospace; font-size: 11px; letter-spacing: 0.14em; color: #4A5160">PROBLEM 01 · DECAY AND Q-VALUES</div>
+          <h3 style="margin: 0; font-family: 'STIX Two Text', Georgia, serif; font-size: 24px; font-weight: 600; line-height: 1.15">The stubborn nucleus</h3>
+          <p style="margin: 0; font-size: 14px; line-height: 1.55; color: #4A5160">Caesium-137 could, in principle, decay several ways. Work out which one is physically permitted, using atomic mass excesses.</p>
+          <a href="Main.dc.html" style="align-self: flex-start; display: inline-flex; align-items: center; min-height: 44px; margin-top: 4px; padding: 0 18px; background: #171A21; color: #FFFFFF; border-radius: 2px; font-size: 13.5px; font-weight: 600; text-decoration: none">Start with ¹³⁷Cs →</a>
+        </div>
+        <div style="display: flex; flex-direction: column; gap: 10px; padding: 20px 22px; background: #FFFFFF; border: 1.5px solid #171A21; border-radius: 2px">
+          <div style="font-family: 'IBM Plex Mono', monospace; font-size: 11px; letter-spacing: 0.14em; color: #4A5160">PROBLEM 02 · COUPLED DECAY</div>
+          <h3 style="margin: 0; font-family: 'STIX Two Text', Georgia, serif; font-size: 24px; font-weight: 600; line-height: 1.15">Milking the cow</h3>
+          <p style="margin: 0; font-size: 14px; line-height: 1.55; color: #4A5160">Hospitals grow ⁹⁹ᵐTc on site from a ⁹⁹Mo generator. Reason out when it’s worth harvesting it, and what sets that time.</p>
+          <a href="TcStage1.dc.html" style="align-self: flex-start; display: inline-flex; align-items: center; min-height: 44px; margin-top: 4px; padding: 0 18px; background: #171A21; color: #FFFFFF; border-radius: 2px; font-size: 13.5px; font-weight: 600; text-decoration: none">Start with ⁹⁹ᵐTc →</a>
+        </div>
+      </div>
+    </section>
+  </main>
+</div>
+</x-dc>
+<script type="text/x-dc" data-dc-script data-props='{"$preview":{"width":1280,"height":1180}}'>
+class Component extends DCLogic {
+  renderVals() {
+    return {};
+  }
+}
+</script>
+</body>
+</html>

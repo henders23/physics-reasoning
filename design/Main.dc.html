@@ -1,0 +1,153 @@
+<!doctype html>
+<html lang="en-GB">
+<head>
+<meta charset="utf-8">
+<title>¹³⁷Cs — Stage I: Frame the physics</title>
+<script src="./support.js"></script>
+</head>
+<body>
+<x-dc>
+<helmet>
+<link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=IBM+Plex+Mono:wght@400;500&amp;family=IBM+Plex+Sans:wght@400;500;600&amp;family=STIX+Two+Text:ital,wght@0,400;0,600;1,400&amp;display=swap">
+<style>
+body{margin:0}
+a{color:#1F5AD6}a:hover{color:#163F99}
+@keyframes mvb{0%{opacity:0;transform:translate(0,0)}5%{opacity:1}24%{opacity:1;transform:translate(-56px,-56px)}32%,100%{opacity:0;transform:translate(-56px,-56px)}}
+@keyframes mvp{0%{opacity:0;transform:translate(0,0)}5%{opacity:1}24%{opacity:1;transform:translate(56px,56px)}32%,100%{opacity:0;transform:translate(56px,56px)}}
+@keyframes mva{0%{opacity:0;transform:translate(0,0)}5%{opacity:1}24%{opacity:1;transform:translate(-112px,112px)}32%,100%{opacity:0;transform:translate(-112px,112px)}}
+.mvb{animation:mvb 6s 0s infinite both}.mvp{animation:mvp 6s 2s infinite both}.mva{animation:mva 6s 4s infinite both}
+@media (prefers-reduced-motion: reduce){.anim{animation:none !important;opacity:0 !important}}
+</style>
+</helmet>
+<div style="font-family: 'IBM Plex Sans', system-ui, sans-serif; color: #171A21; background-color: #EDF0F2; background-image: linear-gradient(#D8DEE3 1px, transparent 1px), linear-gradient(90deg, #D8DEE3 1px, transparent 1px); background-size: 28px 28px; min-height: 100vh">
+  <dc-import name="Header" problem="cs" hint-size="100%,360px"></dc-import>
+
+  <main style="max-width: 1100px; margin: 0 auto; padding: 20px 24px; box-sizing: border-box; display: flex; flex-direction: column; gap: 16px">
+
+    <div style="flex: 999 1 560px; min-width: 0; display: flex; flex-direction: column; gap: 16px">
+      <section style="background: #FFFFFF; border: 1.5px solid #171A21; border-radius: 2px; padding: 22px 26px">
+        <div style="margin-bottom: 18px">
+          <div style="font-family: 'IBM Plex Mono', ui-monospace, monospace; font-size: 11px; letter-spacing: 0.12em; color: #1F5AD6">STAGE I · COMMIT TO A HYPOTHESIS</div>
+          <h2 style="margin: 2px 0 0; font-family: 'STIX Two Text', Georgia, serif; font-size: 26px; font-weight: 600; line-height: 1.15">Frame the physics</h2>
+          <p style="margin: 6px 0 0; font-size: 14px; line-height: 1.5; color: #4A5160; max-width: 560px">Before any algebra: what do you think this nucleus does, and why? Your justification should lean on the physics — where ¹³⁷Cs sits relative to stability, and what each decay mode would do to it.</p>
+        </div>
+
+        <figure style="margin: 0 0 20px; padding: 16px 18px 14px; background: #F7F9FA; border: 1px solid #C3CBD2; border-radius: 2px">
+          <svg role="img" aria-label="A slice of the chart of nuclides, neutron number 78 to 84 across, proton number 52 to 57 up. Caesium-137 sits at N 82, Z 55. Dashed arrows show where each decay would move it: beta-minus to barium-137, beta-plus or electron capture to xenon-137, alpha to iodine-133." viewBox="0 0 480 410" style="display: block; width: 100%; max-width: 480px; height: auto; margin: 0 auto">
+          <defs><marker id="mA1" orient="auto" markerWidth="8" markerHeight="8" refX="6" refY="4" markerUnits="userSpaceOnUse"><path d="M0 0 L8 4 L0 8 Z" fill="#1F5AD6"/></marker><marker id="mA2" orient="auto" markerWidth="8" markerHeight="8" refX="6" refY="4" markerUnits="userSpaceOnUse"><path d="M0 0 L8 4 L0 8 Z" fill="#6B4FBF"/></marker><marker id="mA3" orient="auto" markerWidth="8" markerHeight="8" refX="6" refY="4" markerUnits="userSpaceOnUse"><path d="M0 0 L8 4 L0 8 Z" fill="#9A5F00"/></marker></defs>
+          <rect x="60" y="300" width="56" height="56" fill="none" stroke="#D8DEE3" stroke-width="1"/>
+          <rect x="60" y="244" width="56" height="56" fill="none" stroke="#D8DEE3" stroke-width="1"/>
+          <rect x="60" y="188" width="56" height="56" fill="none" stroke="#D8DEE3" stroke-width="1"/>
+          <rect x="60" y="132" width="56" height="56" fill="none" stroke="#D8DEE3" stroke-width="1"/>
+          <rect x="60" y="76" width="56" height="56" fill="none" stroke="#D8DEE3" stroke-width="1"/>
+          <rect x="60" y="20" width="56" height="56" fill="none" stroke="#D8DEE3" stroke-width="1"/>
+          <rect x="116" y="300" width="56" height="56" fill="none" stroke="#D8DEE3" stroke-width="1"/>
+          <rect x="116" y="244" width="56" height="56" fill="none" stroke="#D8DEE3" stroke-width="1"/>
+          <rect x="116" y="188" width="56" height="56" fill="none" stroke="#D8DEE3" stroke-width="1"/>
+          <rect x="116" y="132" width="56" height="56" fill="none" stroke="#D8DEE3" stroke-width="1"/>
+          <rect x="116" y="76" width="56" height="56" fill="none" stroke="#D8DEE3" stroke-width="1"/>
+          <rect x="116" y="20" width="56" height="56" fill="none" stroke="#D8DEE3" stroke-width="1"/>
+          <rect x="172" y="300" width="56" height="56" fill="none" stroke="#D8DEE3" stroke-width="1"/>
+          <rect x="172" y="244" width="56" height="56" fill="none" stroke="#D8DEE3" stroke-width="1"/>
+          <rect x="172" y="188" width="56" height="56" fill="none" stroke="#D8DEE3" stroke-width="1"/>
+          <rect x="172" y="132" width="56" height="56" fill="none" stroke="#D8DEE3" stroke-width="1"/>
+          <rect x="172" y="76" width="56" height="56" fill="none" stroke="#D8DEE3" stroke-width="1"/>
+          <rect x="172" y="20" width="56" height="56" fill="none" stroke="#D8DEE3" stroke-width="1"/>
+          <rect x="228" y="300" width="56" height="56" fill="none" stroke="#D8DEE3" stroke-width="1"/>
+          <rect x="228" y="244" width="56" height="56" fill="none" stroke="#D8DEE3" stroke-width="1"/>
+          <rect x="228" y="188" width="56" height="56" fill="none" stroke="#D8DEE3" stroke-width="1"/>
+          <rect x="228" y="132" width="56" height="56" fill="none" stroke="#D8DEE3" stroke-width="1"/>
+          <rect x="228" y="76" width="56" height="56" fill="none" stroke="#D8DEE3" stroke-width="1"/>
+          <rect x="228" y="20" width="56" height="56" fill="none" stroke="#D8DEE3" stroke-width="1"/>
+          <rect x="284" y="300" width="56" height="56" fill="none" stroke="#D8DEE3" stroke-width="1"/>
+          <rect x="284" y="244" width="56" height="56" fill="none" stroke="#D8DEE3" stroke-width="1"/>
+          <rect x="284" y="188" width="56" height="56" fill="none" stroke="#D8DEE3" stroke-width="1"/>
+          <rect x="284" y="132" width="56" height="56" fill="none" stroke="#D8DEE3" stroke-width="1"/>
+          <rect x="284" y="76" width="56" height="56" fill="none" stroke="#D8DEE3" stroke-width="1"/>
+          <rect x="284" y="20" width="56" height="56" fill="none" stroke="#D8DEE3" stroke-width="1"/>
+          <rect x="340" y="300" width="56" height="56" fill="none" stroke="#D8DEE3" stroke-width="1"/>
+          <rect x="340" y="244" width="56" height="56" fill="none" stroke="#D8DEE3" stroke-width="1"/>
+          <rect x="340" y="188" width="56" height="56" fill="none" stroke="#D8DEE3" stroke-width="1"/>
+          <rect x="340" y="132" width="56" height="56" fill="none" stroke="#D8DEE3" stroke-width="1"/>
+          <rect x="340" y="76" width="56" height="56" fill="none" stroke="#D8DEE3" stroke-width="1"/>
+          <rect x="340" y="20" width="56" height="56" fill="none" stroke="#D8DEE3" stroke-width="1"/>
+          <rect x="396" y="300" width="56" height="56" fill="none" stroke="#D8DEE3" stroke-width="1"/>
+          <rect x="396" y="244" width="56" height="56" fill="none" stroke="#D8DEE3" stroke-width="1"/>
+          <rect x="396" y="188" width="56" height="56" fill="none" stroke="#D8DEE3" stroke-width="1"/>
+          <rect x="396" y="132" width="56" height="56" fill="none" stroke="#D8DEE3" stroke-width="1"/>
+          <rect x="396" y="76" width="56" height="56" fill="none" stroke="#D8DEE3" stroke-width="1"/>
+          <rect x="396" y="20" width="56" height="56" fill="none" stroke="#D8DEE3" stroke-width="1"/>
+          <line x1="172" y1="20" x2="452" y2="300" stroke="#AEB6BF" stroke-width="1.5" stroke-dasharray="3 5"/>
+          <text x="446" y="322" text-anchor="end" font-family="'IBM Plex Mono', monospace" font-size="11" fill="#4A5160" paint-order="stroke" stroke="#F7F9FA" stroke-width="4" stroke-linejoin="round">A = 137</text>
+          <rect x="230" y="78" width="52" height="52" rx="2" fill="#FFFFFF" stroke="#1F5AD6" stroke-width="1.5" stroke-dasharray="5 4"/>
+          <text x="256" y="109" text-anchor="middle" font-family="'STIX Two Text', Georgia, serif" font-size="15" font-weight="600" fill="#171A21" paint-order="stroke" stroke="#F7F9FA" stroke-width="4" stroke-linejoin="round">¹³⁷Ba</text>
+          <rect x="342" y="190" width="52" height="52" rx="2" fill="#FFFFFF" stroke="#6B4FBF" stroke-width="1.5" stroke-dasharray="5 4"/>
+          <text x="368" y="221" text-anchor="middle" font-family="'STIX Two Text', Georgia, serif" font-size="15" font-weight="600" fill="#171A21" paint-order="stroke" stroke="#F7F9FA" stroke-width="4" stroke-linejoin="round">¹³⁷Xe</text>
+          <rect x="174" y="246" width="52" height="52" rx="2" fill="#FFFFFF" stroke="#9A5F00" stroke-width="1.5" stroke-dasharray="5 4"/>
+          <text x="200" y="277" text-anchor="middle" font-family="'STIX Two Text', Georgia, serif" font-size="15" font-weight="600" fill="#171A21" paint-order="stroke" stroke="#F7F9FA" stroke-width="4" stroke-linejoin="round">¹³³I</text>
+          <rect x="286" y="134" width="52" height="52" rx="2" fill="#FFFFFF" stroke="#171A21" stroke-width="2"/>
+          <text x="312" y="165" text-anchor="middle" font-family="'STIX Two Text', Georgia, serif" font-size="15" font-weight="600" fill="#171A21" paint-order="stroke" stroke="#F7F9FA" stroke-width="4" stroke-linejoin="round">¹³⁷Cs</text>
+          <line x1="297.9" y1="145.9" x2="271.6" y2="119.6" stroke="#1F5AD6" stroke-width="2" stroke-dasharray="5 4" marker-end="url(#mA1)"/>
+          <line x1="326.1" y1="174.1" x2="352.4" y2="200.4" stroke="#6B4FBF" stroke-width="2" stroke-dasharray="5 4" marker-end="url(#mA2)"/>
+          <line x1="297.9" y1="174.1" x2="215.6" y2="256.4" stroke="#9A5F00" stroke-width="2" stroke-dasharray="5 4" marker-end="url(#mA3)"/>
+          <text x="292" y="120" font-family="'IBM Plex Sans', system-ui, sans-serif" font-size="13" font-weight="600" fill="#1F5AD6" paint-order="stroke" stroke="#F7F9FA" stroke-width="4" stroke-linejoin="round">β⁻</text>
+          <text x="346" y="180" font-family="'IBM Plex Sans', system-ui, sans-serif" font-size="13" font-weight="600" fill="#6B4FBF" paint-order="stroke" stroke="#F7F9FA" stroke-width="4" stroke-linejoin="round">β⁺ / EC</text>
+          <text x="252" y="236" text-anchor="end" font-family="'IBM Plex Sans', system-ui, sans-serif" font-size="13" font-weight="600" fill="#9A5F00" paint-order="stroke" stroke="#F7F9FA" stroke-width="4" stroke-linejoin="round">α</text>
+          <circle class="anim mvb" cx="312" cy="160" r="5" fill="#1F5AD6" style="opacity: 0"/>
+          <circle class="anim mvp" cx="312" cy="160" r="5" fill="#6B4FBF" style="opacity: 0"/>
+          <circle class="anim mva" cx="312" cy="160" r="5" fill="#9A5F00" style="opacity: 0"/>
+          <text x="88" y="374" text-anchor="middle" font-family="'IBM Plex Mono', monospace" font-size="11" fill="#4A5160">78</text>
+          <text x="144" y="374" text-anchor="middle" font-family="'IBM Plex Mono', monospace" font-size="11" fill="#4A5160">79</text>
+          <text x="200" y="374" text-anchor="middle" font-family="'IBM Plex Mono', monospace" font-size="11" fill="#4A5160">80</text>
+          <text x="256" y="374" text-anchor="middle" font-family="'IBM Plex Mono', monospace" font-size="11" fill="#4A5160">81</text>
+          <text x="312" y="374" text-anchor="middle" font-family="'IBM Plex Mono', monospace" font-size="11" fill="#4A5160">82</text>
+          <text x="368" y="374" text-anchor="middle" font-family="'IBM Plex Mono', monospace" font-size="11" fill="#4A5160">83</text>
+          <text x="424" y="374" text-anchor="middle" font-family="'IBM Plex Mono', monospace" font-size="11" fill="#4A5160">84</text>
+          <text x="50" y="332" text-anchor="end" font-family="'IBM Plex Mono', monospace" font-size="11" fill="#4A5160">52</text>
+          <text x="50" y="276" text-anchor="end" font-family="'IBM Plex Mono', monospace" font-size="11" fill="#4A5160">53</text>
+          <text x="50" y="220" text-anchor="end" font-family="'IBM Plex Mono', monospace" font-size="11" fill="#4A5160">54</text>
+          <text x="50" y="164" text-anchor="end" font-family="'IBM Plex Mono', monospace" font-size="11" fill="#4A5160">55</text>
+          <text x="50" y="108" text-anchor="end" font-family="'IBM Plex Mono', monospace" font-size="11" fill="#4A5160">56</text>
+          <text x="50" y="52" text-anchor="end" font-family="'IBM Plex Mono', monospace" font-size="11" fill="#4A5160">57</text>
+          <text x="256" y="400" text-anchor="middle" font-family="'IBM Plex Sans', system-ui, sans-serif" font-size="11.5" font-weight="600" fill="#4A5160">N — neutrons →</text>
+          <text x="14" y="188" text-anchor="middle" transform="rotate(-90 14 188)" font-family="'IBM Plex Sans', system-ui, sans-serif" font-size="11.5" font-weight="600" fill="#4A5160">Z — protons →</text>
+          </svg>
+          <div style="display: flex; flex-wrap: wrap; gap: 8px 20px; margin-top: 8px; font-family: 'IBM Plex Mono', monospace; font-size: 11.5px; color: #4A5160">
+            <span><b style="color: #1F5AD6">β⁻</b> n → p · Z + 1, N − 1</span>
+            <span><b style="color: #6B4FBF">β⁺ / EC</b> p → n · Z − 1, N + 1</span>
+            <span><b style="color: #9A5F00">α</b> loses 2p + 2n · Z − 2, N − 2</span>
+          </div>
+          <figcaption style="margin-top: 10px; font-size: 12.5px; line-height: 1.5; color: #4A5160; max-width: 620px">Fig. 1 — A slice of the chart of nuclides around ¹³⁷Cs. Each candidate decay moves the nucleus to a different square. Which of those moves actually releases energy is what the data will settle.</figcaption>
+        </figure>
+        <div style="margin-bottom: 18px">
+          <div style="font-size: 11px; font-weight: 600; letter-spacing: 0.08em; text-transform: uppercase; color: #4A5160; margin-bottom: 6px">Hypothesis — what does ¹³⁷Cs do?</div>
+          <div style="display: flex; flex-direction: column; gap: 6px">
+            <button type="button" style="display: flex; align-items: center; justify-content: space-between; gap: 12px; min-height: 44px; padding: 8px 12px; border: 1.5px solid #1F5AD6; background: #E4EBFB; border-radius: 2px; font-family: 'STIX Two Text', Georgia, serif; font-size: 15px; color: #171A21; text-align: left; cursor: pointer"><span>β⁻ decay</span><span style="font-family: 'IBM Plex Mono', monospace; font-size: 11px; color: #4A5160">n → p + e⁻ + ν̄</span></button>
+            <button type="button" style="display: flex; align-items: center; justify-content: space-between; gap: 12px; min-height: 44px; padding: 8px 12px; border: 1.5px solid #C3CBD2; background: #FFFFFF; border-radius: 2px; font-family: 'STIX Two Text', Georgia, serif; font-size: 15px; color: #171A21; text-align: left; cursor: pointer"><span>β⁺ / electron capture</span><span style="font-family: 'IBM Plex Mono', monospace; font-size: 11px; color: #4A5160">p → n + e⁺ + ν</span></button>
+            <button type="button" style="display: flex; align-items: center; justify-content: space-between; gap: 12px; min-height: 44px; padding: 8px 12px; border: 1.5px solid #C3CBD2; background: #FFFFFF; border-radius: 2px; font-family: 'STIX Two Text', Georgia, serif; font-size: 15px; color: #171A21; text-align: left; cursor: pointer"><span>α decay</span><span style="font-family: 'IBM Plex Mono', monospace; font-size: 11px; color: #4A5160">emits ⁴He</span></button>
+            <button type="button" style="display: flex; align-items: center; justify-content: space-between; gap: 12px; min-height: 44px; padding: 8px 12px; border: 1.5px solid #C3CBD2; background: #FFFFFF; border-radius: 2px; font-family: 'STIX Two Text', Georgia, serif; font-size: 15px; color: #171A21; text-align: left; cursor: pointer"><span>It is stable</span><span style="font-family: 'IBM Plex Mono', monospace; font-size: 11px; color: #4A5160">no decay</span></button>
+          </div>
+        </div>
+
+        <div style="margin-bottom: 18px">
+          <label for="cs-why" style="display: block; font-size: 11px; font-weight: 600; letter-spacing: 0.08em; text-transform: uppercase; color: #4A5160; margin-bottom: 6px">Justify it — one or two sentences of physics</label>
+          <textarea id="cs-why" rows="3" style="width: 100%; box-sizing: border-box; padding: 8px 12px; border: 1.5px solid #C3CBD2; border-radius: 2px; font-family: 'STIX Two Text', Georgia, serif; font-size: 15px; line-height: 1.45; color: #171A21; background: #FFFFFF; resize: vertical">¹³⁷Cs is neutron-rich next to the stable A = 137 isobars, so turning a neutron into a proton should move it towards the valley of stability.</textarea>
+        </div>
+
+        <a href="CsStage2.dc.html" style="display: inline-flex; align-items: center; min-height: 44px; padding: 0 18px; background: #171A21; color: #FFFFFF; border-radius: 2px; font-size: 13.5px; font-weight: 600; letter-spacing: 0.02em; text-decoration: none">Commit hypothesis → unlock Stage II</a>
+      </section>
+
+      <dc-import name="Coach" open="{{ false }}" hint-size="100%,300px"></dc-import>
+    </div>
+  </main>
+</div>
+</x-dc>
+<script type="text/x-dc" data-dc-script data-props='{"$preview":{"width":1280,"height":1760}}'>
+class Component extends DCLogic {
+  renderVals() {
+    return {};
+  }
+}
+</script>
+</body>
+</html>

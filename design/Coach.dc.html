@@ -1,0 +1,89 @@
+<!doctype html>
+<html lang="en-GB">
+<head>
+<meta charset="utf-8">
+<title>Socratic coach panel</title>
+<script src="./support.js"></script>
+</head>
+<body>
+<x-dc>
+<helmet>
+<link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=IBM+Plex+Mono:wght@400;500&amp;family=IBM+Plex+Sans:wght@400;500;600&amp;family=STIX+Two+Text:ital,wght@0,400;0,600;1,400&amp;display=swap">
+<style>
+body{margin:0}
+</style>
+</helmet>
+<section aria-label="Socratic coach" style="font-family: 'IBM Plex Sans', system-ui, sans-serif; color: #171A21; border: 2px solid #171A21; border-radius: 2px; overflow: hidden; display: flex; flex-direction: column">
+
+  <div style="background: #171A21; color: #FFFFFF; padding: 18px 22px 20px; display: flex; flex-direction: column; gap: 14px">
+    <div style="display: flex; flex-wrap: wrap; align-items: flex-start; justify-content: space-between; gap: 14px">
+      <div style="flex: 1 1 380px; min-width: 0">
+        <div style="display: flex; align-items: center; gap: 8px; font-family: 'IBM Plex Mono', monospace; font-size: 11px; letter-spacing: 0.12em; color: #C3CBD2">
+          <span aria-hidden="true" style="display: inline-block; width: 8px; height: 8px; border-radius: 50%; background: #5FD39B"></span>
+          <span>COACH · ASKS, NEVER ANSWERS</span>
+        </div>
+        <h3 style="margin: 6px 0 0; font-family: 'STIX Two Text', Georgia, serif; font-size: 22px; font-weight: 600; line-height: 1.2; color: #FFFFFF">Stuck, or not sure? Talk it through.</h3>
+        <p style="margin: 6px 0 0; font-size: 13.5px; line-height: 1.55; color: #D8DEE3; max-width: 620px">The coach reads everything you’ve committed so far — your hypothesis, estimates and attempts — and replies only with questions. It won’t give you the answer, a formula or a number, even if you ask. It’s there to help you find them yourself.</p>
+      </div>
+      <sc-if value="{{ isClosed }}" hint-placeholder-val="{{ true }}">
+        <button type="button" onClick="{{ openPanel }}" style="flex-shrink: 0; min-height: 48px; padding: 0 22px; background: #FFFFFF; color: #171A21; border: none; border-radius: 2px; font-family: 'IBM Plex Sans', system-ui, sans-serif; font-size: 14px; font-weight: 600; cursor: pointer">Talk it through →</button>
+      </sc-if>
+    </div>
+
+    <div style="display: grid; grid-template-columns: repeat(auto-fit, minmax(220px, 1fr)); gap: 10px">
+      <div style="padding: 10px 12px; border: 1px solid #4A5160; border-radius: 2px">
+        <div style="font-size: 13px; font-weight: 600; color: #FFFFFF">Test your reasoning before you commit</div>
+        <div style="margin-top: 4px; font-size: 12.5px; line-height: 1.5; color: #C3CBD2">Explain your thinking in a sentence. The coach asks the one question that would expose a gap.</div>
+      </div>
+      <div style="padding: 10px 12px; border: 1px solid #4A5160; border-radius: 2px">
+        <div style="font-size: 13px; font-weight: 600; color: #FFFFFF">Get unstuck without being told</div>
+        <div style="margin-top: 4px; font-size: 12.5px; line-height: 1.5; color: #C3CBD2">Say where you’re stuck. It points you at the piece of data or physics worth looking at next.</div>
+      </div>
+      <div style="padding: 10px 12px; border: 1px solid #4A5160; border-radius: 2px">
+        <div style="font-size: 13px; font-weight: 600; color: #FFFFFF">Make sense of a wrong attempt</div>
+        <div style="margin-top: 4px; font-size: 12.5px; line-height: 1.5; color: #C3CBD2">After a “doesn’t hold up”, ask why. It helps you find the flaw rather than naming it.</div>
+      </div>
+    </div>
+
+    <div style="display: flex; flex-wrap: wrap; align-items: center; gap: 8px">
+      <span style="font-family: 'IBM Plex Mono', monospace; font-size: 11px; color: #C3CBD2">Try starting with</span>
+      <button type="button" onClick="{{ openPanel }}" style="min-height: 36px; padding: 0 12px; background: transparent; color: #FFFFFF; border: 1px solid #AEB6BF; border-radius: 18px; font-family: 'IBM Plex Sans', system-ui, sans-serif; font-size: 12.5px; cursor: pointer">“Here’s my thinking: …”</button>
+      <button type="button" onClick="{{ openPanel }}" style="min-height: 36px; padding: 0 12px; background: transparent; color: #FFFFFF; border: 1px solid #AEB6BF; border-radius: 18px; font-family: 'IBM Plex Sans', system-ui, sans-serif; font-size: 12.5px; cursor: pointer">“Which data should I look at?”</button>
+      <button type="button" onClick="{{ openPanel }}" style="min-height: 36px; padding: 0 12px; background: transparent; color: #FFFFFF; border: 1px solid #AEB6BF; border-radius: 18px; font-family: 'IBM Plex Sans', system-ui, sans-serif; font-size: 12.5px; cursor: pointer">“Why didn’t that work?”</button>
+    </div>
+  </div>
+
+  <sc-if value="{{ isOpen }}" hint-placeholder-val="{{ false }}">
+    <div style="background: #FFFFFF; padding: 14px 16px; display: flex; flex-direction: column; gap: 8px">
+      <div style="display: flex; justify-content: flex-start">
+        <div style="max-width: 85%; padding: 8px 12px; background: #EDF0F2; border: 1px solid #C3CBD2; border-radius: 2px; font-size: 14px; line-height: 1.5">Good — you’ve picked an expression for each decay. Before you test them: when a table lists atomic mass excesses, whose masses are already counted in each one?</div>
+      </div>
+      <div style="display: flex; justify-content: flex-end">
+        <div style="max-width: 85%; padding: 8px 12px; background: #E4EBFB; border: 1px solid #1F5AD6; border-radius: 2px; font-size: 14px; line-height: 1.5">Just the nucleus? So I need to take off the electron mass for β⁻.</div>
+      </div>
+      <div style="display: flex; justify-content: flex-start">
+        <div style="max-width: 85%; padding: 8px 12px; background: #EDF0F2; border: 1px solid #C3CBD2; border-radius: 2px; font-size: 14px; line-height: 1.5">Try counting electrons on each side of ¹³⁷Cs → ¹³⁷Ba. A neutral barium atom carries one more electron than caesium — where has the emitted electron gone in that ledger?</div>
+      </div>
+    </div>
+    <div style="background: #FFFFFF; display: flex; gap: 8px; padding: 0 16px 16px">
+      <input type="text" aria-label="Message to coach" placeholder="Explain your thinking, or say where you’re stuck…" style="flex: 1 1 auto; min-width: 0; min-height: 44px; box-sizing: border-box; padding: 0 12px; border: 1.5px solid #C3CBD2; border-radius: 2px; font-family: 'IBM Plex Sans', system-ui, sans-serif; font-size: 14px; color: #171A21; background: #FFFFFF">
+      <button type="button" style="min-height: 44px; padding: 0 18px; background: #1F5AD6; color: #FFFFFF; border: none; border-radius: 2px; font-family: 'IBM Plex Sans', system-ui, sans-serif; font-size: 13px; font-weight: 600; cursor: pointer">Send</button>
+    </div>
+  </sc-if>
+</section>
+</x-dc>
+<script type="text/x-dc" data-dc-script data-props='{"open":{"editor":"boolean","default":false},"$preview":{"width":860,"height":560}}'>
+class Component extends DCLogic {
+  renderVals() {
+    const opened = !!(this.state && this.state.opened);
+    const isOpen = opened || this.props.open === true;
+    return {
+      isOpen: isOpen,
+      isClosed: !isOpen,
+      openPanel: () => this.setState({ opened: true })
+    };
+  }
+}
+</script>
+</body>
+</html>

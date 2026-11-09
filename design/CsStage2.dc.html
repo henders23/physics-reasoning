@@ -1,0 +1,66 @@
+<!doctype html>
+<html lang="en-GB">
+<head>
+<meta charset="utf-8">
+<title>¹³⁷Cs — Stage II: Estimate first</title>
+<script src="./support.js"></script>
+</head>
+<body>
+<x-dc>
+<helmet>
+<link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=IBM+Plex+Mono:wght@400;500&amp;family=IBM+Plex+Sans:wght@400;500;600&amp;family=STIX+Two+Text:ital,wght@0,400;0,600;1,400&amp;display=swap">
+<style>
+body{margin:0}
+a{color:#1F5AD6}a:hover{color:#163F99}
+</style>
+</helmet>
+<div style="font-family: 'IBM Plex Sans', system-ui, sans-serif; color: #171A21; background-color: #EDF0F2; background-image: linear-gradient(#D8DEE3 1px, transparent 1px), linear-gradient(90deg, #D8DEE3 1px, transparent 1px); background-size: 28px 28px; min-height: 100vh">
+  <dc-import name="Header" problem="cs" hint-size="100%,360px"></dc-import>
+
+  <main style="max-width: 1100px; margin: 0 auto; padding: 20px 24px; box-sizing: border-box; display: flex; flex-direction: column; gap: 16px">
+
+    <div style="flex: 999 1 560px; min-width: 0; display: flex; flex-direction: column; gap: 16px">
+      <section style="background: #FFFFFF; border: 1.5px solid #171A21; border-radius: 2px; padding: 22px 26px">
+        <div style="margin-bottom: 18px">
+          <div style="font-family: 'IBM Plex Mono', ui-monospace, monospace; font-size: 11px; letter-spacing: 0.12em; color: #1F5AD6">STAGE II · COMMIT TO AN ESTIMATE</div>
+          <h2 style="margin: 2px 0 0; font-family: 'STIX Two Text', Georgia, serif; font-size: 26px; font-weight: 600; line-height: 1.15">Estimate first</h2>
+          <p style="margin: 6px 0 0; font-size: 14px; line-height: 1.5; color: #4A5160; max-width: 560px">Commit to orders of magnitude before touching a number. At the end you’ll reconcile your calculation against exactly these commitments — that reconciliation is where the learning lives.</p>
+        </div>
+
+        <div style="margin-bottom: 18px">
+          <div style="font-size: 11px; font-weight: 600; letter-spacing: 0.08em; text-transform: uppercase; color: #4A5160; margin-bottom: 6px">If ¹³⁷Cs β-decays, what scale is the energy released on?</div>
+          <div style="display: flex; flex-wrap: wrap; gap: 8px">
+            <button type="button" style="min-height: 44px; padding: 0 18px; border: 1.5px solid #C3CBD2; background: #FFFFFF; border-radius: 2px; font-family: 'IBM Plex Mono', monospace; font-size: 14px; color: #171A21; cursor: pointer">~ eV</button>
+            <button type="button" style="min-height: 44px; padding: 0 18px; border: 1.5px solid #C3CBD2; background: #FFFFFF; border-radius: 2px; font-family: 'IBM Plex Mono', monospace; font-size: 14px; color: #171A21; cursor: pointer">~ keV</button>
+            <button type="button" style="min-height: 44px; padding: 0 18px; border: 1.5px solid #1F5AD6; background: #E4EBFB; border-radius: 2px; font-family: 'IBM Plex Mono', monospace; font-size: 14px; color: #171A21; cursor: pointer">~ MeV</button>
+            <button type="button" style="min-height: 44px; padding: 0 18px; border: 1.5px solid #C3CBD2; background: #FFFFFF; border-radius: 2px; font-family: 'IBM Plex Mono', monospace; font-size: 14px; color: #171A21; cursor: pointer">~ GeV</button>
+          </div>
+        </div>
+
+        <div style="margin-bottom: 18px">
+          <div style="font-size: 11px; font-weight: 600; letter-spacing: 0.08em; text-transform: uppercase; color: #4A5160; margin-bottom: 6px">Prediction: is α decay of ¹³⁷Cs energetically allowed?</div>
+          <div style="display: flex; flex-direction: column; gap: 6px">
+            <button type="button" style="display: flex; align-items: center; min-height: 44px; padding: 8px 12px; border: 1.5px solid #C3CBD2; background: #FFFFFF; border-radius: 2px; font-family: 'STIX Two Text', Georgia, serif; font-size: 15px; color: #171A21; text-align: left; cursor: pointer">Yes — Qα &gt; 0</button>
+            <button type="button" style="display: flex; align-items: center; min-height: 44px; padding: 8px 12px; border: 1.5px solid #C3CBD2; background: #FFFFFF; border-radius: 2px; font-family: 'STIX Two Text', Georgia, serif; font-size: 15px; color: #171A21; text-align: left; cursor: pointer">No — Qα &lt; 0</button>
+            <button type="button" style="display: flex; align-items: center; min-height: 44px; padding: 8px 12px; border: 1.5px solid #1F5AD6; background: #FBF1DC; border-radius: 2px; font-family: 'STIX Two Text', Georgia, serif; font-size: 15px; color: #171A21; text-align: left; cursor: pointer">Genuinely unsure</button>
+          </div>
+        </div>
+
+        <a href="CsStage3.dc.html" style="display: inline-flex; align-items: center; min-height: 44px; padding: 0 18px; background: #171A21; color: #FFFFFF; border-radius: 2px; font-size: 13.5px; font-weight: 600; letter-spacing: 0.02em; text-decoration: none">Commit estimate → unlock Stage III</a>
+        <p style="margin: 10px 0 0; font-family: 'IBM Plex Mono', monospace; font-size: 11.5px; color: #4A5160">A wrong estimate costs nothing — an uncommitted one teaches nothing.</p>
+      </section>
+
+      <dc-import name="Coach" open="{{ false }}" hint-size="100%,300px"></dc-import>
+    </div>
+  </main>
+</div>
+</x-dc>
+<script type="text/x-dc" data-dc-script data-props='{"$preview":{"width":1280,"height":1180}}'>
+class Component extends DCLogic {
+  renderVals() {
+    return {};
+  }
+}
+</script>
+</body>
+</html>
